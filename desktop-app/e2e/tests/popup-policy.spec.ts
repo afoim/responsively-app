@@ -26,7 +26,7 @@ test.describe('Popup Policy', () => {
     // Worker-scoped app persists across spec files — leave the default
     // behavior and the real shell.openExternal behind.
     await app.page.evaluate(() => {
-      (window as any).electron.store.set('userPreferences.popupBehavior', 'in-preview');
+      (window as any).electron.store.set('userPreferences.popupBehavior', 'browser-window');
     });
     await app.electronApp.evaluate(({shell}) => {
       const g = global as any;
@@ -38,21 +38,32 @@ test.describe('Popup Policy', () => {
     });
   });
 
-  test('target=_blank link navigates the previews by default', async ({app, testServerUrl}) => {
-    await clickInWebview(app, '#blank-link');
-    await expect(app.addressBar).toHaveValue(/test-page-2\.html/, {timeout: 15_000});
-
-    await app.navigateTo(`${testServerUrl}/popup-test.html`);
-    await expect(app.addressBar).toHaveValue(/popup-test\.html/, {timeout: 15_000});
-  });
-
-  test('window.open navigates the previews by default', async ({app, testServerUrl}) => {
-    await clickInWebview(app, '#js-popup');
-    await expect(app.addressBar).toHaveValue(/test-page-2\.html/, {timeout: 15_000});
-
-    await app.navigateTo(`${testServerUrl}/popup-test.html`);
-    await expect(app.addressBar).toHaveValue(/popup-test\.html/, {timeout: 15_000});
-  });
+  for (const [name, selector] of [
+    ['target=_blank', '#blank-link'],
+    ['window.open', '#js-popup'],
+  ]) {
+    test(`${name} opens a separate native window by default`, async ({app}) => {
+      const originalIds = await app.electronApp.evaluate(({BrowserWindow}) =>
+        BrowserWindow.getAllWindows().map((w) => w.id)
+      );
+      await clickInWebview(app, selector);
+      await expect
+        .poll(() =>
+          app.electronApp.evaluate(
+            ({BrowserWindow}, ids) =>
+              BrowserWindow.getAllWindows()
+                .filter((w) => !ids.includes(w.id))
+                .map((w) => w.webContents.getURL()),
+            originalIds
+          )
+        )
+        .toEqual([expect.stringContaining('test-page-2.html')]);
+      await expect(app.addressBar).toHaveValue(/popup-test\.html/);
+      await app.electronApp.evaluate(({BrowserWindow}, ids) => {
+        for (const w of BrowserWindow.getAllWindows()) if (!ids.includes(w.id)) w.destroy();
+      }, originalIds);
+    });
+  }
 
   test('external setting sends popups to the OS browser instead', async ({app}) => {
     // Stub shell.openExternal in the main process so the test asserts the
@@ -71,8 +82,8 @@ test.describe('Popup Policy', () => {
 
     await clickInWebview(app, '#blank-link');
 
-    // Mirroring replays the click in every preview; the dedup in the main
-    // process must still produce exactly ONE external open per user click.
+    // Navigation links are not synthetically clicked on other previews.
+    // One source action must produce exactly one external open.
     await expect
       .poll(() => app.electronApp.evaluate(() => (global as any).__openExternalCalls as string[]), {
         timeout: 10_000,

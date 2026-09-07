@@ -3,6 +3,8 @@ import BrowserSync, {BrowserSyncInstance} from 'browser-sync';
 import fs from 'fs-extra';
 
 const DEFAULT_BROWSER_SYNC_PORT = 12719;
+// BrowserSync supports location even though its DefinitelyTyped interface omits it.
+const ghostMode = {clicks: false, forms: false, scroll: true, location: false};
 
 // Each instance picks a unique port to allow parallel E2E runs
 const resolvedPort: number =
@@ -40,6 +42,11 @@ export async function initInstance(): Promise<BrowserSyncInstance> {
         port: resolvedPort,
         logLevel: 'silent',
         logSnippet: false,
+        // Positional DOM indexes are not identities across responsive layouts.
+        // Keep BrowserSync's transport/scroll/reload support, not its click and
+        // form replay. Our semantic client never guesses a missing target.
+        ghostMode,
+        clientEvents: ['scroll', 'scroll:element', 'responsively:interaction'],
       },
       (err: Error, bs: BrowserSyncInstance) => {
         if (err) {

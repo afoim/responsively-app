@@ -16,7 +16,7 @@ export const SettingsContent = ({onClose}: Props) => {
     window.electron.store.get('userPreferences.webRequestHeaderAcceptLanguage')
   );
   const [popupBehavior, setPopupBehavior] = useState<string>(
-    window.electron.store.get('userPreferences.popupBehavior') ?? 'in-preview'
+    window.electron.store.get('userPreferences.popupBehavior') ?? 'browser-window'
   );
   const [locationError, setLocationError] = useState<boolean>(false);
 
@@ -80,7 +80,7 @@ export const SettingsContent = ({onClose}: Props) => {
             value={popupBehavior}
             onChange={(e) => setPopupBehavior(e.target.value)}
           >
-            <option value="in-preview">Open it in the previews</option>
+            <option value="browser-window">Open a separate browser window (recommended)</option>
             <option value="external">Open it in the default browser</option>
           </select>
         </label>

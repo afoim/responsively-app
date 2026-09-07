@@ -35,6 +35,28 @@ const execInWebview = async (
   );
 };
 
+/** Use native input: page-generated synthetic events must not be re-broadcast. */
+const nativeClick = async (app: ElectronApplication, id: number, selector: string) => {
+  const point = await execInWebview(
+    app,
+    id,
+    `(() => {
+    const el=document.querySelector(${JSON.stringify(selector)});
+    el.scrollIntoView({behavior:'instant',block:'center'});
+    const r=el.getBoundingClientRect();return {x:Math.round(r.x+r.width/2),y:Math.round(r.y+r.height/2)};
+  })()`
+  );
+  await app.evaluate(
+    ({webContents}, data) => {
+      const wc = webContents.fromId(data.id)!;
+      wc.focus();
+      wc.sendInputEvent({type: 'mouseDown', button: 'left', clickCount: 1, ...data.point});
+      wc.sendInputEvent({type: 'mouseUp', button: 'left', clickCount: 1, ...data.point});
+    },
+    {id, point}
+  );
+};
+
 /**
  * Helper: wait for BrowserSync to be loaded on all webviews (poll up to timeoutMs).
  */
@@ -139,11 +161,7 @@ test.describe('Cross-Device Event Mirroring', () => {
     const [source, ...others] = webviewIds;
 
     // Click the button on the source device
-    await execInWebview(
-      app.electronApp,
-      source,
-      `document.getElementById('click-btn').click(); true`
-    );
+    await nativeClick(app.electronApp, source, '#click-btn');
     await app.page.waitForTimeout(3000);
 
     // The source device should have count = 1
@@ -166,22 +184,10 @@ test.describe('Cross-Device Event Mirroring', () => {
   test('typing in an input on one device mirrors text to other devices', async ({app}) => {
     const [source, ...others] = webviewIds;
 
-    // BrowserSync ghost mode listens for 'keyup' events to sync text inputs.
-    // Set value and dispatch keyup for each character to simulate real typing.
-    await execInWebview(
-      app.electronApp,
-      source,
-      `(function() {
-        var el = document.getElementById('mirror-input');
-        el.focus();
-        var text = 'hello';
-        for (var i = 0; i < text.length; i++) {
-          el.value = text.substring(0, i + 1);
-          el.dispatchEvent(new KeyboardEvent('keyup', { key: text[i], bubbles: true }));
-        }
-        return true;
-      })()`
-    );
+    await nativeClick(app.electronApp, source, '#mirror-input');
+    await app.electronApp.evaluate(async ({webContents}, id) => {
+      await webContents.fromId(id)!.insertText('hello');
+    }, source);
     await app.page.waitForTimeout(3000);
 
     // Other devices should show the same value
@@ -200,18 +206,7 @@ test.describe('Cross-Device Event Mirroring', () => {
   test('toggling a checkbox on one device mirrors to other devices', async ({app}) => {
     const [source, ...others] = webviewIds;
 
-    // Check the checkbox on the source device
-    await execInWebview(
-      app.electronApp,
-      source,
-      `(function() {
-        var cb = document.getElementById('mirror-checkbox');
-        cb.checked = true;
-        cb.dispatchEvent(new Event('change', { bubbles: true }));
-        cb.dispatchEvent(new Event('click', { bubbles: true }));
-        return true;
-      })()`
-    );
+    await nativeClick(app.electronApp, source, '#mirror-checkbox');
     await app.page.waitForTimeout(3000);
 
     // Other devices should have the checkbox checked
@@ -283,11 +278,7 @@ test.describe('Cross-Device Event Mirroring', () => {
     await app.page.waitForTimeout(1000);
 
     // Click the button on the source device
-    await execInWebview(
-      app.electronApp,
-      source,
-      `document.getElementById('click-btn').click(); true`
-    );
+    await nativeClick(app.electronApp, source, '#click-btn');
     await app.page.waitForTimeout(3000);
 
     // Source should have count = 1

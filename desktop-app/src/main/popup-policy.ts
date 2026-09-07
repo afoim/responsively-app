@@ -1,31 +1,41 @@
-export type PopupBehavior = 'in-preview' | 'external';
+export type PopupBehavior = 'browser-window' | 'external' | 'in-preview';
 
 export type PopupAction =
-  {kind: 'in-preview'; url: string} | {kind: 'external'; url: string} | {kind: 'deny'};
+  {kind: 'browser-window'; url: string} | {kind: 'external'; url: string} | {kind: 'deny'};
 
-// Schemes the OS should always handle, regardless of the popup setting.
-const EXTERNAL_ONLY_PROTOCOLS = ['mailto:', 'tel:'];
-
-/**
- * Decides what to do with a window.open / target=_blank request coming out of
- * a preview webview. Web URLs follow the user's popup setting; mail/tel links
- * go to the OS; everything else (javascript:, file:, custom schemes) is
- * denied — an untrusted page must not reach arbitrary protocol handlers.
- */
-export const decidePopupAction = (rawUrl: string, behavior: PopupBehavior): PopupAction => {
-  let protocol: string;
+/** The native WindowProxy must survive: do not replace window.open with loadURL. */
+export const decidePopupAction = (
+  rawUrl: string,
+  behavior: PopupBehavior = 'browser-window',
+  openerUrl = ''
+): PopupAction => {
+  let url: URL;
   try {
-    protocol = new URL(rawUrl).protocol;
+    url = new URL(rawUrl);
   } catch {
     return {kind: 'deny'};
   }
-  if (protocol === 'http:' || protocol === 'https:') {
-    return behavior === 'external'
-      ? {kind: 'external', url: rawUrl}
-      : {kind: 'in-preview', url: rawUrl};
+  if (url.protocol === 'http:' || url.protocol === 'https:') {
+    return {kind: behavior === 'external' ? 'external' : 'browser-window', url: rawUrl};
   }
-  if (EXTERNAL_ONLY_PROTOCOLS.includes(protocol)) {
+  // OAuth commonly creates a blank window during a gesture and navigates it
+  // after awaiting a request. Returning deny breaks that WindowProxy entirely.
+  if (url.protocol === 'about:' && url.pathname === 'blank') {
+    return {kind: 'browser-window', url: rawUrl};
+  }
+  if (url.protocol === 'mailto:' || url.protocol === 'tel:') {
     return {kind: 'external', url: rawUrl};
+  }
+  try {
+    const opener = new URL(openerUrl);
+    if (
+      (url.protocol === 'file:' && opener.protocol === 'file:') ||
+      (url.protocol === 'blob:' && url.origin !== 'null' && url.origin === opener.origin)
+    ) {
+      return {kind: 'browser-window', url: rawUrl};
+    }
+  } catch {
+    // No trusted opener context for a local/blob target.
   }
   return {kind: 'deny'};
 };

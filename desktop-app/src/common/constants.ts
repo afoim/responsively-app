@@ -55,6 +55,7 @@ export const IPC_MAIN_CHANNELS = {
   SET_NATIVE_THEME: 'set-native-theme',
   COPY_TO_CLIPBOARD: 'copy-to-clipboard',
   GET_BROWSER_SYNC_PORT: 'get-browser-sync-port',
+  PREVIEW_USER_INTERACTION: 'preview-user-interaction',
   ELECTRON_STORE_GET: 'electron-store-get',
   ELECTRON_STORE_SET: 'electron-store-set',
   GET_ABOUT_INFO: 'get-about-info',

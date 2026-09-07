@@ -49,8 +49,9 @@ export const test = base.extend<{}, ElectronFixtures>({
         env.E2E_HEADLESS = 'true';
       }
       const electronApp = await _electron.launch({
+        executablePath: process.env.E2E_EXECUTABLE,
         args: [
-          path.join(__dirname, '../../release/app'),
+          ...(process.env.E2E_EXECUTABLE ? [] : [path.join(__dirname, '../../release/app')]),
           // CI runners have no GPU; without this Electron limps through a
           // failing hardware-accel path and every interaction crawls.
           ...(process.env.CI ? ['--disable-gpu'] : []),

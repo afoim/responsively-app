@@ -178,8 +178,8 @@ const schema = {
       },
       popupBehavior: {
         type: 'string',
-        enum: ['in-preview', 'external'],
-        default: 'in-preview',
+        enum: ['browser-window', 'in-preview', 'external'],
+        default: 'browser-window',
       },
       mcpEnabled: {
         type: 'boolean',
@@ -335,6 +335,12 @@ const store = new Store({
   watch: true,
   migrations,
 });
+
+// Retire the old default that hijacked every preview for a new-window request.
+// This also handles existing beta installations whose defaults were persisted.
+if (store.get('userPreferences.popupBehavior') === 'in-preview') {
+  store.set('userPreferences.popupBehavior', 'browser-window');
+}
 
 // Keys the renderer may touch through the electron-store IPC bridge.
 // windowState is main-process-only.

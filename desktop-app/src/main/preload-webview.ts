@@ -1,9 +1,6 @@
-import {ipcRenderer} from 'electron';
+import {ipcRenderer, webFrame} from 'electron';
+import {installSemanticMirroring} from './mirroring-client';
 import {IPC_MAIN_CHANNELS} from 'common/constants';
-
-window.onerror = function logError(errorMsg, url, lineNumber) {
-  console.log(`Unhandled error: ${errorMsg} ${url} ${lineNumber}`);
-};
 
 // Scroll/wheel mirroring can fire every frame on every preview — coalesce to
 // one host message per animation frame. Wheel deltas are summed so the total
@@ -51,9 +48,32 @@ const requestFlush = () => {
 const documentBodyInit = () => {
   // Browser Sync
   const bsPort = ipcRenderer.sendSync(IPC_MAIN_CHANNELS.GET_BROWSER_SYNC_PORT);
+  // Native about:blank popups can inherit this preload. Only registered
+  // previews get mirroring/host hooks; a popup is an ordinary browser window.
+  if (typeof bsPort !== 'number') return;
+
+  const claimInteraction = (event: Event) => {
+    if (!event.isTrusted) return;
+    ipcRenderer.sendSync('preview-user-interaction');
+    ipcRenderer.sendToHost('preview-user-interaction');
+  };
+  window.addEventListener('pointerdown', claimInteraction, true);
+  window.addEventListener('keydown', claimInteraction, true);
+  window.addEventListener('click', claimInteraction, true);
+  window.addEventListener('responsively:mirrored-interaction', () => {
+    ipcRenderer.sendSync('preview-mirrored-interaction');
+  });
+
   const bsScript = window.document.createElement('script');
   bsScript.src = `https://localhost:${bsPort}/browser-sync/browser-sync-client.js?v=2.27.10`;
   bsScript.async = true;
+  bsScript.addEventListener('load', () => {
+    void webFrame
+      .executeJavaScript(`(${installSemanticMirroring.toString()})();`)
+      .catch((error) => {
+        console.error('Could not install semantic mirroring', error);
+      });
+  });
   window.document.body.appendChild(bsScript);
 
   // Context Menu

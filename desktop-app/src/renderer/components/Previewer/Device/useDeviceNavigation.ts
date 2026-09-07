@@ -2,7 +2,7 @@ import {IPC_MAIN_CHANNELS} from 'common/constants';
 import {ReloadArgs} from 'main/menu';
 import {LoadURLInWebviewArgs, LoadURLInWebviewResult} from 'main/native-functions';
 import {DeleteStorageArgs, DeleteStorageResult} from 'main/webview-storage-manager';
-import {RefObject, useCallback, useEffect, useReducer, useRef} from 'react';
+import {RefObject, useCallback, useEffect, useReducer} from 'react';
 import {useDispatch} from 'react-redux';
 import {ADDRESS_BAR_EVENTS} from 'renderer/components/ToolBar/AddressBar';
 import {NAVIGATION_EVENTS} from 'renderer/components/ToolBar/NavigationControls';
@@ -10,6 +10,11 @@ import {webViewPubSub, type Handler as PubSubHandler} from 'renderer/lib/pubsub'
 import {setAddress, setPageTitle} from 'renderer/store/features/renderer';
 import {initialNavigationState, navigationReducer, NavigationState} from './navigationMachine';
 import {appendHistory} from './utils';
+
+// One authority per app renderer, selected by genuine input, not DOM order.
+// A phone may not even render the desktop link. Mirror the source's committed
+// URL, never click an unrelated link in the primary device to get that URL.
+let navigationOwner: Electron.WebviewTag | null = null;
 
 interface Params {
   ref: RefObject<Electron.WebviewTag | null>;
@@ -22,7 +27,7 @@ interface Params {
  * Everything that moves a preview between pages: address-driven loads,
  * webview navigation events (routed through the navigation state machine),
  * history, page title, the menu reload channel and the toolbar pub/sub
- * events. Only the primary device writes navigation state back to Redux.
+ * events. The device receiving genuine input owns shared navigation.
  */
 const useDeviceNavigation = ({ref, isPrimary, webviewReady, address}: Params): NavigationState => {
   const dispatch = useDispatch();
@@ -30,7 +35,6 @@ const useDeviceNavigation = ({ref, isPrimary, webviewReady, address}: Params): N
     navigationReducer,
     initialNavigationState
   );
-  const isNavigatingFromAddressBar = useRef<boolean>(false);
 
   // Navigation is driven from the main process (instead of the <webview> src
   // attribute or webview.loadURL) so that superseded loads don't surface as
@@ -43,9 +47,6 @@ const useDeviceNavigation = ({ref, isPrimary, webviewReady, address}: Params): N
     try {
       if (webview.getURL() === address) {
         return;
-      }
-      if (isPrimary) {
-        isNavigatingFromAddressBar.current = true;
       }
       window.electron.ipcRenderer.invoke<LoadURLInWebviewArgs, LoadURLInWebviewResult>(
         IPC_MAIN_CHANNELS.LOAD_URL_IN_WEBVIEW,
@@ -65,24 +66,33 @@ const useDeviceNavigation = ({ref, isPrimary, webviewReady, address}: Params): N
     }
     const handlerRemovers: (() => void)[] = [];
 
-    const commitMainFrameNavigation = (url: string) => {
-      // Only update Redux on the primary device and only if this navigation
-      // wasn't initiated by the AddressBar itself.
-      if (isPrimary && !isNavigatingFromAddressBar.current) {
-        dispatch(setAddress(url));
-      } else if (isPrimary) {
-        isNavigatingFromAddressBar.current = false;
+    const ownsNavigation = () =>
+      navigationOwner?.isConnected ? navigationOwner === webview : isPrimary;
+    const claimNavigation = (e: Electron.IpcMessageEvent) => {
+      if (e.channel === 'preview-user-interaction') navigationOwner = webview;
+    };
+    const removeNativeInputListener = window.electron.ipcRenderer.on<{webContentsId: number}>(
+      IPC_MAIN_CHANNELS.PREVIEW_USER_INTERACTION,
+      ({webContentsId}) => {
+        if (webview.getWebContentsId() === webContentsId) navigationOwner = webview;
       }
+    );
+    webview.addEventListener('ipc-message', claimNavigation);
+    handlerRemovers.push(() => {
+      removeNativeInputListener?.();
+      webview.removeEventListener('ipc-message', claimNavigation);
+      if (navigationOwner === webview) navigationOwner = null;
+    });
 
-      if (isPrimary) {
-        appendHistory(webview.getURL(), webview.getTitle());
-      }
+    const commitMainFrameNavigation = (url: string) => {
+      if (!ownsNavigation()) return;
+      // Include final HTTP redirects even after an address-bar load. Dropping
+      // the first commit used to leave the address bar at the pre-redirect URL.
+      dispatch(setAddress(url));
+      appendHistory(url, webview.getTitle());
     };
 
-    // `did-frame-navigate` is the authoritative cross-document event because
-    // Electron includes `isMainFrame`. Never infer frame ownership from the URL:
-    // subframes can transiently affect webview navigation state and third-party
-    // embeds must not become Responsively's shared address.
+    // Both events explicitly identify the frame; iframe navigation stays local.
     const didFrameNavigateHandler = (e: Electron.DidFrameNavigateEvent) => {
       if (!e.isMainFrame) return;
       commitMainFrameNavigation(e.url);
@@ -173,13 +183,17 @@ const useDeviceNavigation = ({ref, isPrimary, webviewReady, address}: Params): N
     if (isPrimary) {
       subscribe(NAVIGATION_EVENTS.BACK, () => {
         if (ref.current) {
-          ref.current.goBack();
+          const source = navigationOwner?.isConnected ? navigationOwner : ref.current;
+          navigationOwner = source;
+          source.goBack();
         }
       });
 
       subscribe(NAVIGATION_EVENTS.FORWARD, () => {
         if (ref.current) {
-          ref.current.goForward();
+          const source = navigationOwner?.isConnected ? navigationOwner : ref.current;
+          navigationOwner = source;
+          source.goForward();
         }
       });
 

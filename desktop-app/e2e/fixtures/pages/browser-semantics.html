@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Browser semantics regression</title>
+    <style>
+      body {
+        font: 16px sans-serif;
+        margin: 12px;
+      }
+      a,
+      button,
+      input,
+      select {
+        margin: 6px;
+        padding: 8px;
+      }
+      nav {
+        display: flex;
+      }
+      #bottom {
+        margin-top: 1400px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="menu" type="button" aria-label="Open navigation">Menu</button>
+    <nav id="navigation"></nav>
+    <section id="social">
+      <a href="/destination?social=github" target="_blank">GitHub</a
+      ><a href="/destination?social=x" target="_blank">Twitter</a
+      ><a href="/destination?social=feedback" target="_blank">Feedback</a>
+    </section>
+    <p>
+      <button id="counter" type="button"><span>Count</span></button><output id="count">0</output>
+    </p>
+    <p>
+      <input id="text" name="text" aria-label="Text" /><input
+        id="checkbox"
+        name="checkbox"
+        type="checkbox"
+      /><select id="select" name="select">
+        <option>a</option>
+        <option>b</option>
+      </select>
+    </p>
+    <p>
+      <a id="cancelled" href="/destination?cancelled=yes">Cancelled navigation</a
+      ><a id="hash" href="#bottom">Anchor</a>
+    </p>
+    <p>
+      <a id="blank" href="/destination" target="_blank" rel="noopener">New window</a
+      ><a id="normal" href="/destination">Normal link</a
+      ><a id="download" href="/download" download>Download</a>
+    </p>
+    <p>
+      <button id="js-popup" type="button">Async popup</button
+      ><button id="named-popup" type="button">Named popup</button
+      ><button id="spa" type="button">SPA route</button>
+    </p>
+    <form id="post-form" action="/post" method="post" target="_blank">
+      <input name="payload" value="native-post" /><button id="post-submit" type="submit">
+        Submit once
+      </button>
+    </form>
+    <iframe id="frame" name="child-frame" src="/frame-a" title="Child frame"></iframe>
+    <div id="bottom">Bottom</div>
+    <script>
+      window.count = 0;
+      window.popupMessages = [];
+      function fillNavigation() {
+        document.querySelector('#navigation').innerHTML =
+          '<a href="/">Home</a><a href="/posts">Blog</a><a id="create" href="/destination"><span>AI drawing</span></a>';
+      }
+      if (innerWidth >= 700) fillNavigation();
+      else document.querySelector('#menu').onclick = fillNavigation;
+      document.querySelector('#counter').onclick = () => {
+        document.querySelector('#count').textContent = String(++window.count);
+      };
+      document.querySelector('#cancelled').onclick = (e) => {
+        e.preventDefault();
+        window.cancelled = true;
+      };
+      document.querySelector('#js-popup').onclick = async () => {
+        window.popup = window.open('about:blank', 'oauth', 'popup,width=520,height=680');
+        await new Promise((r) => setTimeout(r, 80));
+        if (window.popup) window.popup.location.href = '/destination';
+      };
+      document.querySelector('#named-popup').onclick = () => {
+        window.namedPopup = window.open('/destination', 'named-regression');
+      };
+      document.querySelector('#spa').onclick = () => {
+        history.pushState({}, '', '/browser-semantics.html?spa=1');
+      };
+      window.addEventListener('message', (e) => {
+        if (e.origin === location.origin) window.popupMessages.push(e.data);
+      });
+    </script>
+  </body>
+</html>

@@ -38,7 +38,7 @@ import {getSavedWindowState, trackWindowState} from './window-state';
 import log, {initCrashHandlers, initLogging} from './logging';
 import {injectHostIntoCsp} from './csp';
 import {isOpenableUrl} from './url-validation';
-import {wireWebviewSecurity} from './webview-registry';
+import {isRegisteredWebview, wireWebviewSecurity} from './webview-registry';
 import {getTitleBarOptions} from './titlebar';
 
 initLogging();
@@ -119,7 +119,10 @@ initHttpBasicAuthHandlers(getMainWindow);
 const webPermissionHandlers = WebPermissionHandlers(getMainWindow);
 
 ipcMain.on(IPC_MAIN_CHANNELS.GET_BROWSER_SYNC_PORT, (event) => {
-  event.returnValue = getBrowserSyncPort();
+  event.returnValue =
+    isRegisteredWebview(event.sender.id) && event.senderFrame === event.sender.mainFrame
+      ? getBrowserSyncPort()
+      : null;
 });
 
 ipcMain.on(IPC_MAIN_CHANNELS.START_WATCHING_FILE, async (_event, fileInfo) => {
@@ -278,7 +281,6 @@ const createWindow = async () => {
   trackWindowState(mainWindow);
   initDevtoolsHandlers(mainWindow);
   wireWebviewSecurity(mainWindow.webContents, {
-    openInPreview: (url) => openUrl(url, getMainWindow()),
     openExternal: (url) => shell.openExternal(url),
     onShortcut: (channel) => {
       getMainWindow()?.webContents.send(IPC_MAIN_CHANNELS.SHORTCUT_TRIGGERED, channel);
