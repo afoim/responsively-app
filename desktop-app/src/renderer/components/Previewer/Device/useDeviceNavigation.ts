@@ -65,35 +65,37 @@ const useDeviceNavigation = ({ref, isPrimary, webviewReady, address}: Params): N
     }
     const handlerRemovers: (() => void)[] = [];
 
-    const didNavigateHandler = (e: Electron.DidNavigateEvent | Electron.DidNavigateInPageEvent) => {
-      // `did-navigate` can be emitted for subframe navigations without an
-      // `isMainFrame` flag. A subframe navigation must never become the app's
-      // shared address, otherwise loading an iframe can redirect every preview.
-      // For main-frame navigations Electron updates webview.getURL() to e.url;
-      // for subframes it keeps returning the top-level document URL.
-      if ('isMainFrame' in e) {
-        if (e.isMainFrame === false) return;
-      } else if (webview.getURL() !== e.url) {
-        return;
-      }
-
+    const commitMainFrameNavigation = (url: string) => {
       // Only update Redux on the primary device and only if this navigation
       // wasn't initiated by the AddressBar itself.
       if (isPrimary && !isNavigatingFromAddressBar.current) {
-        dispatch(setAddress(e.url));
+        dispatch(setAddress(url));
       } else if (isPrimary) {
-        isNavigatingFromAddressBar.current = false; // Reset the flag
+        isNavigatingFromAddressBar.current = false;
       }
 
       if (isPrimary) {
         appendHistory(webview.getURL(), webview.getTitle());
       }
     };
-    webview.addEventListener('did-navigate', didNavigateHandler);
-    webview.addEventListener('did-navigate-in-page', didNavigateHandler);
+
+    // `did-frame-navigate` is the authoritative cross-document event because
+    // Electron includes `isMainFrame`. Never infer frame ownership from the URL:
+    // subframes can transiently affect webview navigation state and third-party
+    // embeds must not become Responsively's shared address.
+    const didFrameNavigateHandler = (e: Electron.DidFrameNavigateEvent) => {
+      if (!e.isMainFrame) return;
+      commitMainFrameNavigation(e.url);
+    };
+    const didNavigateInPageHandler = (e: Electron.DidNavigateInPageEvent) => {
+      if (!e.isMainFrame) return;
+      commitMainFrameNavigation(e.url);
+    };
+    webview.addEventListener('did-frame-navigate', didFrameNavigateHandler);
+    webview.addEventListener('did-navigate-in-page', didNavigateInPageHandler);
     handlerRemovers.push(() => {
-      webview.removeEventListener('did-navigate', didNavigateHandler);
-      webview.removeEventListener('did-navigate-in-page', didNavigateHandler);
+      webview.removeEventListener('did-frame-navigate', didFrameNavigateHandler);
+      webview.removeEventListener('did-navigate-in-page', didNavigateInPageHandler);
     });
 
     const didStartLoadingHandler = () => {
