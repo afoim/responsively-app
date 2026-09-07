@@ -291,30 +291,6 @@ const createWindow = async () => {
     `${resolveHtmlPath('index.html')}${urlToOpen ? `?urlToOpen=${encodeURI(urlToOpen)}` : ''}`
   );
 
-  const isWindows = process.platform === 'win32';
-  let needsFocusFix = false;
-  let triggeringProgrammaticBlur = false;
-
-  mainWindow.on('blur', () => {
-    if (!triggeringProgrammaticBlur) {
-      needsFocusFix = true;
-    }
-  });
-
-  mainWindow.on('focus', () => {
-    if (isWindows && needsFocusFix) {
-      needsFocusFix = false;
-      triggeringProgrammaticBlur = true;
-      setTimeout(function () {
-        mainWindow!.blur();
-        mainWindow!.focus();
-        setTimeout(function () {
-          triggeringProgrammaticBlur = false;
-        }, 100);
-      }, 100);
-    }
-  });
-
   mainWindow.on('ready-to-show', async () => {
     if (!isBrowserSyncInitiated) {
       await initInstance();
