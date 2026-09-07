@@ -66,8 +66,17 @@ const useDeviceNavigation = ({ref, isPrimary, webviewReady, address}: Params): N
     const handlerRemovers: (() => void)[] = [];
 
     const didNavigateHandler = (e: Electron.DidNavigateEvent | Electron.DidNavigateInPageEvent) => {
-      // Only DidNavigateInPageEvent has isMainFrame
-      if ('isMainFrame' in e && e.isMainFrame === false) return;
+      // `did-navigate` can be emitted for subframe navigations without an
+      // `isMainFrame` flag. A subframe navigation must never become the app's
+      // shared address, otherwise loading an iframe can redirect every preview.
+      // For main-frame navigations Electron updates webview.getURL() to e.url;
+      // for subframes it keeps returning the top-level document URL.
+      if ('isMainFrame' in e) {
+        if (e.isMainFrame === false) return;
+      } else if (webview.getURL() !== e.url) {
+        return;
+      }
+
       // Only update Redux on the primary device and only if this navigation
       // wasn't initiated by the AddressBar itself.
       if (isPrimary && !isNavigatingFromAddressBar.current) {
