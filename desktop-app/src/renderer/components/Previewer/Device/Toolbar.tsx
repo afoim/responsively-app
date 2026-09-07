@@ -222,11 +222,7 @@ const Toolbar = ({
         <Icon icon="ic:round-refresh" />
       </PillButton>
       <PillButton
-        title={
-          isDeviceRotationEnabled
-            ? 'Rotate this device'
-            : 'Rotation not available for non-mobile devices'
-        }
+        title={isDeviceRotationEnabled ? '旋转此设备' : '非移动设备不支持旋转'}
         disabled={!isDeviceRotationEnabled}
         isActive={isDeviceRotationEnabled ? rotated : undefined}
         onClick={rotate}
@@ -254,7 +250,7 @@ const Toolbar = ({
       </PillButton>
       <ColorBlindnessTools getWebview={getWebview} onSimulationChange={onSimulationChange} />
       <Popover
-        triggerTitle="More device tools"
+        triggerTitle="更多设备工具"
         anchor="bottom start"
         triggerClassName="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-[7px] text-[15px] text-muted transition-colors hover:bg-hover hover:text-fg data-[open]:bg-active focus:outline-none"
         className="w-[216px] p-[5px]"

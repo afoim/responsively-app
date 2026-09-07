@@ -57,7 +57,7 @@ const BookmarkButton = ({currentAddress, pageTitle}: Props) => {
             'text-blue-500': isPageBookmarked,
           })}
           onClick={handleFlyout}
-          title={`${!isPageBookmarked ? 'Add' : '移除'} bookmark`}
+          title={!isPageBookmarked ? '添加书签' : '移除书签'}
         >
           <Icon icon={`ic:baseline-star${!isPageBookmarked ? '-border' : ''}`} />
         </Button>

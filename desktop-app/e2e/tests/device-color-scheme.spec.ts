@@ -49,14 +49,14 @@ test.describe('Device Color Scheme', () => {
   test('color scheme toggle button is visible in toolbar', async ({app}) => {
     await app.dismissModals();
 
-    const colorSchemeBtn = app.page.locator('button[title="Device theme color toggle"]');
+    const colorSchemeBtn = app.page.locator('button[title="切换设备页面主题"]');
     await expect(colorSchemeBtn).toBeVisible();
   });
 
   test('clicking toggle changes the device theme', async ({app}) => {
     await app.dismissModals();
 
-    const colorSchemeBtn = app.page.locator('button[title="Device theme color toggle"]');
+    const colorSchemeBtn = app.page.locator('button[title="切换设备页面主题"]');
     await colorSchemeBtn.click();
     await app.page.waitForTimeout(300);
 
@@ -66,7 +66,7 @@ test.describe('Device Color Scheme', () => {
   test('clicking toggle again reverts the device theme', async ({app}) => {
     await app.dismissModals();
 
-    const colorSchemeBtn = app.page.locator('button[title="Device theme color toggle"]');
+    const colorSchemeBtn = app.page.locator('button[title="切换设备页面主题"]');
     await colorSchemeBtn.click();
     await app.page.waitForTimeout(300);
 
@@ -76,7 +76,7 @@ test.describe('Device Color Scheme', () => {
   test('toggle button sets nativeTheme to dark', async ({app}) => {
     await app.dismissModals();
 
-    const colorSchemeBtn = app.page.locator('button[title="Device theme color toggle"]');
+    const colorSchemeBtn = app.page.locator('button[title="切换设备页面主题"]');
     await colorSchemeBtn.click();
     await app.page.waitForTimeout(5000);
 

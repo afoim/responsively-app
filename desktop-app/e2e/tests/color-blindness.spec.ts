@@ -49,7 +49,7 @@ async function selectSimulation(
   name: string
 ) {
   await app.openColorBlindnessDropdown();
-  const option = app.page.getByText(name).first();
+  const option = app.page.locator(`[data-simulation="${name}"]`).first();
   await option.click();
   await app.page.waitForTimeout(1000);
 }
@@ -60,7 +60,7 @@ async function disableSimulation(app: {
   page: any;
 }) {
   await app.openColorBlindnessDropdown();
-  await app.page.getByText('Disable tool').click();
+  await app.page.getByText('关闭模拟').click();
   await app.page.waitForTimeout(500);
 }
 
@@ -74,7 +74,7 @@ test.describe('Color Blindness Simulation', () => {
   test.beforeEach(async ({app}) => {
     await app.dismissModals();
 
-    const rotateBtn = app.page.locator('button[title="Rotate Devices"]');
+    const rotateBtn = app.page.locator('button[title="旋转全部设备"]');
     if ((await rotateBtn.getAttribute('aria-pressed')) === 'true') {
       await rotateBtn.click();
       await app.page.waitForTimeout(300);

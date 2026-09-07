@@ -65,7 +65,7 @@ test.describe('Device Manager — Extended', () => {
     const before = await suiteRows.count();
     expect(before).toBeGreaterThan(0);
 
-    await app.deviceManagerSheet.getByRole('button', {name: 'New suite'}).click();
+    await app.deviceManagerSheet.getByRole('button', {name: '新建套件'}).click();
     await expect.poll(() => suiteRows.count(), {timeout: 10_000}).toBe(before + 1);
 
     // Remove the suite we just made — suites persist across spec files.
@@ -73,7 +73,7 @@ test.describe('Device Manager — Extended', () => {
       .locator('[data-testid^="suite-row-"]')
       .last()
       .locator('..')
-      .locator('button[title="Delete suite"]')
+      .locator('button[title="删除套件"]')
       .click();
     await expect.poll(() => suiteRows.count(), {timeout: 10_000}).toBe(before);
 
@@ -86,9 +86,7 @@ test.describe('Device Manager — Extended', () => {
 
     const defaultRow = app.page.locator('[data-testid="suite-row-default"]');
     if ((await defaultRow.count()) > 0) {
-      const deleteBtn = defaultRow
-        .locator('..')
-        .locator('button[title="Default suite can\'t be deleted"]');
+      const deleteBtn = defaultRow.locator('..').locator('button[title="默认套件不能删除"]');
       await expect(deleteBtn).toBeDisabled();
     }
 

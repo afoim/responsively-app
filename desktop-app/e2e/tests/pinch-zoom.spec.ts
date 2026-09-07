@@ -97,7 +97,7 @@ test.describe('Pinch zoom', () => {
     expect(scaleOf(await world.evaluate((el) => el.style.transform))).toBe(scaleOf(zoomed));
 
     // Reset view for the specs that follow (zoom 0.9, pan 0).
-    await app.page.getByRole('button', {name: 'Reset', exact: true}).click();
+    await app.page.getByRole('button', {name: '重置', exact: true}).click();
     await expect
       .poll(async () => scaleOf(await world.evaluate((el) => el.style.transform)))
       .toBe(0.9);

@@ -1,3 +1,4 @@
+import {suiteDisplayName} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import cx from 'classnames';
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,7 +20,7 @@ const SuitesColumn = () => {
 
   return (
     <div className="box-border flex w-60 flex-shrink-0 flex-col gap-2 overflow-y-auto border-r border-line-soft p-[14px]">
-      <div className="text-[11px] font-bold tracking-[0.08em] text-muted">SUITES</div>
+      <div className="text-[11px] font-bold tracking-[0.08em] text-muted">套件</div>
 
       {suites.map((suite) => {
         const isActive = suite.id === activeSuite.id;
@@ -43,17 +44,17 @@ const SuitesColumn = () => {
                 <span
                   className={cx('text-[13.5px] font-bold', isActive ? 'text-accent' : 'text-fg')}
                 >
-                  {suite.name}
+                  {suiteDisplayName(suite)}
                 </span>
               </button>
               <button
                 type="button"
-                title="Duplicate suite"
+                title="复制套件"
                 onClick={() =>
                   dispatch(
                     addSuite({
                       id: uuidv4(),
-                      name: `${suite.name} copy`,
+                      name: `${suiteDisplayName(suite)} 副本`,
                       devices: [...suite.devices],
                     })
                   )
@@ -66,7 +67,7 @@ const SuitesColumn = () => {
               </button>
               <button
                 type="button"
-                title={isDefault ? "Default suite can't be deleted" : 'Delete suite'}
+                title={isDefault ? '默认套件不能删除' : '删除套件'}
                 disabled={isDefault}
                 onClick={() => dispatch(deleteSuite(suite.id))}
                 className={cx(
@@ -79,7 +80,7 @@ const SuitesColumn = () => {
                 </span>
               </button>
             </div>
-            <div className="mt-[3px] text-[11.5px] text-muted">{suite.devices.length} devices</div>
+            <div className="mt-[3px] text-[11.5px] text-muted">{suite.devices.length} 台设备</div>
           </div>
         );
       })}
@@ -90,7 +91,7 @@ const SuitesColumn = () => {
           dispatch(
             addSuite({
               id: uuidv4(),
-              name: `Suite ${suites.length + 1}`,
+              name: `套件 ${suites.length + 1}`,
               devices: [...activeSuite.devices],
             })
           )
@@ -99,13 +100,13 @@ const SuitesColumn = () => {
       >
         <span className="pointer-events-none contents">
           <Icon icon="lucide:plus" fontSize={14} />
-          New suite
+          新建套件
         </span>
       </button>
 
       <div className="flex-1" />
       <div className="text-[11.5px] leading-[1.5] text-muted">
-        Checkboxes in the grid assign devices to the selected suite.
+        勾选设备卡片即可将设备加入当前套件。
       </div>
     </div>
   );

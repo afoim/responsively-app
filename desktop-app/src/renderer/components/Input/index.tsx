@@ -12,7 +12,8 @@ const Input = ({
   ...props
 }: Props &
   React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) => {
-  const id = useId();
+  const generatedId = useId();
+  const id = props.id ?? generatedId;
   const isCheckbox = props.type === 'checkbox';
   return (
     <div

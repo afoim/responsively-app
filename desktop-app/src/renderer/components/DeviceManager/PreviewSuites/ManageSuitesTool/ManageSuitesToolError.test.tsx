@@ -6,7 +6,7 @@ describe('ManageSuitesToolError', () => {
     const onClose = vi.fn();
     render(<ManageSuitesToolError onClose={onClose} />);
 
-    expect(screen.getByText('There has been an error, please try again.')).toBeInTheDocument();
+    expect(screen.getByText('发生错误，请重试。')).toBeInTheDocument();
     expect(screen.getByText('关闭')).toBeInTheDocument();
   });
 

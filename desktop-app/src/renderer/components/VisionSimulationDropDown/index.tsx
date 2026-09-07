@@ -1,3 +1,4 @@
+import {simulationLabels} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import cx from 'classnames';
 import Popover from '../Popover';
@@ -34,15 +35,15 @@ export const VISUAL_IMPAIRMENTS = [
 ];
 export const SUNLIGHT = [SIMULATIONS.SOLARIZE];
 
-const DISABLE_LABEL = 'Disable tool';
+const DISABLE_LABEL = '关闭模拟';
 
 const GROUPS: Array<{header: string; items: string[]}> = [
-  {header: 'No deficiency', items: [DISABLE_LABEL]},
-  {header: 'Red-green deficiency', items: RED_GREEN},
-  {header: 'Blue-yellow deficiency', items: BLUE_YELLOW},
-  {header: 'Full color deficiency', items: FULL},
-  {header: 'Visual impairment', items: VISUAL_IMPAIRMENTS},
-  {header: 'Temporary impairment', items: SUNLIGHT},
+  {header: '正常视觉', items: [DISABLE_LABEL]},
+  {header: '红绿色觉障碍', items: RED_GREEN},
+  {header: '蓝黄色觉障碍', items: BLUE_YELLOW},
+  {header: '全色觉障碍', items: FULL},
+  {header: '视力障碍', items: VISUAL_IMPAIRMENTS},
+  {header: '临时视觉影响', items: SUNLIGHT},
 ];
 
 interface Props {
@@ -62,7 +63,7 @@ export const VisionSimulationDropDown = ({
 
   return (
     <Popover
-      triggerTitle="Simulate vision"
+      triggerTitle="模拟视觉"
       anchor={isToolbar ? 'bottom end' : 'bottom start'}
       className="max-h-[470px] w-[238px] overflow-y-auto p-[6px]"
       triggerClassName={cx(
@@ -75,7 +76,7 @@ export const VisionSimulationDropDown = ({
       trigger={
         <span className="pointer-events-none contents">
           <Icon icon="bx:low-vision" fontSize={isToolbar ? 16 : 18} />
-          {isToolbar ? 'Simulate' : null}
+          {isToolbar ? '模拟' : null}
           {isToolbar ? <Icon icon="mdi:chevron-down" fontSize={13} className="text-muted" /> : null}
         </span>
       }
@@ -95,6 +96,7 @@ export const VisionSimulationDropDown = ({
                 return (
                   <button
                     key={item}
+                    data-simulation={isDisableEntry ? 'none' : item}
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => {
@@ -112,7 +114,7 @@ export const VisionSimulationDropDown = ({
                         fontSize={14}
                         className={cx('text-accent', {'opacity-0': !isActive})}
                       />
-                      {item}
+                      {isDisableEntry ? DISABLE_LABEL : simulationLabels[item]}
                     </span>
                   </button>
                 );

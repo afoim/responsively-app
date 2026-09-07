@@ -1,3 +1,4 @@
+import {suiteDisplayName} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import cx from 'classnames';
 import {defaultDevices, Device, getDevicesMap, invalidateDevicesMap} from 'common/deviceList';
@@ -153,8 +154,8 @@ const DeviceManagerSheet = () => {
           <SuitesColumn />
 
           <div className="box-border flex min-w-0 flex-1 flex-col gap-[10px] px-[18px] py-[14px]">
-            <div className="flex items-center gap-[10px]">
-              <div className="flex h-[34px] max-w-[300px] flex-1 items-center gap-2 rounded-lg border border-line-soft bg-input px-[10px]">
+            <div className="flex flex-wrap items-center gap-[10px]">
+              <div className="flex h-[34px] min-w-[140px] max-w-[300px] flex-1 items-center gap-2 rounded-lg border border-line-soft bg-input px-[10px]">
                 <Icon icon="ic:outline-search" fontSize={16} className="text-muted" />
                 <input
                   className="min-w-0 flex-1 bg-transparent text-[13px] text-fg outline-none"
@@ -163,7 +164,7 @@ const DeviceManagerSheet = () => {
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              <div className="flex gap-[2px] rounded-[9px] border border-line p-[3px]">
+              <div className="flex shrink-0 gap-[2px] rounded-[9px] border border-line p-[3px]">
                 {FILTERS.map((f) => (
                   <button
                     key={f.id}
@@ -171,7 +172,7 @@ const DeviceManagerSheet = () => {
                     aria-pressed={filter === f.id}
                     onClick={() => setFilter(f.id)}
                     className={cx(
-                      'h-[26px] rounded-md px-[11px] text-xs transition-colors focus:outline-none',
+                      'h-[26px] whitespace-nowrap rounded-md px-[11px] text-xs transition-colors focus:outline-none',
                       filter === f.id ? 'bg-active text-fg' : 'text-muted hover:bg-hover'
                     )}
                   >
@@ -188,11 +189,11 @@ const DeviceManagerSheet = () => {
                   setSelectedDevice(undefined);
                   setIsFormOpen(true);
                 }}
-                className="flex h-8 items-center gap-[7px] rounded-lg bg-accent px-[13px] text-[12.5px] font-bold text-on-accent transition-[filter] hover:brightness-110 focus:outline-none"
+                className="flex h-8 shrink-0 items-center gap-[7px] whitespace-nowrap rounded-lg bg-accent px-[13px] text-[12.5px] font-bold text-on-accent transition-[filter] hover:brightness-110 focus:outline-none"
               >
                 <span className="pointer-events-none contents">
                   <Icon icon="lucide:plus" fontSize={14} />
-                  Custom device
+                  自定义设备
                 </span>
               </button>
             </div>
@@ -200,7 +201,7 @@ const DeviceManagerSheet = () => {
             <div className="text-xs text-muted" data-testid="device-grid-meta">
               共 {allDevices.length} 台设备，显示 {visibleDevices.length} 台 · 套件中 {suiteCount}{' '}
               台：“
-              {activeSuite.name}”
+              {suiteDisplayName(activeSuite)}”
             </div>
 
             <div className="min-h-0 flex-1 overflow-y-auto">
@@ -234,7 +235,7 @@ const DeviceManagerSheet = () => {
                       >
                         <span className="pointer-events-none contents">
                           <Icon icon="lucide:plus" fontSize={14} />
-                          Add Custom Device
+                          添加自定义设备
                         </span>
                       </button>
                     ) : null}
@@ -249,7 +250,7 @@ const DeviceManagerSheet = () => {
               key={selectedDevice?.id ?? 'new'}
               device={selectedDevice}
               existingDevices={allDevices}
-              activeSuiteName={activeSuite.name}
+              activeSuiteName={suiteDisplayName(activeSuite)}
               onSave={onSaveDevice}
               onRemove={onRemoveDevice}
               onClose={() => {

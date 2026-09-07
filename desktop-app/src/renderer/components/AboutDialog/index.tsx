@@ -1,15 +1,16 @@
+import {updateStatusLabel} from 'common/ui-text';
 import {useEffect, useRef, useState} from 'react';
 import {IPC_MAIN_CHANNELS} from 'common/constants';
 import {AboutDialogArgs} from 'main/menu/help';
 import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
+import zh from 'javascript-time-ago/locale/zh';
 import Icon from '../../assets/img/logo.png';
 import Modal from '../Modal';
 import Button from '../Button';
 
-TimeAgo.addLocale(en);
+TimeAgo.addLocale(zh);
 
-const timeAgo = new TimeAgo('en-US');
+const timeAgo = new TimeAgo('zh-CN');
 
 export const AboutDialog = () => {
   const [show, setShow] = useState(false);
@@ -64,11 +65,9 @@ export const AboutDialog = () => {
       onClose={() => setShow(false)}
       title={
         <div className="flex flex-col items-center justify-center">
-          <img src={Icon} alt="Logo" width={48} className="pb-2" />
+          <img src={Icon} alt="应用图标" width={48} className="pb-2" />
           <div className="text-2xl">Responsively App</div>
-          <div className="text-base text-gray-500">
-            A dev-tool that aids faster and precise responsive web development.
-          </div>
+          <div className="text-base text-gray-500">让响应式网页开发更高效、更精确的开发工具。</div>
         </div>
       }
     >
@@ -109,11 +108,11 @@ export const AboutDialog = () => {
               onClick={async () => {
                 window.electron.ipcRenderer.invoke<string, void>(
                   IPC_MAIN_CHANNELS.COPY_TO_CLIPBOARD,
-                  `App Version: ${args?.environmentInfo.appVersion}\nElectron Version: ${args?.environmentInfo.electronVersion}\nChrome Version: ${args?.environmentInfo.chromeVersion}\nNode.js Version: ${args?.environmentInfo.nodeVersion}\nV8 Version: ${args?.environmentInfo.v8Version}\nOS: ${args?.environmentInfo.osInfo}`
+                  `应用版本： ${args?.environmentInfo.appVersion}\nElectron 版本： ${args?.environmentInfo.electronVersion}\nChrome 版本： ${args?.environmentInfo.chromeVersion}\nNode.js 版本： ${args?.environmentInfo.nodeVersion}\nV8 版本： ${args?.environmentInfo.v8Version}\n操作系统： ${args?.environmentInfo.osInfo}`
                 );
               }}
             >
-              Copy
+              复制
             </Button>
           </div>
         </div>
@@ -123,7 +122,7 @@ export const AboutDialog = () => {
             <div className="flex justify-between">
               <span>状态</span>
               <span className="text-sm capitalize">
-                {args?.updaterStatus.status.toLocaleLowerCase()}
+                {updateStatusLabel(args?.updaterStatus.status)}
               </span>
             </div>
             {args?.updaterStatus.version != null ? (
@@ -145,13 +144,13 @@ export const AboutDialog = () => {
               <span className="text-sm">
                 {args?.updaterStatus.lastChecked != null
                   ? timeAgo.format(args?.updaterStatus.lastChecked)
-                  : 'NA'}
+                  : '暂无'}
               </span>
             </div>
           </div>
         </div>
         <Button isPrimary isTextButton onClick={() => setShow(false)}>
-          Close
+          关闭
         </Button>
       </div>
     </Modal>

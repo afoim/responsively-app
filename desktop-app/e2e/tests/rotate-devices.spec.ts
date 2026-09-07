@@ -4,7 +4,7 @@ test.describe('Rotate Devices', () => {
   test('rotate button is visible in toolbar', async ({app}) => {
     await app.dismissModals();
 
-    const rotateBtn = app.page.locator('button[title="Rotate Devices"]');
+    const rotateBtn = app.page.locator('button[title="旋转全部设备"]');
     await expect(rotateBtn).toBeVisible();
   });
 
@@ -12,7 +12,7 @@ test.describe('Rotate Devices', () => {
     await app.dismissModals();
 
     // Click rotate button
-    const rotateBtn = app.page.locator('button[title="Rotate Devices"]');
+    const rotateBtn = app.page.locator('button[title="旋转全部设备"]');
     await rotateBtn.click();
     await app.page.waitForTimeout(500);
 
@@ -33,7 +33,7 @@ test.describe('Rotate Devices', () => {
     await app.page.waitForTimeout(500);
 
     // Verify the rotate button state changed (should be active or inactive)
-    const rotateBtn = app.page.locator('button[title="Rotate Devices"]');
+    const rotateBtn = app.page.locator('button[title="旋转全部设备"]');
     await expect(rotateBtn).toBeVisible();
 
     // Toggle back
@@ -55,7 +55,7 @@ test.describe('Rotate Devices', () => {
 
     // Per-device rotate buttons — some may be disabled for non-mobile devices
     await app.revealDevicePill();
-    const perDeviceRotateBtn = app.page.locator('button[title="Rotate this device"]').first();
+    const perDeviceRotateBtn = app.page.locator('button[title="旋转此设备"]').first();
 
     const isVisible = await perDeviceRotateBtn.isVisible().catch(() => false);
 

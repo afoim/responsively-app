@@ -171,7 +171,7 @@ test.describe('Canvas mode', () => {
     expect(restored).toEqual(after);
 
     // Arrange returns to the computed layout.
-    await app.page.locator('button[title="Auto-arrange"]').click();
+    await app.page.locator('button[title="自动排列"]').click();
     const arranged = await app.page.locator(`[data-canvas-item="${deviceId}"]`).evaluate((el) => ({
       left: (el as HTMLElement).style.left,
       top: (el as HTMLElement).style.top,
@@ -247,22 +247,22 @@ test.describe('Canvas mode', () => {
     await app.dismissModals();
     await app.page.locator('[data-testid="layout-CANVAS"]').click();
 
-    await app.page.locator('button[title="View options"]').click();
+    await app.page.locator('button[title="视图选项"]').click();
 
     // Bezels off by default; toggling draws hardware frames.
     await expect(app.page.locator('[data-bezel]')).toHaveCount(0);
-    await app.page.getByRole('button', {name: 'Device frames'}).click();
+    await app.page.getByRole('button', {name: '设备边框'}).click();
     expect(await app.page.locator('[data-bezel]').count()).toBeGreaterThan(0);
-    await app.page.getByRole('button', {name: 'Device frames'}).click();
+    await app.page.getByRole('button', {name: '设备边框'}).click();
     await expect(app.page.locator('[data-bezel]')).toHaveCount(0);
 
     // Hiding names empties the labels but keeps the drag handles.
     const firstLabel = app.page.locator('[data-device-label]').first();
     await expect(firstLabel.locator('span.font-bold').first()).toBeVisible();
-    await app.page.getByRole('button', {name: 'Device names'}).click();
+    await app.page.getByRole('button', {name: '设备名称'}).click();
     await expect(firstLabel.locator('span.font-bold')).toHaveCount(0);
     await expect(firstLabel).toBeAttached();
-    await app.page.getByRole('button', {name: 'Device names'}).click();
+    await app.page.getByRole('button', {name: '设备名称'}).click();
 
     await app.page.keyboard.press('Escape');
   });
@@ -297,17 +297,17 @@ test.describe('Canvas mode', () => {
     // The device pill reveals on hover; use the first device's sim dropdown.
     const firstDevice = app.page.locator('[data-testid="device-pill"]').first();
     await app.revealDevicePill();
-    await firstDevice.locator('button[title="Simulate vision"]').click();
-    await app.page.getByRole('button', {name: 'deuteranopia'}).first().click();
+    await firstDevice.locator('button[title="模拟视觉"]').click();
+    await app.page.locator('[data-simulation="deuteranopia"]').first().click();
 
-    await expect(app.page.locator('[data-testid="sim-badge"]').first()).toHaveText('deuteranopia', {
+    await expect(app.page.locator('[data-testid="sim-badge"]').first()).toHaveText('绿色盲', {
       timeout: 10_000,
     });
 
     // Clear it for the next spec file.
     await app.revealDevicePill();
-    await firstDevice.locator('button[title="Simulate vision"]').click();
-    await app.page.getByRole('button', {name: 'Disable tool'}).first().click();
+    await firstDevice.locator('button[title="模拟视觉"]').click();
+    await app.page.getByRole('button', {name: '关闭模拟'}).first().click();
     await expect(app.page.locator('[data-testid="sim-badge"]')).toHaveCount(0);
   });
 });

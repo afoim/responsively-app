@@ -55,7 +55,7 @@ test.describe('Screenshot Save', () => {
     await app.clearShowItemCalls();
     const beforeFiles = getJpegs(screenshotDir);
 
-    const screenshotBtn = app.page.locator('button[title="Screenshot All WebViews"]');
+    const screenshotBtn = app.page.locator('button[title="截取全部设备"]');
     await screenshotBtn.click();
 
     // Wait for screenshots to appear AND finish writing (a file can exist,
@@ -108,7 +108,7 @@ test.describe('Screenshot Save', () => {
       fs.unlinkSync(path.join(screenshotDir, f));
     }
 
-    const screenshotBtn = app.page.locator('button[title="Screenshot All WebViews"]');
+    const screenshotBtn = app.page.locator('button[title="截取全部设备"]');
     await screenshotBtn.click();
 
     await expect.poll(() => getJpegs(screenshotDir).length, {timeout: 15_000}).toBeGreaterThan(0);
@@ -141,7 +141,7 @@ test.describe('Screenshot Save', () => {
     await app.clearShowItemCalls();
 
     await app.revealDevicePill();
-    const quickScreenshotBtn = app.page.locator('button[title="Quick screenshot"]').first();
+    const quickScreenshotBtn = app.page.locator('button[title="快速截图"]').first();
     await expect(quickScreenshotBtn).toBeVisible();
     await quickScreenshotBtn.click();
 
@@ -182,7 +182,7 @@ test.describe('Screenshot Save', () => {
     // Full-page capture moved into the device's "More device tools" popover.
     await app.revealDevicePill();
     await app.moreDeviceToolsButtons.first().click();
-    const fullPageBtn = app.page.locator('button[title="Full-page screenshot"]').first();
+    const fullPageBtn = app.page.locator('button[title="整页截图"]').first();
     await expect(fullPageBtn).toBeVisible();
     await fullPageBtn.click();
 

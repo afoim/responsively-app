@@ -28,7 +28,7 @@ test.describe('Devtools overlay coordination', () => {
 
     // Open devtools on the first device.
     await app.revealDevicePill();
-    await app.page.locator('button[title="Open devtools"]').first().click();
+    await app.page.locator('button[title="打开开发者工具"]').first().click();
     await expect.poll(() => devtoolsAttached(app), {timeout: 15_000}).toBe(true);
 
     // Opening a modal must get the native view out of the way.
@@ -45,7 +45,7 @@ test.describe('Devtools overlay coordination', () => {
 
     await expect.poll(() => devtoolsAttached(app), {timeout: 15_000}).toBe(true);
 
-    await app.page.locator('button[title="Site tools"]').click();
+    await app.page.locator('button[title="站点工具"]').click();
     await expect.poll(() => devtoolsAttached(app), {timeout: 10_000}).toBe(false);
 
     await app.page.keyboard.press('Escape');

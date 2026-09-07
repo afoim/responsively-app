@@ -21,8 +21,10 @@ interface Props {
 const DeviceCard = ({device, isMember, isLastMember, onToggle, onEdit}: Props) => {
   const isCustom = device.isCustom ?? false;
   const title = isLastMember
-    ? "Can't remove the last device of a suite"
-    : `Click to ${isMember ? 'remove from' : 'add to'} this suite`;
+    ? '套件至少需要保留一台设备'
+    : isMember
+      ? '点击从当前套件移除'
+      : '点击加入当前套件';
 
   return (
     <div
@@ -66,7 +68,7 @@ const DeviceCard = ({device, isMember, isLastMember, onToggle, onEdit}: Props) =
         {isCustom ? (
           <button
             type="button"
-            title="Edit device"
+            title="编辑设备"
             onClick={onEdit}
             className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md text-[13px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
           >
@@ -83,7 +85,7 @@ const DeviceCard = ({device, isMember, isLastMember, onToggle, onEdit}: Props) =
         <span className="font-mono text-[10.5px] text-muted">@{device.dpr}x</span>
         {isCustom ? (
           <span className="rounded-full bg-accent-soft px-[7px] py-[2px] text-[9.5px] font-bold tracking-[0.06em] text-accent">
-            CUSTOM
+            自定义
           </span>
         ) : null}
       </div>

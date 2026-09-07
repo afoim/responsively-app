@@ -85,15 +85,15 @@ const McpPanel = () => {
 
   const isRunning = status?.running ?? false;
   const statusLabel = (() => {
-    if (status === null) return 'checking…';
-    if (status.running) return 'running';
-    if (!status.enabled) return 'off';
-    return status.error ?? 'stopped';
+    if (status === null) return '正在检查…';
+    if (status.running) return '运行中';
+    if (!status.enabled) return '已关闭';
+    return status.error === 'EADDRINUSE' ? '端口被占用' : status.error ? '启动失败' : '已停止';
   })();
 
   return (
     <Popover
-      triggerTitle="MCP server — connect AI tools"
+      triggerTitle="MCP 服务：连接 AI 工具"
       anchor="bottom end"
       triggerClassName="flex h-[34px] items-center gap-[7px] rounded-[9px] border border-line px-3 text-[12.5px] font-bold text-fg transition-colors hover:bg-hover"
       className="w-[302px] p-[6px]"
@@ -144,19 +144,18 @@ const McpPanel = () => {
         </div>
 
         <div className="px-[10px] pb-[10px] pt-1 text-[11.5px] leading-[1.55] text-muted">
-          Let AI agents drive this device lab — open URLs, screenshot devices, inspect responsive
-          layouts.
+          让 AI 操作设备预览：打开网址、截取屏幕、检查响应式布局。
         </div>
 
         <div className="mx-1 mb-[6px] border-t border-line-soft" />
 
         <div className="px-[10px] pb-1 pt-[2px] text-[10.5px] font-bold tracking-[0.08em] text-muted">
-          ADD TO YOUR TOOLS
+          添加到你的工具
         </div>
         <div className={cx({'pointer-events-none opacity-40': !(status?.enabled ?? false)})}>
           {tools.filter((tool) => tool.installed).length === 0 ? (
             <div className="px-[10px] pb-2 text-[11.5px] text-muted">
-              No supported AI tools detected — copy the config below instead.
+              未检测到支持的 AI 工具，请复制下方配置手动添加。
             </div>
           ) : null}
           {tools
@@ -180,8 +179,8 @@ const McpPanel = () => {
                   aria-pressed={tool.added}
                   title={
                     tool.added
-                      ? `Added — click to remove from ${tool.name}`
-                      : `Add Responsively MCP to ${tool.name}`
+                      ? `已添加，点击从 ${tool.name} 移除`
+                      : `将 Responsively MCP 添加到 ${tool.name}`
                   }
                   onClick={() => setTool(tool.id, !tool.added)}
                   className={cx(
@@ -193,7 +192,7 @@ const McpPanel = () => {
                 >
                   <span className="pointer-events-none contents">
                     {tool.added ? <Icon icon="ic:round-check" fontSize={13} /> : null}
-                    {tool.added ? 'Added' : 'Add'}
+                    {tool.added ? '已添加' : '添加'}
                   </span>
                 </button>
               </div>
@@ -214,7 +213,7 @@ const McpPanel = () => {
         >
           <span className="pointer-events-none contents">
             <Icon icon="lucide:copy" fontSize={14} className="text-muted" />
-            {copied ? 'Copied!' : 'Copy config'}
+            {copied ? '已复制！' : '复制配置'}
             <span className="ml-auto font-mono text-[10.5px] text-muted">任意 MCP 客户端</span>
           </span>
         </button>

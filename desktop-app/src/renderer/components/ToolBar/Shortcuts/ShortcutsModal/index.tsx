@@ -12,12 +12,12 @@ interface Props {
 export const shortcutsList = [
   {
     id: 0,
-    name: 'General Shortcuts',
+    name: '通用快捷键',
     shortcuts: Object.entries(SHORTCUT_KEYS).splice(0, 7),
   },
   {
     id: 1,
-    name: 'Previewer Shorcuts',
+    name: '预览快捷键',
     shortcuts: Object.entries(SHORTCUT_KEYS).splice(7),
   },
 ];
@@ -40,7 +40,7 @@ const ShortcutsModal = ({isOpen, onClose}: Props) => {
           ))}
           <div className="mb-2 flex flex-row justify-end gap-2">
             <Button className="px-2" onClick={onClose}>
-              Close
+              关闭
             </Button>
           </div>
         </div>

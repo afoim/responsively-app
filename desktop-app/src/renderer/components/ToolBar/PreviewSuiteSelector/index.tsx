@@ -1,3 +1,4 @@
+import {suiteDisplayName} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import cx from 'classnames';
 import {getDevicesMap} from 'common/deviceList';
@@ -50,7 +51,7 @@ export const PreviewSuiteSelector = () => {
             key={suite.id}
             type="button"
             aria-pressed={isActive}
-            title={`${suite.name} suite`}
+            title={`${suiteDisplayName(suite)}套件`}
             data-testid={`suite-chip-${suite.id}`}
             onClick={() => dispatch(setActiveSuite(suite.id))}
             className={cx(
@@ -62,7 +63,7 @@ export const PreviewSuiteSelector = () => {
             )}
           >
             <span className="pointer-events-none contents">
-              {suite.name}
+              {suiteDisplayName(suite)}
               <span className="text-[11px] font-normal text-muted">{suite.devices.length}</span>
             </span>
           </button>
@@ -70,7 +71,7 @@ export const PreviewSuiteSelector = () => {
       })}
 
       <Popover
-        triggerTitle="Edit suite"
+        triggerTitle="编辑套件"
         anchor="bottom end"
         triggerClassName="flex h-7 w-7 items-center justify-center rounded-full border border-dashed border-line text-sm text-muted transition-colors hover:bg-hover hover:text-fg"
         className="w-[264px] p-[6px]"
@@ -83,7 +84,7 @@ export const PreviewSuiteSelector = () => {
         {({close}) => (
           <>
             <div className="px-[10px] pb-1 pt-2 text-[10.5px] font-bold tracking-[0.08em] text-muted">
-              DEVICES IN “{activeSuite.name.toUpperCase()}”
+              套件设备：“{suiteDisplayName(activeSuite)}”
             </div>
             <div className="max-h-[300px] overflow-y-auto">
               {knownDevices.map((device) => {
@@ -129,7 +130,7 @@ export const PreviewSuiteSelector = () => {
             >
               <span className="pointer-events-none contents">
                 <Icon icon="heroicons:swatch" fontSize={15} className="text-accent" />
-                Manage suites &amp; devices
+                管理套件与设备
               </span>
             </button>
           </>

@@ -383,21 +383,21 @@ const Previewer = () => {
               >
                 <span className="pointer-events-none contents">
                   <Icon icon="ic:round-close" fontSize={15} />
-                  Exit presentation
+                  退出演示
                 </span>
               </button>
             ) : null}
             {isCanvasLayout && !presenting ? (
               <>
                 <div className="pointer-events-none absolute bottom-[14px] left-4 z-10 font-mono text-[11px] text-muted">
-                  canvas mode · drag to pan · drag labels to move devices · click a label to select
+                  画布模式 · 拖动画布平移 · 拖动标签移动设备 · 点击标签选中设备
                 </div>
                 <div
                   data-canvas-controls
                   className="absolute bottom-[14px] right-4 z-10 flex items-center gap-[2px] rounded-full border border-line bg-panel p-1 shadow-elevated"
                 >
                   <Popover
-                    triggerTitle="View options"
+                    triggerTitle="视图选项"
                     anchor="top end"
                     triggerClassName="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[15px] text-muted transition-colors hover:bg-hover hover:text-fg"
                     className="w-[186px] p-[5px]"
@@ -408,13 +408,13 @@ const Previewer = () => {
                     }
                   >
                     <div className="px-[9px] pb-[3px] pt-[7px] text-[10px] font-bold tracking-[0.07em] text-muted">
-                      SHOW ON CANVAS
+                      画布显示内容
                     </div>
                     {(
                       [
-                        {key: 'showBezels', label: 'Device frames'},
-                        {key: 'showNames', label: 'Device names'},
-                        {key: 'showDims', label: 'Resolutions'},
+                        {key: 'showBezels', label: '设备边框'},
+                        {key: 'showNames', label: '设备名称'},
+                        {key: 'showDims', label: '分辨率'},
                       ] as Array<{key: keyof CanvasOptions; label: string}>
                     ).map((item) => (
                       <button
@@ -438,25 +438,25 @@ const Previewer = () => {
                   <div className="mx-[3px] h-4 w-px bg-line" />
                   <button
                     type="button"
-                    title="Auto-arrange"
+                    title="自动排列"
                     onClick={() => {
                       dispatch(resetCanvasPositions(activeSuite.id));
                       setCanvasPan({x: 0, y: 0});
                     }}
                     className="h-[26px] rounded-full px-[10px] text-[11.5px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none"
                   >
-                    Arrange
+                    排列
                   </button>
                   <button
                     type="button"
-                    title="Reset view"
+                    title="重置视图"
                     onClick={() => {
                       setCanvasPan({x: 0, y: 0});
                       dispatch(setCanvasZoom(0.9));
                     }}
                     className="h-[26px] rounded-full px-[10px] text-[11.5px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none"
                   >
-                    Reset
+                    重置
                   </button>
                 </div>
               </>

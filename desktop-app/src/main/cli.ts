@@ -14,14 +14,14 @@ const cli = parseArgs(
   `
       ResponsivelyApp
    
-      Usage
+      用法
         $ ${binaryName} [path]
    
-      Options
-        --help     show help
-        --version  show version
+      选项
+        --help     显示帮助
+        --version  显示版本
    
-      Examples
+      示例
         $ ${binaryName} https://example.com
         $ ${binaryName} /path/to/index.html
   `,

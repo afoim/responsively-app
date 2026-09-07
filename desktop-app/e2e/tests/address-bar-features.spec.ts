@@ -33,7 +33,7 @@ test.describe('Address Bar Features', () => {
   test('homepage button is visible and clickable', async ({app}) => {
     await app.dismissModals();
 
-    const homepageBtn = app.page.locator('button[title="Homepage"]');
+    const homepageBtn = app.page.locator('button[title="主页"]');
     await expect(homepageBtn).toBeVisible();
     await homepageBtn.click();
     await app.page.waitForTimeout(300);
@@ -49,7 +49,7 @@ test.describe('Address Bar Features', () => {
     await app.navigateTo(`${testServerUrl}/test-page.html`);
 
     // Click homepage button to set current page as homepage
-    const homepageBtn = app.page.locator('button[title="Homepage"]');
+    const homepageBtn = app.page.locator('button[title="主页"]');
     await homepageBtn.click();
     await app.page.waitForTimeout(300);
 
@@ -65,7 +65,7 @@ test.describe('Address Bar Features', () => {
     test(`site tools: ${title} is reachable and clickable`, async ({app}) => {
       await app.dismissModals();
 
-      await app.page.locator('button[title="Site tools"]').click();
+      await app.page.locator('button[title="站点工具"]').click();
 
       const actionBtn = app.page.locator(`button[title="${title}"]`);
       await expect(actionBtn).toBeVisible({timeout: 5_000});
@@ -80,8 +80,8 @@ test.describe('Address Bar Features', () => {
   test('site tools popover exposes the site permissions entry', async ({app}) => {
     await app.dismissModals();
 
-    await app.page.locator('button[title="Site tools"]').click();
-    await expect(app.page.locator('button[title="Site permissions"]')).toBeVisible({
+    await app.page.locator('button[title="站点工具"]').click();
+    await expect(app.page.locator('button[title="站点权限"]')).toBeVisible({
       timeout: 5_000,
     });
     await app.page.keyboard.press('Escape');

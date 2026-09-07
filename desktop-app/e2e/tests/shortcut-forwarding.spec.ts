@@ -58,7 +58,7 @@ test.describe('Shortcut forwarding from webviews', () => {
   });
 
   test('rotate fires when the keystroke lands inside a preview', async ({app}) => {
-    const rotateBtn = app.page.locator('button[title="Rotate Devices"]');
+    const rotateBtn = app.page.locator('button[title="旋转全部设备"]');
     const before = await rotateBtn.getAttribute('aria-pressed');
 
     await pressInsideGuest(app, 'r', [mod, 'alt']);

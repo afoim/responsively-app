@@ -109,28 +109,28 @@ const ToolBar = () => {
       </div>
       <div className="flex-1" />
       <ToolbarGroup>
-        <ToolbarAction onClick={handleRotate} isActive={rotateDevices} title="Rotate Devices">
+        <ToolbarAction onClick={handleRotate} isActive={rotateDevices} title="旋转全部设备">
           <Icon
             icon={rotateDevices ? 'mdi:phone-rotate-portrait' : 'mdi:phone-rotate-landscape'}
             fontSize={16}
           />
-          Rotate
+          旋转
         </ToolbarAction>
         <ToolbarAction
           onClick={() => dispatch(setIsInspecting(!isInspecting))}
           isActive={isInspecting}
-          title="Inspect Elements"
+          title="检查元素"
         >
           <Icon icon="lucide:inspect" fontSize={15} />
-          Inspect
+          检查
         </ToolbarAction>
         <ToolbarAction
           onClick={screenshotCaptureHandler}
           isActive={isCapturingScreenshot}
-          title="Screenshot All WebViews"
+          title="截取全部设备"
         >
           <Icon icon="lucide:camera" fontSize={15} />
-          Capture
+          截图
         </ToolbarAction>
         <ColorBlindnessControls />
         <ColorSchemeToggle />

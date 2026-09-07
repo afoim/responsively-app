@@ -14,7 +14,7 @@ test.describe('Inspect Elements', () => {
   // clicks in the webviews (CDP Overlay.setInspectMode), silently breaking
   // whichever spec file runs next in this worker. Always leave it off.
   test.afterEach(async ({app}) => {
-    const inspectBtn = app.page.locator('button[title="Inspect Elements"]');
+    const inspectBtn = app.page.locator('button[title="检查元素"]');
     if ((await inspectBtn.getAttribute('aria-pressed')) === 'true') {
       await inspectBtn.click();
       await app.page.waitForTimeout(200);
@@ -23,14 +23,14 @@ test.describe('Inspect Elements', () => {
   test('inspect button is visible in toolbar', async ({app}) => {
     await app.dismissModals();
 
-    const inspectBtn = app.page.locator('button[title="Inspect Elements"]');
+    const inspectBtn = app.page.locator('button[title="检查元素"]');
     await expect(inspectBtn).toBeVisible();
   });
 
   test('clicking inspect toggles inspect mode', async ({app}) => {
     await app.dismissModals();
 
-    const inspectBtn = app.page.locator('button[title="Inspect Elements"]');
+    const inspectBtn = app.page.locator('button[title="检查元素"]');
 
     // Click to enable inspect mode
     await inspectBtn.click();
@@ -43,7 +43,7 @@ test.describe('Inspect Elements', () => {
   test('keyboard shortcut Cmd/Ctrl+I toggles inspect mode', async ({app}) => {
     await app.dismissModals();
 
-    const inspectBtn = app.page.locator('button[title="Inspect Elements"]');
+    const inspectBtn = app.page.locator('button[title="检查元素"]');
 
     // Toggle inspect mode via keyboard
     await app.pressShortcut('i');
@@ -57,7 +57,7 @@ test.describe('Inspect Elements', () => {
   test('clicking inspect again disables inspect mode', async ({app}) => {
     await app.dismissModals();
 
-    const inspectBtn = app.page.locator('button[title="Inspect Elements"]');
+    const inspectBtn = app.page.locator('button[title="检查元素"]');
 
     // Ensure inspect is currently active, then click to disable
     const wasActive = (await inspectBtn.getAttribute('aria-pressed')) === 'true';
@@ -80,7 +80,7 @@ test.describe('Inspect Elements', () => {
   test('opening devtools shows a docked panel', async ({app}) => {
     await app.dismissModals();
 
-    const openDevtoolsBtn = app.page.locator('button[title="Open devtools"]').first();
+    const openDevtoolsBtn = app.page.locator('button[title="打开开发者工具"]').first();
     await app.revealDevicePill();
     await openDevtoolsBtn.click();
     await app.page.waitForTimeout(1000);
@@ -104,7 +104,7 @@ test.describe('Inspect Elements', () => {
   test('dock-right button switches devtools to right side', async ({app}) => {
     await app.dismissModals();
 
-    const openDevtoolsBtn = app.page.locator('button[title="Open devtools"]').first();
+    const openDevtoolsBtn = app.page.locator('button[title="打开开发者工具"]').first();
     await app.revealDevicePill();
     await openDevtoolsBtn.click();
     await app.page.waitForTimeout(1000);
@@ -138,7 +138,7 @@ test.describe('Inspect Elements', () => {
     // layout before asserting on them.
     await app.page.locator('[data-testid="layout-FLEX"]').click();
 
-    const openDevtoolsBtn = app.page.locator('button[title="Open devtools"]').first();
+    const openDevtoolsBtn = app.page.locator('button[title="打开开发者工具"]').first();
     await app.revealDevicePill();
     await openDevtoolsBtn.click();
     await app.page.waitForTimeout(1000);
@@ -180,7 +180,7 @@ test.describe('Inspect Elements', () => {
   test('close button closes docked devtools', async ({app}) => {
     await app.dismissModals();
 
-    const openDevtoolsBtn = app.page.locator('button[title="Open devtools"]').first();
+    const openDevtoolsBtn = app.page.locator('button[title="打开开发者工具"]').first();
     await app.revealDevicePill();
     await openDevtoolsBtn.click();
     await app.page.waitForTimeout(1000);
@@ -199,7 +199,7 @@ test.describe('Inspect Elements', () => {
   test('undock button detaches devtools to separate window', async ({app}) => {
     await app.dismissModals();
 
-    const openDevtoolsBtn = app.page.locator('button[title="Open devtools"]').first();
+    const openDevtoolsBtn = app.page.locator('button[title="打开开发者工具"]').first();
     await app.revealDevicePill();
     await openDevtoolsBtn.click();
     await app.page.waitForTimeout(1000);

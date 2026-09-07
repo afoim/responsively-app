@@ -6,8 +6,8 @@ test.describe('Device Manager', () => {
     await app.openDeviceManager();
 
     await expect(app.deviceManagerSheet).toBeVisible();
-    await expect(app.deviceManagerSheet.getByText('SUITES', {exact: true})).toBeVisible();
-    await expect(app.page.locator('[data-testid="device-grid-meta"]')).toContainText('devices');
+    await expect(app.deviceManagerSheet.getByText('套件', {exact: true})).toBeVisible();
+    await expect(app.page.locator('[data-testid="device-grid-meta"]')).toContainText('设备');
 
     await app.closeDeviceManager();
   });
@@ -29,14 +29,14 @@ test.describe('Device Manager', () => {
     await app.ensureDeviceManagerOpen();
 
     const meta = app.page.locator('[data-testid="device-grid-meta"]');
-    const searchInput = app.page.locator('input[placeholder="Search devices…"]');
+    const searchInput = app.page.locator('input[placeholder="搜索设备…"]');
 
     await searchInput.fill('iPhone');
     await expect(app.deviceManagerSheet.getByText('iPhone', {exact: false}).first()).toBeVisible();
-    await expect(meta).toContainText('devices');
+    await expect(meta).toContainText('设备');
 
     await searchInput.fill('zzz_nonexistent_device_xyz');
-    await expect(app.deviceManagerSheet.getByText(/No devices match/)).toBeVisible();
+    await expect(app.deviceManagerSheet.getByText(/没有匹配/)).toBeVisible();
 
     await searchInput.fill('');
     await app.closeDeviceManager();
@@ -46,11 +46,11 @@ test.describe('Device Manager', () => {
     await app.dismissModals();
     await app.ensureDeviceManagerOpen();
 
-    const phones = app.deviceManagerSheet.getByRole('button', {name: 'Phones', exact: true});
+    const phones = app.deviceManagerSheet.getByRole('button', {name: '手机', exact: true});
     await phones.click();
     await expect(phones).toHaveAttribute('aria-pressed', 'true');
 
-    const all = app.deviceManagerSheet.getByRole('button', {name: 'All', exact: true});
+    const all = app.deviceManagerSheet.getByRole('button', {name: '全部', exact: true});
     await all.click();
     await expect(all).toHaveAttribute('aria-pressed', 'true');
 

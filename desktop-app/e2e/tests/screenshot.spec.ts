@@ -4,7 +4,7 @@ test.describe('Screenshot', () => {
   test('screenshot button is visible in toolbar', async ({app}) => {
     await app.dismissModals();
 
-    const screenshotBtn = app.page.locator('button[title="Screenshot All WebViews"]');
+    const screenshotBtn = app.page.locator('button[title="截取全部设备"]');
     await expect(screenshotBtn).toBeVisible();
   });
 
@@ -17,11 +17,11 @@ test.describe('Screenshot', () => {
     // Navigate to a simple page first to ensure webviews are loaded
     await app.navigateTo(`${testServerUrl}/test-page.html`, {timeout: 3000});
 
-    const screenshotBtn = app.page.locator('button[title="Screenshot All WebViews"]');
+    const screenshotBtn = app.page.locator('button[title="截取全部设备"]');
     await screenshotBtn.click();
 
     // The modal loader should appear with "Capturing screen..." text
-    const captureText = app.page.getByText('Capturing screen...');
+    const captureText = app.page.getByText('正在截图…');
     // This may be brief, so use a short timeout
     await expect(captureText)
       .toBeVisible({timeout: 5_000})
@@ -40,7 +40,7 @@ test.describe('Screenshot', () => {
     await app.pressShortcut('s');
 
     // The modal loader should appear
-    const captureText = app.page.getByText('Capturing screen...');
+    const captureText = app.page.getByText('正在截图…');
     await expect(captureText)
       .toBeVisible({timeout: 5_000})
       .catch(() => {
@@ -55,7 +55,7 @@ test.describe('Screenshot', () => {
     await app.dismissModals();
 
     // After the previous screenshot tests, the modal should have dismissed
-    const captureText = app.page.getByText('Capturing screen...');
+    const captureText = app.page.getByText('正在截图…');
     await expect(captureText).not.toBeVisible({timeout: 10_000});
   });
 });

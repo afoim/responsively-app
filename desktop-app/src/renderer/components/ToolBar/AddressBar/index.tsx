@@ -1,3 +1,4 @@
+import {permissionLabel} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import cx from 'classnames';
 import {IPC_MAIN_CHANNELS, OpenUrlArgs} from 'common/constants';
@@ -140,10 +141,10 @@ const AddressBar = () => {
       if (draggedUrl.protocol === 'http:' || draggedUrl.protocol === 'https:') {
         dispatchAddress(draggedUrl.href);
       } else {
-        throw new Error('Invalid URL');
+        throw new Error('无效网址');
       }
     } catch (err) {
-      console.error('Invalid URL', err);
+      console.error('无效网址', err);
     }
   };
 
@@ -207,7 +208,7 @@ const AddressBar = () => {
             <span>
               {permissionRequest.requestingOrigin} 请求以下权限： <br />
               <span className="flex justify-center font-bold capitalize">
-                {permissionRequest.permission}
+                {permissionLabel(permissionRequest.permission)}
               </span>
             </span>
             <div className="flex justify-end">
@@ -218,7 +219,7 @@ const AddressBar = () => {
                   }}
                   isActionButton
                 >
-                  Block
+                  阻止
                 </Button>
                 <Button
                   onClick={() => {
@@ -226,7 +227,7 @@ const AddressBar = () => {
                   }}
                   isActionButton
                 >
-                  Allow
+                  允许
                 </Button>
               </div>
             </div>
@@ -246,7 +247,7 @@ const AddressBar = () => {
                 title: '删除存储',
                 label: '清除存储',
                 icon: 'mdi:database-remove-outline',
-                note: 'local + session',
+                note: '本地与会话存储',
                 isLoading: deleteStorageLoading,
                 run: deleteStorage,
               },

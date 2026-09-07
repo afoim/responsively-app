@@ -29,7 +29,7 @@ test.describe('Error Handling', () => {
 
       // Should contain error code
       const errorContent = await errorOverlay.innerText();
-      expect(errorContent).toContain('ERROR:');
+      expect(errorContent).toContain('错误：');
     }
   });
 

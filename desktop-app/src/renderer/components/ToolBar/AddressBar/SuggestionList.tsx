@@ -71,7 +71,7 @@ const SuggestionList = ({match, onEnter}: Props) => {
             <img
               src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=64`}
               className="w-4 rounded-md"
-              alt="favicon"
+              alt="站点图标"
             />
           </span>
           <span className="flex flex-row gap-1 overflow-hidden">

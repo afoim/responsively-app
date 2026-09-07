@@ -65,6 +65,8 @@ export const ManageSuitesTool = ({setCustomDevicesState}: ManageSuitesToolProps)
       <div className="flex flex-row content-end justify-end">
         <Button
           data-testid="download-btn"
+          title="导入设备与套件"
+          aria-label="导入设备与套件"
           className="aspect-square w-12 rounded-full hover:!bg-slate-500"
           onClick={() => setOpen(true)}
         >
@@ -72,6 +74,8 @@ export const ManageSuitesTool = ({setCustomDevicesState}: ManageSuitesToolProps)
         </Button>
         <Button
           data-testid="upload-btn"
+          title="导出设备与套件"
+          aria-label="导出设备与套件"
           className="aspect-square w-12 rounded-full hover:!bg-slate-500"
           onClick={onFileDownload}
         >
@@ -79,6 +83,8 @@ export const ManageSuitesTool = ({setCustomDevicesState}: ManageSuitesToolProps)
         </Button>
         <Button
           data-testid="reset-btn"
+          title="重置设备与套件"
+          aria-label="重置设备与套件"
           className="aspect-square w-12 rounded-full hover:!bg-slate-500"
           onClick={() => setResetConfirmation(true)}
         >
@@ -89,9 +95,9 @@ export const ManageSuitesTool = ({setCustomDevicesState}: ManageSuitesToolProps)
         onConfirm={onReset}
         onClose={() => setResetConfirmation(false)}
         open={resetConfirmation}
-        confirmText="Do you want to reset all settings?"
+        confirmText="确定要重置全部设置吗？"
       />
-      <Modal isOpen={open} onClose={() => setOpen(false)} title="Import your devices">
+      <Modal isOpen={open} onClose={() => setOpen(false)} title="导入设备">
         <>
           <FileUploader
             acceptedFileTypes="application/json"
@@ -100,9 +106,7 @@ export const ManageSuitesTool = ({setCustomDevicesState}: ManageSuitesToolProps)
           />
           <div className="text-align align-items-center flex flex-row flex-nowrap text-orange-500">
             <Icon icon="mdi:alert" />
-            <p className="pl-2">
-              Duplicated imports will replace existing suites or custom devices.
-            </p>
+            <p className="pl-2">重复的导入项将替换已有套件或自定义设备。</p>
           </div>
           {error && <ManageSuitesToolError onClose={onErrorClose} />}
         </>

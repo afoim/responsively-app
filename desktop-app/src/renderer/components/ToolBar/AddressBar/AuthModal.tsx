@@ -53,10 +53,10 @@ const AuthModal = ({isOpen, onClose, authInfo}: Props) => {
 
         <div className="flex flex-row justify-end gap-2">
           <Button className="px-2" onClick={() => onSubmit(false)}>
-            Cancel
+            取消
           </Button>
           <Button className="px-2" onClick={() => onSubmit(true)} isActive>
-            Proceed
+            继续
           </Button>
         </div>
       </div>

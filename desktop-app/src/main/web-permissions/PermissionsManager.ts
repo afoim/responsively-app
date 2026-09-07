@@ -184,7 +184,7 @@ class PermissionsManager {
         icon: 'mdi:content-paste',
       },
       {type: 'fullscreen', displayName: '全屏', icon: 'mdi:fullscreen'},
-      {type: 'midi', displayName: 'MIDI Devices', icon: 'mdi:piano'},
+      {type: 'midi', displayName: 'MIDI 设备', icon: 'mdi:piano'},
       {
         type: 'pointerLock',
         displayName: '指针锁定',

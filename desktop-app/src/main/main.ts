@@ -41,6 +41,9 @@ import {isOpenableUrl} from './url-validation';
 import {isRegisteredWebview, wireWebviewSecurity} from './webview-registry';
 import {getTitleBarOptions} from './titlebar';
 
+// This fork ships a Simplified Chinese interface, including Chromium dialogs.
+app.commandLine.appendSwitch('lang', 'zh-CN');
+
 initLogging();
 initCrashHandlers();
 

@@ -16,20 +16,20 @@ export const openSponsorPage = (utmTerm: string) => {
 const WHATS_NEW: Array<{icon: string; title: string; body: string; when: string}> = [
   {
     icon: 'lucide:plug-zap',
-    title: 'MCP integration',
-    body: 'Add the local MCP server to Claude, Codex, Cursor or VS Code in one click.',
+    title: 'MCP 集成',
+    body: '一键将本地 MCP 服务添加到 Claude、Codex、Cursor 或 VS Code。',
     when: '2.0',
   },
   {
     icon: 'lucide:presentation',
-    title: 'Canvas mode',
-    body: 'Free-arrange devices, add frames, hit Present for clean recordings.',
+    title: '画布模式',
+    body: '自由排列设备、添加边框，使用演示模式进行简洁录屏。',
     when: '2.0',
   },
   {
     icon: 'lucide:smartphone',
-    title: 'Custom devices',
-    body: 'Create devices with exact size, DPR and UA from the Device Manager.',
+    title: '自定义设备',
+    body: '在设备管理中自定义尺寸、像素比和用户代理。',
     when: '2.0',
   },
 ];
@@ -94,14 +94,14 @@ const Notifications = () => {
       ))}
       <div className="mt-[2px] flex items-center gap-2 rounded-lg bg-heart-soft px-[10px] py-2">
         <Icon icon="lucide:heart" fontSize={13} className="flex-shrink-0 text-heart" />
-        <span className="text-[11.5px] text-fg">Enjoying Responsively?</span>
+        <span className="text-[11.5px] text-fg">喜欢 Responsively？</span>
         <span className="flex-1" />
         <button
           type="button"
           onClick={() => openSponsorPage('notifications-panel')}
           className="h-6 rounded-full border border-heart px-[10px] text-[11px] font-bold text-heart transition-colors hover:bg-heart-soft focus:outline-none"
         >
-          <span className="pointer-events-none contents">Sponsor</span>
+          <span className="pointer-events-none contents">赞助</span>
         </button>
       </div>
     </div>

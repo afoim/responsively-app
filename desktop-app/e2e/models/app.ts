@@ -43,19 +43,19 @@ export class ResponsivelyApp {
 
   /** Menu item inside a device's "More device tools" popover (open it first). */
   get eventMirroringButtons(): Locator {
-    return this.page.locator('button[title="Event mirroring"]');
+    return this.page.locator('button[title="事件同步"]');
   }
 
   get moreDeviceToolsButtons(): Locator {
-    return this.page.locator('button[title="More device tools"]');
+    return this.page.locator('button[title="更多设备工具"]');
   }
 
   get perDeviceRefreshButtons(): Locator {
-    return this.page.locator('button[title="Refresh this device"]');
+    return this.page.locator('button[title="刷新此设备"]');
   }
 
   get scrollToTopButtons(): Locator {
-    return this.page.locator('button[title="Scroll to top"]');
+    return this.page.locator('button[title="滚动到顶部"]');
   }
 
   get modifier(): 'Meta' | 'Control' {
@@ -89,7 +89,7 @@ export class ResponsivelyApp {
 
   async openSettings() {
     await this.openMenuFlyout();
-    await this.page.getByText('Settings').click();
+    await this.page.getByText('设置').click();
     await this.page.waitForTimeout(500);
   }
 
@@ -99,7 +99,7 @@ export class ResponsivelyApp {
   }
 
   async openDeviceManager() {
-    await this.page.locator('button[title="Device Manager"]').click();
+    await this.page.locator('button[title="设备管理"]').click();
     await this.deviceManagerSheet.waitFor({state: 'visible', timeout: 10_000});
   }
 
@@ -110,15 +110,15 @@ export class ResponsivelyApp {
   }
 
   async closeDeviceManager() {
-    await this.deviceManagerSheet.locator('button[title="Close"]').click();
+    await this.deviceManagerSheet.locator('button[title="关闭"]').click();
     await this.deviceManagerSheet.waitFor({state: 'hidden', timeout: 10_000});
   }
 
   async openAboutDialog() {
     await this.electronApp.evaluate(({Menu}) => {
       const appMenu = Menu.getApplicationMenu();
-      const helpMenu = appMenu?.items.find((i: any) => i.label === 'Help');
-      const aboutItem = helpMenu?.submenu?.items.find((i: any) => i.label === 'About');
+      const helpMenu = appMenu?.items.find((i: any) => i.label === '帮助');
+      const aboutItem = helpMenu?.submenu?.items.find((i: any) => i.label === '关于');
       aboutItem?.click();
     });
     await this.page.waitForTimeout(1000);
@@ -126,7 +126,7 @@ export class ResponsivelyApp {
 
   /** Opens the suite editor popover (the dashed + button beside the chips). */
   async openSuiteSelector() {
-    await this.page.locator('button[title="Edit suite"]').click();
+    await this.page.locator('button[title="编辑套件"]').click();
     await this.page.waitForTimeout(300);
   }
 

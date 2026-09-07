@@ -20,9 +20,9 @@ test.describe('MCP panel', () => {
   test('shows the server status and endpoint', async ({app, mcpPort}) => {
     await app.dismissModals();
 
-    await app.page.locator('button[title="MCP server — connect AI tools"]').click();
+    await app.page.locator('button[title="MCP 服务：连接 AI 工具"]').click();
     await expect(app.page.getByTestId('mcp-panel')).toBeVisible();
-    await expect(app.page.getByTestId('mcp-status')).toContainText('running');
+    await expect(app.page.getByTestId('mcp-status')).toContainText('运行中');
     await expect(app.page.getByTestId('mcp-panel')).toContainText(`127.0.0.1:${mcpPort}`);
 
     await app.page.keyboard.press('Escape');
@@ -32,13 +32,13 @@ test.describe('MCP panel', () => {
     await app.dismissModals();
     expect(await endpointReachable(mcpPort)).toBe(true);
 
-    await app.page.locator('button[title="MCP server — connect AI tools"]').click();
-    const toggle = app.page.locator('button[title="Start / stop MCP server"]');
+    await app.page.locator('button[title="MCP 服务：连接 AI 工具"]').click();
+    const toggle = app.page.locator('button[title="启动 / 停止 MCP 服务"]');
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
 
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-    await expect(app.page.getByTestId('mcp-status')).toContainText('off');
+    await expect(app.page.getByTestId('mcp-status')).toContainText('已关闭');
     await expect.poll(() => endpointReachable(mcpPort), {timeout: 10_000}).toBe(false);
 
     // Turn it back on — later spec files talk to this server.

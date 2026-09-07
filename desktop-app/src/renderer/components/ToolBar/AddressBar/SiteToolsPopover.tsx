@@ -5,12 +5,12 @@ import Toggle from 'renderer/components/Toggle';
 
 const hostLabel = (address: string): string => {
   if (address.startsWith('file://')) {
-    return 'LOCAL FILE';
+    return '本地文件';
   }
   try {
     return new URL(address).host.toUpperCase();
   } catch {
-    return 'THIS SITE';
+    return '当前站点';
   }
 };
 
@@ -39,7 +39,7 @@ const SiteToolsPopover = ({address, actions, onShowPermissions}: Props) => {
   );
   return (
     <Popover
-      triggerTitle="Site tools"
+      triggerTitle="站点工具"
       triggerClassName="flex h-[26px] items-center justify-center gap-[2px] rounded-full px-2 text-[15px] text-muted hover:bg-hover hover:text-fg"
       anchor="bottom start"
       className="w-[264px] p-[6px]"
@@ -53,7 +53,7 @@ const SiteToolsPopover = ({address, actions, onShowPermissions}: Props) => {
       {({close}) => (
         <>
           <div className="px-[10px] pb-1 pt-2 text-[11px] font-bold tracking-[0.08em] text-muted">
-            SITE DATA — {hostLabel(address)}
+            站点数据 — {hostLabel(address)}
           </div>
           {actions.map((action) => (
             <button
@@ -85,10 +85,10 @@ const SiteToolsPopover = ({address, actions, onShowPermissions}: Props) => {
             data-testid="ssl-toggle-row"
             className="flex items-center justify-between px-[10px] py-2"
           >
-            <span className="text-[13.5px] text-fg">Allow insecure SSL</span>
+            <span className="text-[13.5px] text-fg">允许不安全的 SSL 连接</span>
             <Toggle
               isOn={sslAllowed}
-              aria-label="Allow insecure SSL"
+              aria-label="允许不安全的 SSL 连接"
               onChange={(e) => {
                 setSslAllowed(e.target.checked);
                 window.electron.store.set(
@@ -109,7 +109,7 @@ const SiteToolsPopover = ({address, actions, onShowPermissions}: Props) => {
           >
             <span className="pointer-events-none contents">
               <Icon icon="mdi:shield-key-outline" className="text-muted" fontSize={16} />
-              Site permissions
+              站点权限
             </span>
           </button>
         </>

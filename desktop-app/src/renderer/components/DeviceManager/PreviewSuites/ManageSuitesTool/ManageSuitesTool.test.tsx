@@ -82,12 +82,12 @@ describe('ManageSuitesTool', () => {
 
   it('opens the modal when download button is clicked', () => {
     fireEvent.click(screen.getByTestId('download-btn'));
-    expect(screen.getByText('Import your devices')).toBeInTheDocument();
+    expect(screen.getByText('导入设备')).toBeInTheDocument();
   });
 
   it('opens the reset confirmation dialog when reset button is clicked', () => {
     fireEvent.click(screen.getByTestId('reset-btn'));
-    expect(screen.getByText('Do you want to reset all settings?')).toBeInTheDocument();
+    expect(screen.getByText('确定要重置全部设置吗？')).toBeInTheDocument();
   });
 
   it('closes the reset confirmation dialog when the close button is clicked', async () => {
@@ -95,13 +95,13 @@ describe('ManageSuitesTool', () => {
     fireEvent.click(screen.getByText('取消'));
     // Headless UI v2 unmounts dialogs after the leave transition settles.
     await waitFor(() =>
-      expect(screen.queryByText('Do you want to reset all settings?')).not.toBeInTheDocument()
+      expect(screen.queryByText('确定要重置全部设置吗？')).not.toBeInTheDocument()
     );
   });
 
   it('dispatches deleteAllSuites and clears custom devices on reset confirmation', async () => {
     fireEvent.click(screen.getByTestId('reset-btn'));
-    fireEvent.click(screen.getByText('Confirm'));
+    fireEvent.click(screen.getByText('确认'));
 
     await waitFor(() => {
       expect(deleteAllSuites).toHaveBeenCalled();
@@ -138,13 +138,11 @@ describe('ManageSuitesTool', () => {
 
     await waitFor(() => {
       expect(transformFile).toHaveBeenCalledWith(expect.any(File));
-      expect(screen.getByText('There has been an error, please try again.')).toBeInTheDocument();
+      expect(screen.getByText('发生错误，请重试。')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('关闭'));
 
-    expect(
-      screen.queryByText('There has been an error, please try again.')
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('发生错误，请重试。')).not.toBeInTheDocument();
   });
 });

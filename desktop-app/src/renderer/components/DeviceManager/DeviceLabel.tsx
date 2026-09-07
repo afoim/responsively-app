@@ -7,7 +7,7 @@ import {Device, getDevicesMap} from 'common/deviceList';
 import {selectActiveSuite, setSuiteDevices} from 'renderer/store/features/device-manager';
 import Button from '../Button';
 
-export const DND_TYPE = '设备';
+export const DND_TYPE = 'Device';
 
 interface Props {
   device: Device;
@@ -84,10 +84,10 @@ const DeviceLabel = ({
         disabled={disableSelectionControls}
         title={
           disableSelectionControls
-            ? 'Cannot make the suite empty add another device to remove this one'
+            ? '套件不能为空，请添加其他设备后再移除此设备'
             : isChecked
-              ? 'Click to remove the device'
-              : 'Click to add the device'
+              ? '点击移除此设备'
+              : '点击添加此设备'
         }
         checked={isChecked}
         onChange={(e) => {

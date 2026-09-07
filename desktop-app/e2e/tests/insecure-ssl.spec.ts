@@ -126,7 +126,7 @@ test.describe('Allow Insecure SSL', () => {
     });
 
     // The toggle lives in the address bar's site-tools popover now.
-    await app.page.locator('button[title="Site tools"]').click();
+    await app.page.locator('button[title="站点工具"]').click();
     const toggleLabel = app.page.locator('[data-testid="ssl-toggle-row"] label');
     await toggleLabel.click();
     await app.page.waitForTimeout(500);

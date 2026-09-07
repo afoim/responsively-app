@@ -70,7 +70,7 @@ describe('DesignOverlay', () => {
       />
     );
 
-    expect(screen.queryByAltText('Design overlay')).not.toBeInTheDocument();
+    expect(screen.queryByAltText('设计稿叠加')).not.toBeInTheDocument();
   });
 
   it('does not render when no image is set', () => {
@@ -98,7 +98,7 @@ describe('DesignOverlay', () => {
       overlayState
     );
 
-    expect(screen.queryByAltText('Design overlay')).not.toBeInTheDocument();
+    expect(screen.queryByAltText('设计稿叠加')).not.toBeInTheDocument();
   });
 
   it('renders image when overlay is enabled', () => {
@@ -126,7 +126,7 @@ describe('DesignOverlay', () => {
       overlayState
     );
 
-    const image = screen.getByAltText('Design overlay');
+    const image = screen.getByAltText('设计稿叠加');
     expect(image).toBeInTheDocument();
     expect(image).toHaveStyle({opacity: '0.5'});
   });
@@ -156,7 +156,7 @@ describe('DesignOverlay', () => {
       overlayState
     );
 
-    const image = screen.getByAltText('Design overlay');
+    const image = screen.getByAltText('设计稿叠加');
     expect(image).toHaveStyle({opacity: '0.75'});
   });
 
@@ -185,7 +185,7 @@ describe('DesignOverlay', () => {
       overlayState
     );
 
-    const image = screen.getByAltText('Design overlay');
+    const image = screen.getByAltText('设计稿叠加');
     expect(image).toHaveStyle({opacity: '1'});
   });
 
@@ -299,7 +299,7 @@ describe('DesignOverlay', () => {
       overlayState
     );
 
-    const image = screen.getByAltText('Design overlay');
+    const image = screen.getByAltText('设计稿叠加');
     expect(image).toHaveStyle({clipPath: 'none'});
   });
 
@@ -374,7 +374,7 @@ describe('DesignOverlay', () => {
       overlayState
     );
 
-    const image = screen.getByAltText('Design overlay');
+    const image = screen.getByAltText('设计稿叠加');
     // scrollX * zoomFactor = 100 * 0.5 = 50
     // scrollY * zoomFactor = 200 * 0.5 = 100
     const {transform} = image.style;

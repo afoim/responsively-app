@@ -42,7 +42,7 @@ export default class MenuBuilder {
 
       Menu.buildFromTemplate([
         {
-          label: 'Inspect element',
+          label: '检查元素',
           click: () => {
             this.mainWindow.webContents.inspectElement(x, y);
           },
@@ -56,21 +56,21 @@ export default class MenuBuilder {
       label: 'ResponsivelyApp',
       submenu: [
         {
-          label: 'About ResponsivelyApp',
+          label: '关于 ResponsivelyApp',
           selector: 'orderFrontStandardAboutPanel:',
         },
         {type: 'separator'},
         {
-          label: 'Hide ResponsivelyApp',
+          label: '隐藏 ResponsivelyApp',
           accelerator: 'Command+H',
           selector: 'hide:',
         },
         {
-          label: 'Hide Others',
+          label: '隐藏其他窗口',
           accelerator: 'Command+Shift+H',
           selector: 'hideOtherApplications:',
         },
-        {label: 'Show All', selector: 'unhideAllApplications:'},
+        {label: '显示全部', selector: 'unhideAllApplications:'},
         {type: 'separator'},
         {
           label: '退出',
@@ -108,7 +108,7 @@ export default class MenuBuilder {
         },
         {label: '关闭', accelerator: 'Command+W', selector: 'performClose:'},
         {type: 'separator'},
-        {label: 'Bring All to Front', selector: 'arrangeInFront:'},
+        {label: '全部置于前台', selector: 'arrangeInFront:'},
       ],
     };
 
@@ -124,14 +124,14 @@ export default class MenuBuilder {
   buildDefaultTemplate(): MenuItemConstructorOptions[] {
     return [
       {
-        label: '&File',
+        label: '文件(&F)',
         submenu: [
           {
-            label: '&Open',
+            label: '打开(&O)',
             accelerator: 'Ctrl+O',
           },
           {
-            label: '&Close',
+            label: '关闭(&C)',
             accelerator: 'Ctrl+W',
             click: () => {
               this.mainWindow.close();

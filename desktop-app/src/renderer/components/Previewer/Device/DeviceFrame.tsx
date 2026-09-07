@@ -1,3 +1,4 @@
+import {simulationLabels} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import cx from 'classnames';
 import {Device as IDevice} from 'common/deviceList';
@@ -110,7 +111,7 @@ const DeviceFrame = ({
             data-testid="sim-badge"
             className="rounded-full bg-accent-soft px-2 py-[2px] text-[10.5px] capitalize text-accent"
           >
-            {simulationName}
+            {simulationName ? simulationLabels[simulationName] : ''}
           </span>
         ) : null}
         <span className="flex-1" />
@@ -247,7 +248,7 @@ const DeviceFrame = ({
                 style={{height: scaledHeight, width: scaledWidth}}
               >
                 <div className="text-center text-sm text-white">
-                  <div className="text-base font-bold">ERROR: {navigation.error.code}</div>
+                  <div className="text-base font-bold">错误： {navigation.error.code}</div>
                   <div className="text-sm">{navigation.error.description}</div>
                 </div>
               </div>

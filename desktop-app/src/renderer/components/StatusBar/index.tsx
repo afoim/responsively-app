@@ -1,3 +1,4 @@
+import {suiteDisplayName} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import {PREVIEW_LAYOUTS, PreviewLayout} from 'common/constants';
 import {getDevicesMap} from 'common/deviceList';
@@ -94,7 +95,7 @@ const StatusBar = () => {
           <button
             key={value}
             type="button"
-            title={`${label} layout`}
+            title={`${label}布局`}
             data-testid={`layout-${value}`}
             aria-pressed={layout === value}
             onClick={() => dispatch(setLayout(value))}
@@ -111,7 +112,7 @@ const StatusBar = () => {
       </div>
 
       <span className="truncate text-xs text-muted" data-testid="status-text">
-        {deviceCount} {deviceCount === 1 ? 'device' : 'devices'} · {activeSuite.name}
+        {deviceCount} 台设备 · {suiteDisplayName(activeSuite)}
       </span>
 
       <span className="flex-1" />
@@ -127,7 +128,7 @@ const StatusBar = () => {
           >
             <span className="pointer-events-none contents">
               <Icon icon="lucide:play" fontSize={12} />
-              Present
+              演示
             </span>
           </button>
           <div className="h-5 w-px bg-line" />

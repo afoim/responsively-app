@@ -143,7 +143,7 @@ const DeviceForm = ({
           id={`${id}-name`}
           aria-label="设备名称"
           className={cx(fieldClass, {'border-red-500': nameError != null})}
-          placeholder="例如：Kiosk 1080p"
+          placeholder="例如：1080p 自助终端"
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -158,7 +158,7 @@ const DeviceForm = ({
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel>尺寸（CSS PX）</SectionLabel>
+        <SectionLabel>尺寸（CSS 像素）</SectionLabel>
         <div className="flex items-center gap-2">
           <input
             aria-label="设备宽度"
@@ -183,7 +183,7 @@ const DeviceForm = ({
             <button
               key={value}
               type="button"
-              aria-label={`Device DPR ${value}x`}
+              aria-label={`设备像素比 ${value} 倍`}
               aria-pressed={dpr === value}
               onClick={() => setDpr(value)}
               className={cx(
@@ -206,7 +206,7 @@ const DeviceForm = ({
             <button
               key={option.id}
               type="button"
-              aria-label={`Device type ${option.label}`}
+              aria-label={`设备类型：${option.label}`}
               aria-pressed={type === option.id}
               onClick={() => setType(option.id)}
               className={cx(
@@ -235,7 +235,7 @@ const DeviceForm = ({
             toggle: () => setIsTouchCapable(!isTouchCapable),
           },
           {
-            label: '移动端 User-Agent',
+            label: '移动端用户代理',
             ariaLabel: '移动设备（可旋转）',
             checked: isMobileCapable,
             toggle: () => setIsMobileCapable(!isMobileCapable),
@@ -269,19 +269,19 @@ const DeviceForm = ({
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel htmlFor={`${id}-ua`}>USER AGENT (OPTIONAL)</SectionLabel>
+        <SectionLabel htmlFor={`${id}-ua`}>用户代理（可选）</SectionLabel>
         <input
           id={`${id}-ua`}
-          aria-label="User Agent String"
+          aria-label="用户代理字符串"
           className={cx(fieldClass, 'text-xs')}
-          placeholder="Default — Chrome UA"
+          placeholder="默认使用 Chrome 用户代理"
           value={userAgent}
           onChange={(e) => setUserAgent(e.target.value)}
         />
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel>PREVIEW</SectionLabel>
+        <SectionLabel>预览</SectionLabel>
         <div className="flex h-[140px] items-center justify-center rounded-lg border border-line-soft bg-input">
           <div
             data-testid="device-form-preview"
@@ -297,17 +297,17 @@ const DeviceForm = ({
                 : 'border-[1.5px] border-dashed border-line'
             )}
           >
-            {sizeValid ? `${widthNum} × ${heightNum}` : 'enter size'}
+            {sizeValid ? `${widthNum} × ${heightNum}` : '请输入尺寸'}
           </div>
         </div>
       </div>
 
       {isNew ? (
         <div className="flex items-center justify-between">
-          <span className="text-[13px]">Add to “{activeSuiteName}”</span>
+          <span className="text-[13px]">添加到“{activeSuiteName}”</span>
           <button
             type="button"
-            aria-label="Add to active suite"
+            aria-label="添加到当前套件"
             aria-pressed={addToSuite}
             onClick={() => setAddToSuite(!addToSuite)}
             className="relative inline-flex items-center focus:outline-none"
@@ -339,7 +339,7 @@ const DeviceForm = ({
         >
           <span className="pointer-events-none contents">
             <Icon icon="carbon:trash-can" fontSize={14} />
-            Delete
+            删除
           </span>
         </button>
       ) : null}
@@ -350,7 +350,7 @@ const DeviceForm = ({
           onClick={onClose}
           className="h-[34px] flex-1 rounded-lg border border-line text-[12.5px] text-fg transition-colors hover:bg-hover focus:outline-none"
         >
-          Cancel
+          取消
         </button>
         <button
           type="button"
@@ -361,7 +361,7 @@ const DeviceForm = ({
             canSave ? 'bg-accent hover:brightness-110' : 'cursor-not-allowed bg-line'
           )}
         >
-          {isNew ? 'Add' : '保存'}
+          {isNew ? '添加' : '保存'}
         </button>
       </div>
     </div>

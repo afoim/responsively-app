@@ -70,7 +70,7 @@ test.describe('Settings', () => {
     // Validation renders inline instead of a blocking alert, and the modal
     // stays open.
     await app.page.locator('[data-testid="settings-save-button"]').click();
-    await expect(app.page.getByRole('alert')).toContainText('valid location');
+    await expect(app.page.getByRole('alert')).toContainText('有效的保存位置');
     await expect(screenshotInput).toBeVisible();
 
     // Restore original value and save

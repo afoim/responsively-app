@@ -6,7 +6,7 @@ const domainOf = (address: string): string | null => {
   try {
     const url = new URL(address);
     if (url.protocol === 'file:') {
-      return 'local file';
+      return '本地文件';
     }
     return url.host === '' ? null : url.host;
   } catch {

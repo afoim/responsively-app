@@ -26,7 +26,13 @@ const Menu = () => {
 
   return (
     <div className="relative mr-2 flex items-center" ref={ref}>
-      <Button onClick={handleFlyout} isActive={isMenuFlyoutOpen} data-testid="menu-button">
+      <Button
+        onClick={handleFlyout}
+        isActive={isMenuFlyoutOpen}
+        data-testid="menu-button"
+        title="菜单"
+        aria-label="菜单"
+      >
         <Icon icon="carbon:overflow-menu-vertical" />
       </Button>
       <div style={{visibility: isMenuFlyoutOpen ? 'visible' : 'hidden'}}>

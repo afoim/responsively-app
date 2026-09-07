@@ -58,10 +58,10 @@ export const FileUploader = ({
             onClick={handleButtonClick}
             className="rounded border border-slate-400 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
           >
-            Choose File
+            选择文件
           </button>
           <span className="text-sm text-slate-600 dark:text-slate-400">
-            {fileName || 'No file chosen'}
+            {fileName || '未选择文件'}
           </span>
         </div>
         <input
@@ -70,7 +70,7 @@ export const FileUploader = ({
           onChange={handleUpload}
           multiple={multiple || false}
           accept={acceptedFileTypes || '*/*'}
-          aria-label="Upload file"
+          aria-label="上传文件"
           data-testid="fileUploader"
           className="hidden"
         />
@@ -86,7 +86,7 @@ export const FileUploader = ({
         onChange={handleUpload}
         multiple={multiple || false}
         accept={acceptedFileTypes || '*/*'}
-        aria-label="Upload file"
+        aria-label="上传文件"
         data-testid="fileUploader"
       />
     </div>

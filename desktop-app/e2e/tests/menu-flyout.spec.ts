@@ -6,13 +6,13 @@ test.describe('Menu Flyout', () => {
 
     await app.openMenuFlyout();
 
-    await expect(app.page.getByText('Dock devtools')).toBeVisible();
-    await expect(app.page.getByText('Devices & suites')).toBeVisible();
+    await expect(app.page.getByText('停靠开发者工具')).toBeVisible();
+    await expect(app.page.getByText('设备与套件')).toBeVisible();
   });
 
   test('clicking outside the flyout closes it', async ({app}) => {
     // Menu should still be open from previous test
-    const dockLabel = app.page.getByText('Dock devtools');
+    const dockLabel = app.page.getByText('停靠开发者工具');
     if (!(await dockLabel.isVisible())) {
       await app.openMenuFlyout();
     }
@@ -27,8 +27,8 @@ test.describe('Menu Flyout', () => {
 
     await app.openMenuFlyout();
 
-    await expect(app.page.getByText('Dock devtools')).toBeVisible();
-    await expect(app.page.getByRole('checkbox', {name: 'Dock devtools'})).toBeAttached();
+    await expect(app.page.getByText('停靠开发者工具')).toBeVisible();
+    await expect(app.page.getByRole('checkbox', {name: '停靠开发者工具'})).toBeAttached();
 
     await app.closeMenuFlyout();
   });
@@ -40,7 +40,7 @@ test.describe('Menu Flyout', () => {
     });
 
     await app.openMenuFlyout();
-    await app.page.getByText('Clear browsing history').click();
+    await app.page.getByText('清除浏览历史').click();
 
     const history = await app.page.evaluate(() => (window as any).electron.store.get('history'));
     expect(history).toEqual([]);
@@ -51,7 +51,7 @@ test.describe('Menu Flyout', () => {
 
     await app.openMenuFlyout();
 
-    await expect(app.page.getByText('Bookmarks')).toBeVisible();
+    await expect(app.page.getByText('书签')).toBeVisible();
 
     await app.closeMenuFlyout();
   });
@@ -61,8 +61,8 @@ test.describe('Menu Flyout', () => {
 
     await app.openMenuFlyout();
 
-    await expect(app.page.getByText('Settings')).toBeVisible();
-    await expect(app.page.getByText('Keyboard shortcuts')).toBeVisible();
+    await expect(app.page.getByText('设置')).toBeVisible();
+    await expect(app.page.getByText('键盘快捷键')).toBeVisible();
 
     await app.closeMenuFlyout();
   });

@@ -1,7 +1,7 @@
 {
   "name": "Responsively-App",
   "productName": "ResponsivelyApp",
-  "version": "2.0.0-beta.0.af.3",
+  "version": "2.0.0-beta.0.af.4",
   "description": "A developer-friendly browser for developing responsive web apps",
   "keywords": [
     "developer-tools",
@@ -198,7 +198,7 @@
       "target": [
         "nsis"
       ],
-      "artifactName": "ResponsivelyApp-${version}-browser-fix-Setup.${ext}"
+      "artifactName": "ResponsivelyApp-${version}-zh-CN-Setup.${ext}"
     },
     "linux": {
       "target": [
@@ -222,6 +222,13 @@
       "provider": "github",
       "owner": "afoim",
       "repo": "responsively-app"
+    },
+    "nsis": {
+      "installerLanguages": [
+        "zh_CN"
+      ],
+      "language": "2052",
+      "displayLanguageSelector": false
     }
   },
   "collective": {

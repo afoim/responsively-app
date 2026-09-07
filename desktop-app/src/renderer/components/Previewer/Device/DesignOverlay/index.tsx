@@ -216,7 +216,7 @@ const DesignOverlay = ({
       onMouseUp={isDragging ? handleOverlayMouseUp : undefined}
       onMouseLeave={isDragging ? handleOverlayMouseUp : undefined}
       role={isDragging ? 'slider' : undefined}
-      aria-label={isDragging ? 'Design overlay divider' : undefined}
+      aria-label={isDragging ? '设计稿对比分隔线' : undefined}
     >
       {isSideMode && (
         <GuideGrid
@@ -261,7 +261,7 @@ const DesignOverlay = ({
           ref={dividerRef}
           onMouseDown={handleMouseDown}
           role="slider"
-          aria-label="Design overlay divider"
+          aria-label="设计稿对比分隔线"
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={dividerPosition}

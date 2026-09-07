@@ -38,7 +38,7 @@ const firstTextJson = (content: ContentBlock[]) => {
   return JSON.parse(block.text);
 };
 
-test.describe('MCP server', () => {
+test.describe('MCP 服务', () => {
   let client: Client;
 
   test.beforeAll(async ({mainWindow, mcpPort, testServerUrl}) => {
@@ -53,7 +53,7 @@ test.describe('MCP server', () => {
     await callTool(client, 'navigate', {url: `${testServerUrl}/test-page.html`});
     // Defense in depth: a predecessor file may have left inspect mode on,
     // whose CDP overlay consumes the trusted clicks the click tool sends.
-    const inspectBtn = mainWindow.locator('button[title="Inspect Elements"]');
+    const inspectBtn = mainWindow.locator('button[title="检查元素"]');
     if ((await inspectBtn.getAttribute('aria-pressed')) === 'true') {
       await inspectBtn.click();
       await mainWindow.waitForTimeout(200);

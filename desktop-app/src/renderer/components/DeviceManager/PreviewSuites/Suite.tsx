@@ -1,3 +1,4 @@
+import {suiteDisplayName} from 'common/ui-text';
 import {Icon} from '@iconify/react';
 import cx from 'classnames';
 import {Device, getDevicesMap} from 'common/deviceList';
@@ -44,7 +45,7 @@ export const Suite = ({suite: {id, name, devices}, isActive}: Props) => {
       ) : null}
       <div className="flex flex-col gap-8 p-4 pb-8">
         <div className="flex justify-between">
-          <p className="text-lg">{name}</p>
+          <p className="text-lg">{suiteDisplayName({id, name})}</p>
           {id !== 'default' ? (
             <Button onClick={() => dispatch(deleteSuite(id))}>
               <Icon icon="ic:twotone-delete" />

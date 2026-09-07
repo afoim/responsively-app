@@ -209,7 +209,7 @@ export const setToolEntry = (
 ): AgentToolState | {error: string} => {
   const tool = getAgentTools(env).find((t) => t.id === toolId);
   if (tool === undefined || tool.configPath === null) {
-    return {error: `Unknown tool: ${toolId}`};
+    return {error: `未知工具：${toolId}`};
   }
 
   if (tool.format === 'toml') {
@@ -223,7 +223,7 @@ export const setToolEntry = (
   } else {
     const config = readJson(tool.configPath);
     if (config === null) {
-      return {error: `${tool.name}'s config file isn't valid JSON — left untouched.`};
+      return {error: `${tool.name} 的配置文件不是有效的 JSON，原文件未修改。`};
     }
     const servers =
       typeof config[tool.serversKey] === 'object' && config[tool.serversKey] !== null

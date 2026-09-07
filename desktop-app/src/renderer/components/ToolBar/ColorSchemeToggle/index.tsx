@@ -19,10 +19,10 @@ const ColorSchemeToggle = () => {
         setIsDarkColorScheme(!isDarkColorScheme);
       }}
       isActive={isDarkColorScheme}
-      title="Device theme color toggle"
+      title="切换设备页面主题"
     >
       <Icon icon={isDarkColorScheme ? 'carbon:moon' : 'carbon:sun'} fontSize={15} />
-      Scheme
+      页面主题
     </ToolbarAction>
   );
 };

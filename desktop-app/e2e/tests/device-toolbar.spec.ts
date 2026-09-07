@@ -13,7 +13,7 @@ test.describe('Device Toolbar', () => {
     await app.dismissModals();
 
     await app.revealDevicePill();
-    const refreshViewBtn = app.page.locator('button[title="Refresh this device"]').first();
+    const refreshViewBtn = app.page.locator('button[title="刷新此设备"]').first();
     await expect(refreshViewBtn).toBeVisible();
 
     // Click refresh on individual device
@@ -28,7 +28,7 @@ test.describe('Device Toolbar', () => {
     await app.dismissModals();
 
     await app.revealDevicePill();
-    const scrollToTopBtn = app.page.locator('button[title="Scroll to top"]').first();
+    const scrollToTopBtn = app.page.locator('button[title="滚动到顶部"]').first();
     await expect(scrollToTopBtn).toBeVisible();
 
     // Click scroll to top
@@ -41,7 +41,7 @@ test.describe('Device Toolbar', () => {
     await app.page.locator('[data-testid="layout-FLEX"]').click();
 
     await app.revealDevicePill();
-    const focusBtn = app.page.locator('button[title="Focus this device"]').first();
+    const focusBtn = app.page.locator('button[title="聚焦此设备"]').first();
     await expect(focusBtn).toBeVisible();
     await focusBtn.click();
 
@@ -56,7 +56,7 @@ test.describe('Device Toolbar', () => {
 
     // Still in the focus layout from the previous test.
     await app.revealDevicePill();
-    const focusBtn = app.page.locator('button[title="Focus this device"]').first();
+    const focusBtn = app.page.locator('button[title="聚焦此设备"]').first();
     await expect(focusBtn).toHaveAttribute('aria-pressed', 'true');
     await focusBtn.click();
 
@@ -72,14 +72,14 @@ test.describe('Device Toolbar', () => {
 
     await app.revealDevicePill();
     await app.moreDeviceToolsButtons.first().click();
-    await app.page.locator('button[title="Design overlay"]').click();
+    await app.page.locator('button[title="设计稿叠加"]').click();
 
     const overlay = app.page.locator('[data-testid="grid-overlay"]').first();
     await expect(overlay).toBeVisible();
     await expect(overlay).toHaveCSS('opacity', '0.5');
 
     // The inline picker appears under the menu item; drag the opacity slider.
-    const slider = app.page.getByRole('slider', {name: 'Overlay opacity'});
+    const slider = app.page.getByRole('slider', {name: '叠加透明度'});
     await slider.fill('80');
     await expect(overlay).toHaveCSS('opacity', '0.8');
 
@@ -90,17 +90,17 @@ test.describe('Device Toolbar', () => {
       'base64'
     );
     await app.page
-      .locator('input[aria-label="Design overlay image"]')
+      .locator('input[aria-label="设计稿图片"]')
       .first()
       .setInputFiles({name: 'mock.png', mimeType: 'image/png', buffer: onePxPng});
-    await expect(app.page.getByRole('button', {name: 'Design image'}).first()).toHaveAttribute(
+    await expect(app.page.getByRole('button', {name: '设计图'}).first()).toHaveAttribute(
       'aria-pressed',
       'true'
     );
     await expect(overlay).toBeHidden();
 
     // Toggle back off for the next spec.
-    await app.page.locator('button[title="Design overlay"]').click();
+    await app.page.locator('button[title="设计稿叠加"]').click();
     await app.page.keyboard.press('Escape');
   });
 
@@ -108,7 +108,7 @@ test.describe('Device Toolbar', () => {
     await app.dismissModals();
 
     await app.revealDevicePill();
-    const rulerBtn = app.page.locator('button[title="Show rulers"]').first();
+    const rulerBtn = app.page.locator('button[title="显示标尺"]').first();
     await expect(rulerBtn).toBeVisible();
 
     // Click to toggle rulers

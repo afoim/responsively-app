@@ -32,7 +32,7 @@ const Bookmark = () => {
       >
         <span className="pointer-events-none contents">
           <Icon icon="ic:baseline-star-border" fontSize={15} className="text-muted" />
-          Bookmarks
+          书签
           <Icon
             icon="ic:baseline-arrow-drop-down"
             fontSize={18}

@@ -7,10 +7,10 @@ export const ManageSuitesToolError = ({onClose}: {onClose: () => void}) => {
       className="absolute left-0 top-0 flex h-full w-full flex-col flex-wrap items-center justify-center bg-slate-600 bg-opacity-95"
     >
       <div className="text-center text-sm text-white">
-        <p>There has been an error, please try again.</p>
+        <p>发生错误，请重试。</p>
       </div>
       <Button onClick={onClose} className="p-2">
-        Close
+        关闭
       </Button>
     </div>
   );

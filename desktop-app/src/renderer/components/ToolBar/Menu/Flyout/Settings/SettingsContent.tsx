@@ -44,7 +44,7 @@ export const SettingsContent = ({onClose}: Props) => {
       <div className="my-4 flex flex-col space-y-4 text-sm">
         <div className="flex flex-col space-y-2">
           <label htmlFor={id} className="flex flex-col">
-            Location
+            保存位置
             <input
               data-testid="settings-screenshot_location-input"
               type="text"
@@ -60,19 +60,17 @@ export const SettingsContent = ({onClose}: Props) => {
           </label>
           {locationError && (
             <p role="alert" className="text-sm text-red-500">
-              Please enter a valid location.
+              请输入有效的保存位置。
             </p>
           )}
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            The location where screenshots will be saved.
-          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">截图文件的保存位置。</p>
         </div>
       </div>
 
       <h2>弹出窗口</h2>
       <div className="my-4 flex flex-col space-y-2 text-sm">
         <label htmlFor={`${id}-popup-behavior`} className="flex flex-col">
-          When a page opens a new window
+          当页面打开新窗口时
           <select
             data-testid="settings-popup_behavior-select"
             id={`${id}-popup-behavior`}
@@ -85,7 +83,7 @@ export const SettingsContent = ({onClose}: Props) => {
           </select>
         </label>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Applies to links with target=&quot;_blank&quot; and window.open calls.
+          适用于在新窗口打开的链接和脚本创建的窗口。
         </p>
       </div>
 
@@ -101,7 +99,7 @@ export const SettingsContent = ({onClose}: Props) => {
         isPrimary
         isTextButton
       >
-        Save
+        保存
       </Button>
     </div>
   );

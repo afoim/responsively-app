@@ -33,14 +33,14 @@ test.describe('Status Bar', () => {
   test('status text reports the active suite', async ({app}) => {
     await app.dismissModals();
 
-    await expect(app.page.locator('[data-testid="status-text"]')).toContainText('device');
+    await expect(app.page.locator('[data-testid="status-text"]')).toContainText('设备');
   });
 
   test('notifications open from the status bar bell', async ({app}) => {
     await app.dismissModals();
 
-    await app.page.locator('button[title="Notifications"]').click();
-    await expect(app.page.getByText('Notifications').last()).toBeVisible({timeout: 5_000});
+    await app.page.locator('button[title="通知"]').click();
+    await expect(app.page.getByText('通知').last()).toBeVisible({timeout: 5_000});
 
     await app.page.keyboard.press('Escape');
   });

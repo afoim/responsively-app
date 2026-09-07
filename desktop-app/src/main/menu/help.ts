@@ -24,34 +24,34 @@ export const subMenuHelp = (
   });
 
   return {
-    label: 'Help',
+    label: '帮助',
     submenu: [
       {
-        label: 'Learn More',
+        label: '了解更多',
         click() {
           shell.openExternal('https://responsively.app');
         },
       },
       {
-        label: 'Open Source',
+        label: '查看源码',
         click() {
           shell.openExternal('https://github.com/responsively-org/responsively-app');
         },
       },
       {
-        label: 'Join Discord',
+        label: '加入 Discord 社区',
         click() {
           shell.openExternal('https://responsively.app/join-discord/');
         },
       },
       {
-        label: 'Search Issues',
+        label: '查找问题',
         click() {
           shell.openExternal('https://github.com/responsively-org/responsively-app/issues');
         },
       },
       {
-        label: 'Sponsor Responsively',
+        label: '赞助 Responsively',
         click() {
           shell.openExternal(
             'https://responsively.app/sponsor?utm_source=app&utm_medium=menu&utm_campaign=sponsor'
@@ -62,7 +62,7 @@ export const subMenuHelp = (
         type: 'separator',
       },
       {
-        label: 'About',
+        label: '关于',
         accelerator: 'F1',
         click: () => {
           mainWindow.webContents.send(IPC_MAIN_CHANNELS.OPEN_ABOUT_DIALOG, {

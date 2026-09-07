@@ -29,13 +29,13 @@ test.describe('Announcements', () => {
 
   test('bell panel lists release highlights and the sponsor strip', async ({app}) => {
     await app.dismissModals();
-    await app.page.locator('button[title="Notifications"]').click();
+    await app.page.locator('button[title="通知"]').click();
 
-    await expect(app.page.getByText('MCP integration')).toBeVisible();
-    await expect(app.page.getByText('Canvas mode', {exact: true})).toBeVisible();
-    await expect(app.page.getByText('Custom devices', {exact: true})).toBeVisible();
-    await expect(app.page.getByText('Enjoying Responsively?')).toBeVisible();
-    await expect(app.page.getByRole('button', {name: 'Sponsor'})).toBeVisible();
+    await expect(app.page.getByText('MCP 集成')).toBeVisible();
+    await expect(app.page.getByText('画布模式', {exact: true})).toBeVisible();
+    await expect(app.page.getByText('自定义设备', {exact: true})).toBeVisible();
+    await expect(app.page.getByText('喜欢 Responsively？')).toBeVisible();
+    await expect(app.page.getByRole('button', {name: '赞助'})).toBeVisible();
 
     await app.page.keyboard.press('Escape');
   });
@@ -52,12 +52,12 @@ test.describe('Announcements', () => {
 
     const card = app.page.locator('[data-testid="announcement-card"]');
     await expect(card).toBeVisible({timeout: 15_000});
-    await expect(card).toContainText("What's new in");
-    await expect(card).toContainText('MCP server');
+    await expect(card).toContainText('版本更新');
+    await expect(card).toContainText('MCP 服务');
     // The bell shows unread state alongside the card.
     await expect(app.page.locator('[data-testid="bell-unread-dot"]')).toBeVisible();
 
-    await card.getByRole('button', {name: 'Later'}).click();
+    await card.getByRole('button', {name: '稍后'}).click();
     await expect(card).toBeHidden();
 
     // Dismissal is persisted: the current version is now the seen one.
@@ -83,8 +83,8 @@ test.describe('Announcements', () => {
 
     const card = app.page.locator('[data-testid="announcement-card"]');
     await expect(card).toBeVisible({timeout: 15_000});
-    await expect(card).toContainText('Support Responsively');
-    await expect(card).toContainText('Shown at most once a month');
+    await expect(card).toContainText('支持 Responsively');
+    await expect(card).toContainText('每月最多显示一次');
 
     // Being shown at all records the timestamp for the monthly cadence.
     await expect
@@ -97,7 +97,7 @@ test.describe('Announcements', () => {
       )
       .toBeGreaterThan(0);
 
-    await card.getByRole('button', {name: 'Maybe later'}).click();
+    await card.getByRole('button', {name: '以后再说'}).click();
     await expect(card).toBeHidden();
   });
 });

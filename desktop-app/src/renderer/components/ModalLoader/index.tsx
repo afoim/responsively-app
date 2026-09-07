@@ -9,7 +9,7 @@ interface Props {
 const ModalLoader = ({isOpen, onClose, title}: Props) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}>
-      <div className="flex flex-col items-center justify-center gap-4">Capturing screen...</div>
+      <div className="flex flex-col items-center justify-center gap-4">正在截图…</div>
     </Modal>
   );
 };

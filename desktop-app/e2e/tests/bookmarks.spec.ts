@@ -6,9 +6,7 @@ test.describe('Bookmarks', () => {
     await app.dismissModals();
 
     // The bookmark button should show either filled or outline star
-    const bookmarkBtn = app.page.locator(
-      'button[title="Add bookmark"], button[title="Remove bookmark"]'
-    );
+    const bookmarkBtn = app.page.locator('button[title="添加书签"], button[title="移除书签"]');
     await expect(bookmarkBtn.first()).toBeVisible();
   });
 
@@ -19,7 +17,7 @@ test.describe('Bookmarks', () => {
     await app.navigateTo(`${testServerUrl}/test-page.html`);
 
     // Click the add bookmark button
-    const addBookmarkBtn = app.page.locator('button[title="Add bookmark"]');
+    const addBookmarkBtn = app.page.locator('button[title="添加书签"]');
     const isAddVisible = await addBookmarkBtn.isVisible().catch(() => false);
 
     if (isAddVisible) {
@@ -49,7 +47,7 @@ test.describe('Bookmarks', () => {
 
     // Bookmark the page first
     await app.navigateTo(`${testServerUrl}/test-page.html`);
-    const addBtn = app.page.locator('button[title="Add bookmark"]');
+    const addBtn = app.page.locator('button[title="添加书签"]');
     if (await addBtn.isVisible().catch(() => false)) {
       await addBtn.click();
       await app.page.waitForTimeout(500);
@@ -64,7 +62,7 @@ test.describe('Bookmarks', () => {
     await app.navigateTo(`${testServerUrl}/test-page.html`);
 
     // Should show "Remove bookmark" (filled star)
-    const removeBookmarkBtn = app.page.locator('button[title="Remove bookmark"]');
+    const removeBookmarkBtn = app.page.locator('button[title="移除书签"]');
     await expect(removeBookmarkBtn).toBeVisible({timeout: 5_000});
   });
 
@@ -74,7 +72,7 @@ test.describe('Bookmarks', () => {
     await app.openMenuFlyout();
 
     // Verify Bookmarks section is visible
-    await expect(app.page.getByText('Bookmarks')).toBeVisible();
+    await expect(app.page.getByText('书签')).toBeVisible();
 
     await app.closeMenuFlyout();
   });
@@ -85,7 +83,7 @@ test.describe('Bookmarks', () => {
     await app.openMenuFlyout();
 
     // Hover over Bookmarks to see submenu
-    const bookmarksBtn = app.page.getByText('Bookmarks').first();
+    const bookmarksBtn = app.page.getByText('书签').first();
     await bookmarksBtn.hover();
     await app.page.waitForTimeout(500);
 
@@ -97,7 +95,7 @@ test.describe('Bookmarks', () => {
 
     // Bookmark the page first so we have something to remove
     await app.navigateTo(`${testServerUrl}/test-page.html`);
-    const addBtn = app.page.locator('button[title="Add bookmark"]');
+    const addBtn = app.page.locator('button[title="添加书签"]');
     if (await addBtn.isVisible().catch(() => false)) {
       await addBtn.click();
       await app.page.waitForTimeout(500);
@@ -108,7 +106,7 @@ test.describe('Bookmarks', () => {
     }
 
     // Now remove the bookmark
-    const removeBookmarkBtn = app.page.locator('button[title="Remove bookmark"]');
+    const removeBookmarkBtn = app.page.locator('button[title="移除书签"]');
     await expect(removeBookmarkBtn).toBeVisible({timeout: 5_000});
     await removeBookmarkBtn.click();
     await app.page.waitForTimeout(500);
@@ -124,7 +122,7 @@ test.describe('Bookmarks', () => {
     }
 
     // The star should now show "Add bookmark"
-    const addBookmarkBtn = app.page.locator('button[title="Add bookmark"]');
+    const addBookmarkBtn = app.page.locator('button[title="添加书签"]');
     await expect(addBookmarkBtn).toBeVisible({timeout: 5_000});
   });
 });

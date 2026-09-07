@@ -18,9 +18,9 @@ const SUPPORT_INTERVAL_MS = 30 * 24 * 60 * 60 * 1000;
 const shortVersion = (version: string) => version.split('.').slice(0, 2).join('.');
 
 const WHATS_NEW_ROWS: Array<{icon: string; label: string}> = [
-  {icon: 'lucide:plug-zap', label: 'MCP server — connect Claude, Codex & more'},
-  {icon: 'lucide:presentation', label: 'Canvas mode for presentations & recordings'},
-  {icon: 'lucide:smartphone', label: 'Custom devices with live preview'},
+  {icon: 'lucide:plug-zap', label: 'MCP 服务：连接 Claude、Codex 等工具'},
+  {icon: 'lucide:presentation', label: '画布模式：用于演示与录屏'},
+  {icon: 'lucide:smartphone', label: '自定义设备与实时预览'},
 ];
 
 /**
@@ -100,12 +100,12 @@ const AnnouncementCard = () => {
           <Icon icon={isWhatsNew ? 'lucide:megaphone' : 'lucide:heart'} fontSize={15} />
         </span>
         <span className="text-[13.5px] font-bold">
-          {isWhatsNew ? `What's new in ${shortVersion(appVersion)}` : 'Support Responsively'}
+          {isWhatsNew ? `${shortVersion(appVersion)} 版本更新` : '支持 Responsively'}
         </span>
         <span className="flex-1" />
         <button
           type="button"
-          title="Dismiss"
+          title="关闭提示"
           onClick={dismiss}
           className="flex h-6 w-6 items-center justify-center rounded-md text-[14px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none"
         >
@@ -134,26 +134,23 @@ const AnnouncementCard = () => {
               onClick={seeUpdates}
               className="h-7 rounded-[7px] bg-accent px-3 text-[11.5px] font-bold text-on-accent transition-[filter] hover:brightness-110 focus:outline-none"
             >
-              <span className="pointer-events-none contents">See all updates</span>
+              <span className="pointer-events-none contents">查看全部更新</span>
             </button>
             <button
               type="button"
               onClick={dismiss}
               className="h-7 rounded-[7px] px-[10px] text-[11.5px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none"
             >
-              <span className="pointer-events-none contents">Later</span>
+              <span className="pointer-events-none contents">稍后</span>
             </button>
           </div>
         </>
       ) : (
         <>
           <div className="mb-1 mt-[10px] text-[12px] leading-[1.55] text-fg">
-            Responsively is free, open source, and built by volunteers. If it saves you time,
-            consider chipping in to keep it going.
+            Responsively 是由志愿者维护的免费开源软件。若它节省了你的时间，欢迎赞助项目持续发展。
           </div>
-          <div className="mb-3 text-[10.5px] text-muted">
-            Shown at most once a month. Sponsors hide this forever.
-          </div>
+          <div className="mb-3 text-[10.5px] text-muted">每月最多显示一次。赞助后可永久隐藏。</div>
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -162,7 +159,7 @@ const AnnouncementCard = () => {
             >
               <span className="pointer-events-none contents">
                 <Icon icon="lucide:heart" fontSize={12} />
-                Sponsor
+                赞助
               </span>
             </button>
             <button
@@ -170,7 +167,7 @@ const AnnouncementCard = () => {
               onClick={dismiss}
               className="h-7 rounded-[7px] px-[10px] text-[11.5px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none"
             >
-              <span className="pointer-events-none contents">Maybe later</span>
+              <span className="pointer-events-none contents">以后再说</span>
             </button>
           </div>
         </>

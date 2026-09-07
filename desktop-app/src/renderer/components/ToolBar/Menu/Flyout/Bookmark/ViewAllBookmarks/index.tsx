@@ -44,7 +44,7 @@ const ViewAllBookmarks = ({bookmarks, handleBookmarkFlyout}: Props) => {
         })}
         {!areBookmarksPresent && (
           <Button className="w-60 py-2" disabled disableHoverEffects>
-            No bookmarks found{' '}
+            暂无书签{' '}
           </Button>
         )}
       </div>

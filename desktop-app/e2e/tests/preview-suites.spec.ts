@@ -42,13 +42,13 @@ test.describe('Preview Suites', () => {
     await app.page.keyboard.press('Escape');
   });
 
-  test('"Manage suites & devices" opens the Device Manager', async ({app}) => {
+  test('"管理套件与设备" opens the Device Manager', async ({app}) => {
     await app.dismissModals();
 
     await app.openSuiteSelector();
-    await app.page.getByText('Manage suites & devices').click();
+    await app.page.getByText('管理套件与设备').click();
 
-    await expect(app.page.getByText('Device Manager')).toBeVisible({timeout: 10_000});
+    await expect(app.page.getByText('设备管理')).toBeVisible({timeout: 10_000});
 
     await app.closeDeviceManager();
   });

@@ -11,8 +11,8 @@ test.describe('Custom Device Creation', () => {
 
     const customSection = app.deviceManagerSheet;
     // The empty state belongs to the Custom filter in the new grid.
-    await customSection.getByRole('button', {name: 'Custom', exact: true}).click();
-    await expect(customSection.getByText('No custom devices added yet!')).toBeVisible();
+    await customSection.getByRole('button', {name: '自定义', exact: true}).click();
+    await expect(customSection.getByText('还没有添加自定义设备！')).toBeVisible();
     await expect(app.page.locator('[data-testid="add-custom-device"]')).toBeVisible();
 
     await app.closeDeviceManager();
@@ -27,38 +27,35 @@ test.describe('Custom Device Creation', () => {
 
     // Modal title
     await expect(app.page.getByTestId('device-form')).toBeVisible();
-    await expect(app.page.getByText('New custom device')).toBeVisible();
+    await expect(app.page.getByText('新建自定义设备')).toBeVisible();
 
     // Default values
-    const nameInput = app.page.getByLabel('Device Name');
+    const nameInput = app.page.getByLabel('设备名称');
     await expect(nameInput).toHaveValue('');
 
-    const widthInput = app.page.getByLabel('Device Width');
+    const widthInput = app.page.getByLabel('设备宽度');
     await expect(widthInput).toHaveValue('400');
 
-    const heightInput = app.page.getByLabel('Device Height');
+    const heightInput = app.page.getByLabel('设备高度');
     await expect(heightInput).toHaveValue('600');
 
-    await expect(app.page.getByLabel('Device DPR 1x')).toHaveAttribute('aria-pressed', 'true');
+    await expect(app.page.getByLabel('设备像素比 1 倍')).toHaveAttribute('aria-pressed', 'true');
 
     // Default type is phone
-    await expect(app.page.getByLabel('Device type Phone')).toHaveAttribute('aria-pressed', 'true');
+    await expect(app.page.getByLabel('设备类型：手机')).toHaveAttribute('aria-pressed', 'true');
 
     // Touch and mobile default checked for phone
-    await expect(app.page.getByLabel('Touch Capable')).toHaveAttribute('aria-pressed', 'true');
-    await expect(app.page.getByLabel('Mobile Capable (Rotatable)')).toHaveAttribute(
-      'aria-pressed',
-      'true'
-    );
+    await expect(app.page.getByLabel('支持触摸')).toHaveAttribute('aria-pressed', 'true');
+    await expect(app.page.getByLabel('移动设备（可旋转）')).toHaveAttribute('aria-pressed', 'true');
 
     // Buttons: Cancel and Add
-    await expect(app.page.getByRole('button', {name: 'Cancel'})).toBeVisible();
-    await expect(app.page.getByRole('button', {name: 'Add', exact: true})).toBeVisible();
+    await expect(app.page.getByRole('button', {name: '取消'})).toBeVisible();
+    await expect(app.page.getByRole('button', {name: '添加', exact: true})).toBeVisible();
 
     // No Delete button for new device
-    await expect(app.page.getByRole('button', {name: 'Delete', exact: true})).not.toBeVisible();
+    await expect(app.page.getByRole('button', {name: '删除', exact: true})).not.toBeVisible();
 
-    await app.page.getByRole('button', {name: 'Cancel'}).click();
+    await app.page.getByRole('button', {name: '取消'}).click();
     await app.page.waitForTimeout(300);
     await app.closeDeviceManager();
   });
@@ -71,13 +68,13 @@ test.describe('Custom Device Creation', () => {
     await app.page.waitForTimeout(500);
 
     // Fill in the form
-    await app.page.getByLabel('Device Name').fill('My Test Device');
-    await app.page.getByLabel('Device Width').fill('1024');
-    await app.page.getByLabel('Device Height').fill('768');
-    await app.page.getByLabel('Device DPR 2x').click();
+    await app.page.getByLabel('设备名称').fill('My Test Device');
+    await app.page.getByLabel('设备宽度').fill('1024');
+    await app.page.getByLabel('设备高度').fill('768');
+    await app.page.getByLabel('设备像素比 2 倍').click();
 
     // Click Add
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     // The custom device should now appear in the CUSTOM DEVICES section
@@ -86,7 +83,7 @@ test.describe('Custom Device Creation', () => {
     await expect(customSection.getByText('1024 × 768')).toBeVisible();
 
     // Empty state message should be gone
-    await expect(customSection.getByText('No custom devices added yet!')).not.toBeVisible();
+    await expect(customSection.getByText('还没有添加自定义设备！')).not.toBeVisible();
 
     await app.closeDeviceManager();
   });
@@ -100,10 +97,10 @@ test.describe('Custom Device Creation', () => {
     // Add a custom device with known dimensions
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Dimension Test Device');
-    await app.page.getByLabel('Device Width').fill('500');
-    await app.page.getByLabel('Device Height').fill('700');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Dimension Test Device');
+    await app.page.getByLabel('设备宽度').fill('500');
+    await app.page.getByLabel('设备高度').fill('700');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     // Close device manager to return to browser view
@@ -135,10 +132,10 @@ test.describe('Custom Device Creation', () => {
     // First add a device
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Edit Me Device');
-    await app.page.getByLabel('Device Width').fill('800');
-    await app.page.getByLabel('Device Height').fill('600');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Edit Me Device');
+    await app.page.getByLabel('设备宽度').fill('800');
+    await app.page.getByLabel('设备高度').fill('600');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     // Verify it exists
@@ -149,24 +146,24 @@ test.describe('Custom Device Creation', () => {
     // Click the edit button (pencil icon) on the custom device label
     // DeviceLabel uses w-fit class, distinguishing it from parent containers
     const deviceCard = customSection.locator(
-      '[data-device-name="Edit Me Device"] button[title="Edit device"]'
+      '[data-device-name="Edit Me Device"] button[title="编辑设备"]'
     );
     await deviceCard.click();
     await app.page.waitForTimeout(500);
 
     // Modal title should say "Device Details" for editing
-    await expect(app.page.getByText('Edit custom device')).toBeVisible();
+    await expect(app.page.getByText('编辑自定义设备')).toBeVisible();
 
     // Buttons should show "Save" instead of "Add", and "Delete" should be visible
-    await expect(app.page.getByRole('button', {name: 'Save'})).toBeVisible();
-    await expect(app.page.getByRole('button', {name: 'Delete', exact: true})).toBeVisible();
+    await expect(app.page.getByRole('button', {name: '保存'})).toBeVisible();
+    await expect(app.page.getByRole('button', {name: '删除', exact: true})).toBeVisible();
 
     // Change dimensions
-    await app.page.getByLabel('Device Width').fill('1200');
-    await app.page.getByLabel('Device Height').fill('900');
+    await app.page.getByLabel('设备宽度').fill('1200');
+    await app.page.getByLabel('设备高度').fill('900');
 
     // Save
-    await app.page.getByRole('button', {name: 'Save'}).click();
+    await app.page.getByRole('button', {name: '保存'}).click();
     await app.page.waitForTimeout(500);
 
     // Verify the updated dimensions
@@ -183,10 +180,10 @@ test.describe('Custom Device Creation', () => {
     // Add a device
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Delete Me Device');
-    await app.page.getByLabel('Device Width').fill('640');
-    await app.page.getByLabel('Device Height').fill('480');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Delete Me Device');
+    await app.page.getByLabel('设备宽度').fill('640');
+    await app.page.getByLabel('设备高度').fill('480');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     const customSection = app.deviceManagerSheet;
@@ -194,13 +191,13 @@ test.describe('Custom Device Creation', () => {
 
     // Open edit modal for the device
     const deviceCard = customSection.locator(
-      '[data-device-name="Delete Me Device"] button[title="Edit device"]'
+      '[data-device-name="Delete Me Device"] button[title="编辑设备"]'
     );
     await deviceCard.click();
     await app.page.waitForTimeout(500);
 
     // Click Delete
-    await app.page.getByRole('button', {name: 'Delete', exact: true}).click();
+    await app.page.getByRole('button', {name: '删除', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     // Device should be removed. Only assert on the device this test created —
@@ -218,26 +215,26 @@ test.describe('Custom Device Creation', () => {
     // Add a device
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Unique Device');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Unique Device');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     // Try to add another device with the same name
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Unique Device');
+    await app.page.getByLabel('设备名称').fill('Unique Device');
 
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
 
     // Validation renders inline next to the field instead of a blocking alert
-    await expect(app.page.getByRole('alert')).toContainText('already exists');
+    await expect(app.page.getByRole('alert')).toContainText('已存在同名设备');
 
     // Typing again clears the error
-    await app.page.getByLabel('Device Name').fill('Unique Device 2');
+    await app.page.getByLabel('设备名称').fill('Unique Device 2');
     await expect(app.page.getByRole('alert')).toHaveCount(0);
 
     // Cancel out of the modal
-    await app.page.getByRole('button', {name: 'Cancel'}).click();
+    await app.page.getByRole('button', {name: '取消'}).click();
     await app.page.waitForTimeout(300);
     await app.closeDeviceManager();
   });
@@ -252,19 +249,16 @@ test.describe('Custom Device Creation', () => {
     await app.page.waitForTimeout(500);
 
     // Default type is phone — touch and mobile should be checked
-    await expect(app.page.getByLabel('Touch Capable')).toHaveAttribute('aria-pressed', 'true');
-    await expect(app.page.getByLabel('Mobile Capable (Rotatable)')).toHaveAttribute(
-      'aria-pressed',
-      'true'
-    );
+    await expect(app.page.getByLabel('支持触摸')).toHaveAttribute('aria-pressed', 'true');
+    await expect(app.page.getByLabel('移动设备（可旋转）')).toHaveAttribute('aria-pressed', 'true');
 
     // The phone UA should be set
-    const uaInput = app.page.getByLabel('User Agent String');
+    const uaInput = app.page.getByLabel('用户代理字符串');
     const initialUA = await uaInput.inputValue();
     expect(initialUA).toContain('iPhone');
 
     // Change to Desktop (notebook)
-    await app.page.getByLabel('Device type Laptop').click();
+    await app.page.getByLabel('设备类型：笔记本').click();
     await app.page.waitForTimeout(300);
 
     // UA should switch to desktop
@@ -273,13 +267,13 @@ test.describe('Custom Device Creation', () => {
     expect(newUA).not.toContain('iPhone');
 
     // Touch and mobile should be unchecked
-    await expect(app.page.getByLabel('Touch Capable')).toHaveAttribute('aria-pressed', 'false');
-    await expect(app.page.getByLabel('Mobile Capable (Rotatable)')).toHaveAttribute(
+    await expect(app.page.getByLabel('支持触摸')).toHaveAttribute('aria-pressed', 'false');
+    await expect(app.page.getByLabel('移动设备（可旋转）')).toHaveAttribute(
       'aria-pressed',
       'false'
     );
 
-    await app.page.getByRole('button', {name: 'Cancel'}).click();
+    await app.page.getByRole('button', {name: '取消'}).click();
     await app.page.waitForTimeout(300);
     await app.closeDeviceManager();
   });
@@ -294,25 +288,22 @@ test.describe('Custom Device Creation', () => {
     await app.page.waitForTimeout(500);
 
     // Switch to Desktop first
-    await app.page.getByLabel('Device type Laptop').click();
+    await app.page.getByLabel('设备类型：笔记本').click();
     await app.page.waitForTimeout(300);
-    await expect(app.page.getByLabel('Touch Capable')).toHaveAttribute('aria-pressed', 'false');
+    await expect(app.page.getByLabel('支持触摸')).toHaveAttribute('aria-pressed', 'false');
 
     // Switch back to Phone
-    await app.page.getByLabel('Device type Phone').click();
+    await app.page.getByLabel('设备类型：手机').click();
     await app.page.waitForTimeout(300);
 
-    const uaInput = app.page.getByLabel('User Agent String');
+    const uaInput = app.page.getByLabel('用户代理字符串');
     const ua = await uaInput.inputValue();
     expect(ua).toContain('iPhone');
 
-    await expect(app.page.getByLabel('Touch Capable')).toHaveAttribute('aria-pressed', 'true');
-    await expect(app.page.getByLabel('Mobile Capable (Rotatable)')).toHaveAttribute(
-      'aria-pressed',
-      'true'
-    );
+    await expect(app.page.getByLabel('支持触摸')).toHaveAttribute('aria-pressed', 'true');
+    await expect(app.page.getByLabel('移动设备（可旋转）')).toHaveAttribute('aria-pressed', 'true');
 
-    await app.page.getByRole('button', {name: 'Cancel'}).click();
+    await app.page.getByRole('button', {name: '取消'}).click();
     await app.page.waitForTimeout(300);
     await app.closeDeviceManager();
   });
@@ -327,10 +318,10 @@ test.describe('Custom Device Creation', () => {
     // Add a custom device
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Suite Test Device');
-    await app.page.getByLabel('Device Width').fill('375');
-    await app.page.getByLabel('Device Height').fill('812');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Suite Test Device');
+    await app.page.getByLabel('设备宽度').fill('375');
+    await app.page.getByLabel('设备高度').fill('812');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     // The checkbox should be checked (auto-added to active suite)
@@ -360,10 +351,10 @@ test.describe('Custom Device Creation', () => {
     // Add a custom device (auto-checked into suite)
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Uncheck Device');
-    await app.page.getByLabel('Device Width').fill('320');
-    await app.page.getByLabel('Device Height').fill('568');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Uncheck Device');
+    await app.page.getByLabel('设备宽度').fill('320');
+    await app.page.getByLabel('设备高度').fill('568');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     // Immediately uncheck it while still in device manager
@@ -389,14 +380,14 @@ test.describe('Custom Device Creation', () => {
     // Add two custom devices
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Alpha Phone');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Alpha Phone');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
-    await app.page.getByLabel('Device Name').fill('Beta Tablet');
-    await app.page.getByRole('button', {name: 'Add', exact: true}).click();
+    await app.page.getByLabel('设备名称').fill('Beta Tablet');
+    await app.page.getByRole('button', {name: '添加', exact: true}).click();
     await app.page.waitForTimeout(500);
 
     const customSection = app.deviceManagerSheet;
@@ -404,7 +395,7 @@ test.describe('Custom Device Creation', () => {
     await expect(customSection.getByText('Beta Tablet')).toBeVisible();
 
     // Search for "Alpha"
-    const searchInput = app.page.locator('input[placeholder="Search devices…"]');
+    const searchInput = app.page.locator('input[placeholder="搜索设备…"]');
     await searchInput.fill('Alpha');
     await app.page.waitForTimeout(300);
 
@@ -428,10 +419,10 @@ test.describe('Custom Device Creation', () => {
     await app.page.locator('[data-testid="add-custom-device"]').click();
     await app.page.waitForTimeout(500);
 
-    await app.page.getByLabel('Device Name').fill('Should Not Save');
-    await app.page.getByRole('button', {name: 'Cancel'}).click();
+    await app.page.getByLabel('设备名称').fill('Should Not Save');
+    await app.page.getByRole('button', {name: '取消'}).click();
     // Wait for modal close animation (200ms leave transition)
-    await expect(app.page.getByLabel('Device Name')).not.toBeVisible();
+    await expect(app.page.getByLabel('设备名称')).not.toBeVisible();
 
     const customSection = app.deviceManagerSheet;
     await expect(customSection.getByText('Should Not Save')).not.toBeVisible();

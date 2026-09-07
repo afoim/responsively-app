@@ -46,7 +46,7 @@ const BookmarkFlyout = ({bookmark, setOpenFlyout}: Props) => {
           className="rounded-sm bg-slate-200 p-1 px-1 dark:bg-slate-700"
           id="name"
           name="name"
-          label="Bookmark Name"
+          label="书签名称"
           value={currentBookmark.name}
           onChange={handleChange}
         />
@@ -55,16 +55,16 @@ const BookmarkFlyout = ({bookmark, setOpenFlyout}: Props) => {
           className="rounded-sm bg-slate-200 p-1 px-1 dark:bg-slate-700"
           id="address"
           name="address"
-          label="Address"
+          label="网址"
           value={currentBookmark.address}
           onChange={handleChange}
         />
         <div className="mb-1 mt-4 flex justify-center">
           <Button onClick={handleButton} id="remove" className="mr-6 px-6">
-            Remove
+            移除
           </Button>
           <Button onClick={handleButton} id="add" className="px-8" isActionButton>
-            Save
+            保存
           </Button>
         </div>
       </div>

@@ -20,7 +20,7 @@ export const CreateSuiteModal = ({isOpen, onClose}: Props) => {
 
   const handleAddSuite = async (): Promise<void> => {
     if (name === '') {
-      setNameError('Suite name cannot be empty. Please enter a name for the suite.');
+      setNameError('套件名称不能为空，请输入名称。');
       return undefined;
     }
     dispatch(addSuite({id: uuidv4(), name, devices: ['10008']}));
@@ -29,13 +29,13 @@ export const CreateSuiteModal = ({isOpen, onClose}: Props) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} title="Add Suite">
+      <Modal isOpen={isOpen} onClose={onClose} title="添加套件">
         <div className="flex flex-col gap-4">
           <div className="flex w-[420px] flex-col gap-2">
             <Input
-              label="Suite Name"
+              label="套件名称"
               type="text"
-              placeholder="My Custom Suite"
+              placeholder="我的自定义套件"
               value={name}
               error={nameError}
               onChange={(e) => {
@@ -47,10 +47,10 @@ export const CreateSuiteModal = ({isOpen, onClose}: Props) => {
           <div className="flex flex-row justify-between">
             <div className="flex flex-row justify-end gap-2">
               <Button className="px-2" onClick={onClose}>
-                Cancel
+                取消
               </Button>
               <Button className="px-2" onClick={handleAddSuite} isActive>
-                Add
+                添加
               </Button>
             </div>
           </div>

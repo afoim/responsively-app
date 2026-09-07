@@ -5,44 +5,44 @@ test.describe('Keyboard Shortcuts Modal', () => {
     await app.dismissModals();
 
     await app.openMenuFlyout();
-    await app.page.getByText('Keyboard shortcuts').click();
+    await app.page.getByText('键盘快捷键').click();
     await app.page.waitForTimeout(500);
 
     // The modal should show shortcut categories
-    await expect(app.page.getByText('General Shortcuts')).toBeVisible({
+    await expect(app.page.getByText('通用快捷键')).toBeVisible({
       timeout: 5_000,
     });
   });
 
   test('shortcuts modal displays all shortcut categories', async ({app}) => {
     // Modal should still be open from previous test
-    const generalShortcuts = app.page.getByText('General Shortcuts');
+    const generalShortcuts = app.page.getByText('通用快捷键');
     if (!(await generalShortcuts.isVisible())) {
       await app.openMenuFlyout();
-      await app.page.getByText('Keyboard shortcuts').click();
+      await app.page.getByText('键盘快捷键').click();
       await app.page.waitForTimeout(500);
     }
 
-    await expect(app.page.getByText('General Shortcuts')).toBeVisible();
-    await expect(app.page.getByText('Previewer Shorcuts')).toBeVisible();
+    await expect(app.page.getByText('通用快捷键')).toBeVisible();
+    await expect(app.page.getByText('预览快捷键')).toBeVisible();
   });
 
   test('shortcuts modal can be closed', async ({app}) => {
     // Modal should still be open
-    const generalShortcuts = app.page.getByText('General Shortcuts');
+    const generalShortcuts = app.page.getByText('通用快捷键');
     if (!(await generalShortcuts.isVisible())) {
       await app.openMenuFlyout();
-      await app.page.getByText('Keyboard shortcuts').click();
+      await app.page.getByText('键盘快捷键').click();
       await app.page.waitForTimeout(500);
     }
 
     // Click the Close button in the modal
-    const closeBtn = app.page.getByText('Close');
+    const closeBtn = app.page.getByText('关闭');
     await closeBtn.click();
     await app.page.waitForTimeout(500);
 
     // Modal content should no longer be visible
-    await expect(app.page.getByText('General Shortcuts')).not.toBeVisible({
+    await expect(app.page.getByText('通用快捷键')).not.toBeVisible({
       timeout: 5_000,
     });
   });

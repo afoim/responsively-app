@@ -123,11 +123,11 @@ const SitePermissionsDropdown = ({
   useEffect(() => {
     const getOriginFromUrl = (url: string) => {
       try {
-        if (url.startsWith('file://')) return 'Local File';
+        if (url.startsWith('file://')) return '本地文件';
         const urlObj = new URL(url);
         return urlObj.origin;
       } catch {
-        return 'Invalid URL';
+        return '无效网址';
       }
     };
 
@@ -135,7 +135,7 @@ const SitePermissionsDropdown = ({
     setOrigin(currentOrigin);
 
     const loadSitePermissions = async () => {
-      if (currentOrigin && currentOrigin !== 'Local File' && currentOrigin !== 'Invalid URL') {
+      if (currentOrigin && currentOrigin !== '本地文件' && currentOrigin !== '无效网址') {
         try {
           const permissions = (await window.electron.ipcRenderer.invoke(
             IPC_MAIN_CHANNELS.GET_SITE_PERMISSIONS,
@@ -208,7 +208,7 @@ const SitePermissionsDropdown = ({
 
   if (!isVisible) return null;
 
-  if (!origin || origin === 'Local File' || origin === 'Invalid URL') {
+  if (!origin || origin === '本地文件' || origin === '无效网址') {
     return (
       <div
         ref={dropdownRef}
@@ -216,7 +216,7 @@ const SitePermissionsDropdown = ({
       >
         <div className="flex items-center gap-2 text-gray-500">
           <Icon icon="mdi:shield-lock" />
-          <span className="text-sm">Site permissions not available for this page</span>
+          <span className="text-sm">此页面不支持站点权限设置</span>
         </div>
       </div>
     );
@@ -232,7 +232,7 @@ const SitePermissionsDropdown = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Icon icon="mdi:shield-lock" className="text-lg" />
-            <span className="text-sm font-medium">Site Permissions</span>
+            <span className="text-sm font-medium">站点权限</span>
           </div>
           <button
             type="button"
@@ -257,9 +257,7 @@ const SitePermissionsDropdown = ({
                 className={isRefreshing ? 'animate-spin' : ''}
               />
               <span className="text-xs">
-                {isRefreshing
-                  ? 'Refreshing page...'
-                  : 'Permission updated. Refresh to apply changes.'}
+                {isRefreshing ? '正在刷新页面…' : '权限已更新，请刷新页面以应用更改。'}
               </span>
             </div>
             {!isRefreshing && (
@@ -269,7 +267,7 @@ const SitePermissionsDropdown = ({
                   onClick={refreshPage}
                   className="rounded bg-blue-600 px-2 py-1 text-xs text-white transition-colors hover:bg-blue-700"
                 >
-                  Refresh
+                  刷新
                 </button>
                 <button
                   type="button"
@@ -287,17 +285,15 @@ const SitePermissionsDropdown = ({
       {/* Permissions List */}
       <div className="px-4 py-3">
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
-            Permissions for this site
-          </span>
+          <span className="text-xs font-medium text-gray-700 dark:text-gray-300">此站点的权限</span>
           {hasActivePermissions && (
             <button
               type="button"
               onClick={handleClearAllPermissions}
               className="text-xs text-red-600 hover:underline dark:text-red-400"
-              title="Reset all permissions to default"
+              title="将全部权限恢复为默认值"
             >
-              Reset All
+              全部重置
             </button>
           )}
         </div>
@@ -313,7 +309,7 @@ const SitePermissionsDropdown = ({
         </div>
 
         <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
-          Changes take effect immediately. Reload the page if needed.
+          更改立即生效，必要时请刷新页面。
         </div>
       </div>
     </div>
