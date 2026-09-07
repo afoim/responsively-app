@@ -80,6 +80,15 @@ async function click(
   button = 'left',
   modifiers: string[] = []
 ) {
+  await expect
+    .poll(() =>
+      exec(
+        app,
+        id,
+        `!!document.querySelector(${JSON.stringify(selector)})?.getClientRects().length`
+      )
+    )
+    .toBe(true);
   const point = await exec(
     app,
     id,

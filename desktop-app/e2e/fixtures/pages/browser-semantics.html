@@ -72,8 +72,16 @@
         document.querySelector('#navigation').innerHTML =
           '<a href="/">Home</a><a href="/posts">Blog</a><a id="create" href="/destination"><span>AI drawing</span></a>';
       }
-      if (innerWidth >= 700) fillNavigation();
-      else document.querySelector('#menu').onclick = fillNavigation;
+      // A cold Electron guest can attach before its final viewport is applied.
+      // Model an actual responsive app, not a one-time width snapshot.
+      const desktop = matchMedia('(min-width: 700px)');
+      function adaptNavigation() {
+        if (desktop.matches) fillNavigation();
+        else document.querySelector('#navigation').replaceChildren();
+      }
+      desktop.addEventListener('change', adaptNavigation);
+      adaptNavigation();
+      document.querySelector('#menu').onclick = fillNavigation;
       document.querySelector('#counter').onclick = () => {
         document.querySelector('#count').textContent = String(++window.count);
       };
