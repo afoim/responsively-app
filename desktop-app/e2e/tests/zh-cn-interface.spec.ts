@@ -36,6 +36,9 @@ test.describe('Simplified Chinese desktop interface', () => {
 
   test('shell, status, old default suite and native menus are Chinese', async ({app}) => {
     await expect(app.page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+    await expect(app.backButton).toBeVisible();
+    await expect(app.forwardButton).toBeVisible();
+    await expect(app.refreshButton).toBeVisible();
     for (const name of ['旋转', '检查', '截图', '模拟']) {
       await expect(app.page.getByRole('button', {name, exact: true})).toBeVisible();
     }
@@ -117,9 +120,11 @@ test.describe('Simplified Chinese desktop interface', () => {
     await assertChineseShell(app.page);
     await app.page.screenshot({path: info.outputPath('device-manager-zh.png')});
     await form.getByRole('button', {name: '添加', exact: true}).click();
-    await expect(
-      app.deviceManagerSheet.locator('[data-device-name="My custom device"]')
-    ).toBeVisible();
+    const created = app.deviceManagerSheet.locator('[data-device-name="My custom device"]');
+    await expect(created).toBeVisible();
+    await created.getByTitle('编辑设备').click();
+    await form.getByRole('button', {name: '删除', exact: true}).click();
+    await expect(created).toBeHidden();
     await app.closeDeviceManager();
   });
 

@@ -29,7 +29,7 @@ export const SettingsContentHeaders: FC<ISettingsContentHeaders> = ({
             />
           </label>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            HTTP 请求的首选语言；留空时使用操作系统的语言设置。
+            HTTP 请求的首选语言；留空时使用应用默认语言。
           </p>
         </div>
       </div>

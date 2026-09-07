@@ -13,22 +13,18 @@ export const NAVIGATION_EVENTS = {
 };
 
 interface NavigationItemProps {
+  shortcut: ShortcutChannel;
+  testId: string;
   label: string;
   icon: string;
   action: () => void;
 }
 
-const TEST_ID_MAP: Record<string, string> = {
-  Back: 'nav-back',
-  Forward: 'nav-forward',
-  Refresh: 'nav-refresh',
-};
-
-const NavigationButton = ({label, icon, action}: NavigationItemProps) => {
-  const shortcutName: ShortcutChannel = label.toUpperCase() as ShortcutChannel;
-  useKeyboardShortcut(SHORTCUT_CHANNEL[shortcutName], action);
+// Display labels are localized; keyboard channels and automation IDs are stable.
+const NavigationButton = ({label, icon, action, shortcut, testId}: NavigationItemProps) => {
+  useKeyboardShortcut(shortcut, action);
   return (
-    <IconButton onClick={action} title={label} data-testid={TEST_ID_MAP[label]}>
+    <IconButton onClick={action} title={label} data-testid={testId}>
       <Icon icon={icon} />
     </IconButton>
   );
@@ -36,6 +32,8 @@ const NavigationButton = ({label, icon, action}: NavigationItemProps) => {
 
 const ITEMS: NavigationItemProps[] = [
   {
+    shortcut: SHORTCUT_CHANNEL.BACK,
+    testId: 'nav-back',
     label: '后退',
     icon: 'ic:round-arrow-back',
     action: () => {
@@ -43,6 +41,8 @@ const ITEMS: NavigationItemProps[] = [
     },
   },
   {
+    shortcut: SHORTCUT_CHANNEL.FORWARD,
+    testId: 'nav-forward',
     label: '前进',
     icon: 'ic:round-arrow-forward',
     action: () => {
@@ -50,6 +50,8 @@ const ITEMS: NavigationItemProps[] = [
     },
   },
   {
+    shortcut: SHORTCUT_CHANNEL.RELOAD,
+    testId: 'nav-refresh',
     label: '刷新',
     icon: 'ic:round-refresh',
     action: () => {
@@ -62,7 +64,7 @@ const NavigationControls = () => {
   return (
     <div className="flex flex-shrink-0 gap-[2px]">
       {ITEMS.map((item) => (
-        <NavigationButton {...item} key={item.label} />
+        <NavigationButton {...item} key={item.shortcut} />
       ))}
     </div>
   );

@@ -36,3 +36,5 @@ yarn playwright test --config=e2e/playwright.config.ts zh-cn-interface.spec.ts b
 ```
 
 验收安装包内程序时先设置 `E2E_EXECUTABLE` 指向 `release/build/win-unpacked/ResponsivelyApp.exe`，测试会使用独立的临时用户配置，不能覆盖正在使用的个人配置。
+
+导航按钮的快捷键通道和测试 ID 必须显式指定，不能再通过英文标签大小写转换或查表生成。`NavigationControls.test.tsx` 覆盖中文标签下的后退、前进、刷新绑定及稳定 ID。
