@@ -100,7 +100,7 @@ const SiteToolsPopover = ({address, actions, onShowPermissions}: Props) => {
           </div>
           <button
             type="button"
-            title="Site permissions"
+            title="站点权限"
             onClick={() => {
               close();
               onShowPermissions();

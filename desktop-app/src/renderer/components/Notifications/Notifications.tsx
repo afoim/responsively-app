@@ -78,7 +78,7 @@ const Notifications = () => {
 
   return (
     <div>
-      <div className="mb-[6px] text-[12.5px] font-bold">Notifications</div>
+      <div className="mb-[6px] text-[12.5px] font-bold">通知</div>
       {(notifications ?? []).map((notification: NotificationType) => (
         <Row
           key={notification.id}

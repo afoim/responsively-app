@@ -7,14 +7,14 @@ describe('ManageSuitesToolError', () => {
     render(<ManageSuitesToolError onClose={onClose} />);
 
     expect(screen.getByText('There has been an error, please try again.')).toBeInTheDocument();
-    expect(screen.getByText('Close')).toBeInTheDocument();
+    expect(screen.getByText('关闭')).toBeInTheDocument();
   });
 
   it('calls onClose when the close button is clicked', () => {
     const onClose = vi.fn();
     render(<ManageSuitesToolError onClose={onClose} />);
 
-    fireEvent.click(screen.getByText('Close'));
+    fireEvent.click(screen.getByText('关闭'));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

@@ -11,9 +11,9 @@ const PHONE_UA =
 
 const DPR_OPTIONS = [1, 1.5, 2, 2.75, 3];
 const TYPE_OPTIONS: Array<{id: string; label: string; icon: string}> = [
-  {id: 'phone', label: 'Phone', icon: 'lucide:smartphone'},
-  {id: 'tablet', label: 'Tablet', icon: 'lucide:tablet'},
-  {id: 'notebook', label: 'Laptop', icon: 'lucide:laptop'},
+  {id: 'phone', label: '手机', icon: 'lucide:smartphone'},
+  {id: 'tablet', label: '平板', icon: 'lucide:tablet'},
+  {id: 'notebook', label: '笔记本', icon: 'lucide:laptop'},
 ];
 
 const MIN_SIZE = 50;
@@ -42,7 +42,7 @@ interface Props {
 
 /**
  * The custom-device form as an inline panel beside the grid (Hybrid Studio
- * "Device Manager" design), replacing the old modal.
+ * "设备管理" design), replacing the old modal.
  */
 const DeviceForm = ({
   device,
@@ -90,7 +90,7 @@ const DeviceForm = ({
   const save = async () => {
     const clash = existingDevices.find((d) => d.name === name.trim());
     if (clash != null && (isNew || clash.id !== device.id)) {
-      setNameError('A device with this name already exists, try a different name.');
+      setNameError('已存在同名设备，请换一个名称。');
       return;
     }
     const capabilities: string[] = [];
@@ -123,13 +123,11 @@ const DeviceForm = ({
       className="box-border flex w-[312px] flex-shrink-0 flex-col gap-3 overflow-y-auto border-l border-line-soft bg-panel p-4"
     >
       <div className="flex items-center">
-        <span className="text-sm font-bold">
-          {isNew ? 'New custom device' : 'Edit custom device'}
-        </span>
+        <span className="text-sm font-bold">{isNew ? '新建自定义设备' : '编辑自定义设备'}</span>
         <span className="flex-1" />
         <button
           type="button"
-          title="Close form"
+          title="关闭表单"
           onClick={onClose}
           className="flex h-[26px] w-[26px] items-center justify-center rounded-[7px] text-[15px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none"
         >
@@ -140,12 +138,12 @@ const DeviceForm = ({
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel htmlFor={`${id}-name`}>NAME</SectionLabel>
+        <SectionLabel htmlFor={`${id}-name`}>名称</SectionLabel>
         <input
           id={`${id}-name`}
-          aria-label="Device Name"
+          aria-label="设备名称"
           className={cx(fieldClass, {'border-red-500': nameError != null})}
-          placeholder="e.g. Kiosk 1080p"
+          placeholder="例如：Kiosk 1080p"
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -160,17 +158,17 @@ const DeviceForm = ({
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel>SIZE (CSS PX)</SectionLabel>
+        <SectionLabel>尺寸（CSS PX）</SectionLabel>
         <div className="flex items-center gap-2">
           <input
-            aria-label="Device Width"
+            aria-label="设备宽度"
             className={cx(fieldClass, 'font-mono')}
             value={width}
             onChange={(e) => setWidth(e.target.value)}
           />
           <span className="text-xs text-muted">×</span>
           <input
-            aria-label="Device Height"
+            aria-label="设备高度"
             className={cx(fieldClass, 'font-mono')}
             value={height}
             onChange={(e) => setHeight(e.target.value)}
@@ -179,7 +177,7 @@ const DeviceForm = ({
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel>PIXEL RATIO</SectionLabel>
+        <SectionLabel>像素比</SectionLabel>
         <div className="flex gap-1">
           {DPR_OPTIONS.map((value) => (
             <button
@@ -202,7 +200,7 @@ const DeviceForm = ({
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel>TYPE</SectionLabel>
+        <SectionLabel>类型</SectionLabel>
         <div className="flex gap-1">
           {TYPE_OPTIONS.map((option) => (
             <button
@@ -228,17 +226,17 @@ const DeviceForm = ({
       </div>
 
       <div className="flex flex-col gap-[6px]">
-        <SectionLabel>CAPABILITIES</SectionLabel>
+        <SectionLabel>功能</SectionLabel>
         {[
           {
-            label: 'Touch screen',
-            ariaLabel: 'Touch Capable',
+            label: '触摸屏',
+            ariaLabel: '支持触摸',
             checked: isTouchCapable,
             toggle: () => setIsTouchCapable(!isTouchCapable),
           },
           {
-            label: 'Mobile user-agent',
-            ariaLabel: 'Mobile Capable (Rotatable)',
+            label: '移动端 User-Agent',
+            ariaLabel: '移动设备（可旋转）',
             checked: isMobileCapable,
             toggle: () => setIsMobileCapable(!isMobileCapable),
           },
@@ -363,7 +361,7 @@ const DeviceForm = ({
             canSave ? 'bg-accent hover:brightness-110' : 'cursor-not-allowed bg-line'
           )}
         >
-          {isNew ? 'Add' : 'Save'}
+          {isNew ? 'Add' : '保存'}
         </button>
       </div>
     </div>

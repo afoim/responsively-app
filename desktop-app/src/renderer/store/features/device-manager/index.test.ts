@@ -54,7 +54,7 @@ describe('device-manager slice', () => {
   });
 
   it('addSuites merges by name with imported suites winning', () => {
-    const importedDefault: PreviewSuite = {id: 'imp1', name: 'Default', devices: ['10015']};
+    const importedDefault: PreviewSuite = {id: 'imp1', name: '默认', devices: ['10015']};
     const imported: PreviewSuite = {id: 'imp2', name: 'Imported', devices: ['10013']};
     const state = reducer(undefined, addSuites([importedDefault, imported]));
     expect(state.suites).toEqual([importedDefault, imported]);

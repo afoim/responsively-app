@@ -27,19 +27,19 @@ const PermissionToggle = ({permission, onToggle}: PermissionToggleProps) => {
     switch (state) {
       case PERMISSION_STATES.GRANTED:
         return {
-          text: 'Allow',
+          text: '允许',
           color: 'text-green-600 dark:text-green-400',
           icon: 'mdi:check-circle',
         };
       case PERMISSION_STATES.DENIED:
         return {
-          text: 'Block',
+          text: '阻止',
           color: 'text-red-600 dark:text-red-400',
           icon: 'mdi:block-helper',
         };
       default:
         return {
-          text: 'Ask',
+          text: '询问',
           color: 'text-gray-600 dark:text-gray-400',
           icon: 'mdi:help-circle',
         };

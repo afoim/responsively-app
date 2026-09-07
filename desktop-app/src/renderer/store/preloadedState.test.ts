@@ -55,7 +55,7 @@ describe('buildPreloadedState', () => {
   it('sanitizes stale device ids out of persisted suites and persists the cleanup', () => {
     mockStore({
       'deviceManager.previewSuites': [
-        {id: 'default', name: 'Default', devices: ['10008', 'deleted-custom-id']},
+        {id: 'default', name: '默认', devices: ['10008', 'deleted-custom-id']},
       ],
       'deviceManager.activeDevices': ['10008'],
       'deviceManager.customDevices': [],
@@ -63,7 +63,7 @@ describe('buildPreloadedState', () => {
     const state = buildPreloadedState();
     expect(state.deviceManager.suites[0].devices).toEqual(['10008']);
     expect(window.electron.store.set as Mock).toHaveBeenCalledWith('deviceManager.previewSuites', [
-      {id: 'default', name: 'Default', devices: ['10008']},
+      {id: 'default', name: '默认', devices: ['10008']},
     ]);
   });
 });

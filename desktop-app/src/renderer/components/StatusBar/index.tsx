@@ -29,13 +29,13 @@ import {
   setWhatsNewSeen,
 } from 'renderer/store/features/ui';
 
-// Order, labels and icons per the Hybrid Studio design; FLEX is its "Grid".
+// Order, labels and icons per the Hybrid Studio design; FLEX is its "网格".
 const LAYOUTS: Array<{layout: PreviewLayout; label: string; icon: string}> = [
-  {layout: PREVIEW_LAYOUTS.FLEX, label: 'Grid', icon: 'lucide:layout-dashboard'},
-  {layout: PREVIEW_LAYOUTS.MASONRY, label: 'Masonry', icon: 'bx:bx-grid-alt'},
-  {layout: PREVIEW_LAYOUTS.COLUMN, label: 'Column', icon: 'radix-icons:layout'},
-  {layout: PREVIEW_LAYOUTS.INDIVIDUAL, label: 'Focus', icon: 'ic:round-fullscreen'},
-  {layout: PREVIEW_LAYOUTS.CANVAS, label: 'Canvas', icon: 'lucide:frame'},
+  {layout: PREVIEW_LAYOUTS.FLEX, label: '网格', icon: 'lucide:layout-dashboard'},
+  {layout: PREVIEW_LAYOUTS.MASONRY, label: '瀑布流', icon: 'bx:bx-grid-alt'},
+  {layout: PREVIEW_LAYOUTS.COLUMN, label: '纵列', icon: 'radix-icons:layout'},
+  {layout: PREVIEW_LAYOUTS.INDIVIDUAL, label: '聚焦', icon: 'ic:round-fullscreen'},
+  {layout: PREVIEW_LAYOUTS.CANVAS, label: '画布', icon: 'lucide:frame'},
 ];
 
 const StatusBar = () => {
@@ -120,7 +120,7 @@ const StatusBar = () => {
         <>
           <button
             type="button"
-            title="Present"
+            title="演示"
             data-testid="present-button"
             onClick={() => dispatch(setPresenting(true))}
             className="flex h-[26px] items-center gap-[7px] rounded-[7px] bg-accent px-3 text-xs font-bold text-on-accent transition-[filter] hover:brightness-110 focus:outline-none"
@@ -137,7 +137,7 @@ const StatusBar = () => {
       <div className="flex items-center gap-[2px]">
         <button
           type="button"
-          title="Zoom out"
+          title="缩小"
           data-testid="zoom-out"
           onClick={onZoomOut}
           className="flex h-6 w-6 items-center justify-center rounded-md text-[15px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
@@ -154,7 +154,7 @@ const StatusBar = () => {
         </span>
         <button
           type="button"
-          title="Zoom in"
+          title="放大"
           data-testid="zoom-in"
           onClick={onZoomIn}
           className="flex h-6 w-6 items-center justify-center rounded-md text-[15px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
@@ -168,7 +168,7 @@ const StatusBar = () => {
       <div className="h-5 w-px bg-line" />
 
       <Popover
-        triggerTitle="Notifications"
+        triggerTitle="通知"
         anchor="top end"
         triggerClassName="relative flex h-[26px] w-[26px] items-center justify-center rounded-md text-[15px] text-muted transition-colors hover:bg-hover hover:text-fg"
         className="w-[260px] p-[14px]"
@@ -197,7 +197,7 @@ const StatusBar = () => {
 
       <button
         type="button"
-        title="Toggle UI theme"
+        title="切换界面主题"
         data-testid="theme-toggle"
         onClick={handleTheme}
         className="flex h-[26px] w-[26px] items-center justify-center rounded-md text-[15px] text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"

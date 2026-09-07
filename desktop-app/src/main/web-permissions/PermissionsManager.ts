@@ -174,20 +174,20 @@ class PermissionsManager {
   getSitePermissions(origin: string) {
     const permissions = this.permissions[origin] || {};
     const commonPermissions = [
-      {type: 'camera', displayName: 'Camera', icon: 'mdi:camera'},
-      {type: 'microphone', displayName: 'Microphone', icon: 'mdi:microphone'},
-      {type: 'geolocation', displayName: 'Location', icon: 'mdi:map-marker'},
-      {type: 'notifications', displayName: 'Notifications', icon: 'mdi:bell'},
+      {type: 'camera', displayName: '摄像头', icon: 'mdi:camera'},
+      {type: 'microphone', displayName: '麦克风', icon: 'mdi:microphone'},
+      {type: 'geolocation', displayName: '位置', icon: 'mdi:map-marker'},
+      {type: 'notifications', displayName: '通知', icon: 'mdi:bell'},
       {
         type: 'clipboard-read',
-        displayName: 'Clipboard',
+        displayName: '剪贴板',
         icon: 'mdi:content-paste',
       },
-      {type: 'fullscreen', displayName: 'Fullscreen', icon: 'mdi:fullscreen'},
+      {type: 'fullscreen', displayName: '全屏', icon: 'mdi:fullscreen'},
       {type: 'midi', displayName: 'MIDI Devices', icon: 'mdi:piano'},
       {
         type: 'pointerLock',
-        displayName: 'Pointer Lock',
+        displayName: '指针锁定',
         icon: 'mdi:cursor-move',
       },
     ];

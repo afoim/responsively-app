@@ -74,10 +74,10 @@ export const AboutDialog = () => {
     >
       <div className="flex flex-col items-center gap-6 pt-6 text-gray-700 dark:text-gray-300">
         <div className="flex w-3/4 flex-col gap-2 rounded border border-slate-300 p-4 dark:border-slate-700">
-          <div className="flex justify-center text-lg">Versions</div>
+          <div className="flex justify-center text-lg">版本信息</div>
           <div className="flex flex-col gap-[2px]">
             <div className="flex justify-between">
-              <span>App</span>
+              <span>应用</span>
               <span className="text-sm">v{args?.environmentInfo.appVersion}</span>
             </div>
             <div className="flex justify-between">
@@ -97,7 +97,7 @@ export const AboutDialog = () => {
               <span className="text-sm">v{args?.environmentInfo.v8Version}</span>
             </div>
             <div className="flex justify-between">
-              <span>OS</span>
+              <span>操作系统</span>
               <span className="text-sm">{args?.environmentInfo.osInfo}</span>
             </div>
           </div>
@@ -118,30 +118,30 @@ export const AboutDialog = () => {
           </div>
         </div>
         <div className="flex w-3/4 flex-col gap-4 rounded border border-slate-300 p-4 dark:border-slate-700">
-          <div className="flex justify-center text-lg">Update Status</div>
+          <div className="flex justify-center text-lg">更新状态</div>
           <div className="flex flex-col gap-[2px]">
             <div className="flex justify-between">
-              <span>Status</span>
+              <span>状态</span>
               <span className="text-sm capitalize">
                 {args?.updaterStatus.status.toLocaleLowerCase()}
               </span>
             </div>
             {args?.updaterStatus.version != null ? (
               <div className="flex justify-between">
-                <span>New Version</span>
+                <span>新版本</span>
                 <span className="text-sm">{args?.updaterStatus.version}</span>
               </div>
             ) : null}
             {args?.updaterStatus.error != null ? (
               <div className="flex justify-between">
-                <span>Error</span>
+                <span>错误</span>
                 <span className="w-1/2 overflow-auto text-sm">
                   {args?.updaterStatus.error.message}
                 </span>
               </div>
             ) : null}
             <div className="flex justify-between">
-              <span>Last Checked</span>
+              <span>上次检查</span>
               <span className="text-sm">
                 {args?.updaterStatus.lastChecked != null
                   ? timeAgo.format(args?.updaterStatus.lastChecked)

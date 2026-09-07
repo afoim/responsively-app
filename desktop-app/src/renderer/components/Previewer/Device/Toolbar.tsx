@@ -218,7 +218,7 @@ const Toolbar = ({
           : 'left-1/2 top-full mt-[10px] -translate-x-1/2'
       )}
     >
-      <PillButton title="Refresh this device" onClick={refreshView}>
+      <PillButton title="刷新此设备" onClick={refreshView}>
         <Icon icon="ic:round-refresh" />
       </PillButton>
       <PillButton
@@ -233,23 +233,23 @@ const Toolbar = ({
       >
         <Icon icon="mdi:phone-rotate-landscape" />
       </PillButton>
-      <PillButton title="Quick screenshot" isLoading={screenshotLoading} onClick={quickScreenshot}>
+      <PillButton title="快速截图" isLoading={screenshotLoading} onClick={quickScreenshot}>
         <Icon icon="lucide:camera" />
       </PillButton>
-      <PillButton title="Open devtools" onClick={openDevTools}>
+      <PillButton title="打开开发者工具" onClick={openDevTools}>
         <Icon icon="ic:round-code" />
       </PillButton>
-      <PillButton title="Scroll to top" onClick={scrollToTop}>
+      <PillButton title="滚动到顶部" onClick={scrollToTop}>
         <Icon icon="ic:baseline-arrow-upward" />
       </PillButton>
       <PillButton
-        title="Focus this device"
+        title="聚焦此设备"
         isActive={isIndividualLayout}
         onClick={() => onIndividualLayoutHandler(device)}
       >
         <Icon icon="ic:round-fullscreen" />
       </PillButton>
-      <PillButton title="Show rulers" isActive={rulerActive} onClick={toggleRulers}>
+      <PillButton title="显示标尺" isActive={rulerActive} onClick={toggleRulers}>
         <Icon icon="tdesign:measurement-1" />
       </PillButton>
       <ColorBlindnessTools getWebview={getWebview} onSimulationChange={onSimulationChange} />
@@ -267,7 +267,7 @@ const Toolbar = ({
         {({close}) => (
           <>
             <MoreItem
-              title="Full-page screenshot"
+              title="整页截图"
               icon="ic:outline-photo-camera"
               disabled={fullScreenshotLoading}
               onClick={() => {
@@ -276,14 +276,14 @@ const Toolbar = ({
               }}
             />
             <MoreItem
-              title="Design overlay"
+              title="设计稿叠加"
               icon="lucide:layers"
               checked={designOverlay?.enabled === true}
               onClick={() => dispatch(toggleDesignOverlay({resolution}))}
             />
             {designOverlay?.enabled === true ? (
               <div className="flex flex-col gap-[7px] pb-2 pl-[31px] pr-[9px] pt-[2px]">
-                <div className="flex gap-1" role="group" aria-label="Overlay mode">
+                <div className="flex gap-1" role="group" aria-label="叠加模式">
                   <button
                     type="button"
                     aria-pressed={overlayModeOf(designOverlay) === 'grid'}
@@ -295,7 +295,7 @@ const Toolbar = ({
                         : 'border-line text-muted hover:bg-hover'
                     )}
                   >
-                    <span className="pointer-events-none contents">Grid</span>
+                    <span className="pointer-events-none contents">网格</span>
                   </button>
                   <button
                     type="button"
@@ -316,7 +316,7 @@ const Toolbar = ({
                         : 'border-line text-muted hover:bg-hover'
                     )}
                   >
-                    <span className="pointer-events-none contents">Design image</span>
+                    <span className="pointer-events-none contents">设计图</span>
                   </button>
                 </div>
                 <div className="flex items-center gap-[7px]">
@@ -324,7 +324,7 @@ const Toolbar = ({
                     type="range"
                     min={10}
                     max={100}
-                    aria-label="Overlay opacity"
+                    aria-label="叠加透明度"
                     value={designOverlay.opacity}
                     onChange={(e) =>
                       dispatch(
@@ -340,7 +340,7 @@ const Toolbar = ({
               </div>
             ) : null}
             <MoreItem
-              title="Event mirroring"
+              title="事件同步"
               icon="fluent:plug-disconnected-24-regular"
               checked={!eventMirroringOff}
               onClick={() => {
@@ -356,7 +356,7 @@ const Toolbar = ({
         ref={overlayFileInputRef}
         type="file"
         accept="image/*"
-        aria-label="Design overlay image"
+        aria-label="设计稿图片"
         className="hidden"
         onChange={onOverlayFilePicked}
       />

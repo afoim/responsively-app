@@ -73,7 +73,7 @@ export default class MenuBuilder {
         {label: 'Show All', selector: 'unhideAllApplications:'},
         {type: 'separator'},
         {
-          label: 'Quit',
+          label: '退出',
           accelerator: 'Command+Q',
           click: () => {
             app.quit();
@@ -82,16 +82,16 @@ export default class MenuBuilder {
       ],
     };
     const subMenuEdit: DarwinMenuItemConstructorOptions = {
-      label: 'Edit',
+      label: '编辑',
       submenu: [
-        {label: 'Undo', accelerator: 'Command+Z', selector: 'undo:'},
-        {label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:'},
+        {label: '撤销', accelerator: 'Command+Z', selector: 'undo:'},
+        {label: '重做', accelerator: 'Shift+Command+Z', selector: 'redo:'},
         {type: 'separator'},
-        {label: 'Cut', accelerator: 'Command+X', selector: 'cut:'},
-        {label: 'Copy', accelerator: 'Command+C', selector: 'copy:'},
-        {label: 'Paste', accelerator: 'Command+V', selector: 'paste:'},
+        {label: '剪切', accelerator: 'Command+X', selector: 'cut:'},
+        {label: '复制', accelerator: 'Command+C', selector: 'copy:'},
+        {label: '粘贴', accelerator: 'Command+V', selector: 'paste:'},
         {
-          label: 'Select All',
+          label: '全选',
           accelerator: 'Command+A',
           selector: 'selectAll:',
         },
@@ -99,14 +99,14 @@ export default class MenuBuilder {
     };
 
     const subMenuWindow: DarwinMenuItemConstructorOptions = {
-      label: 'Window',
+      label: '窗口',
       submenu: [
         {
-          label: 'Minimize',
+          label: '最小化',
           accelerator: 'Command+M',
           selector: 'performMiniaturize:',
         },
-        {label: 'Close', accelerator: 'Command+W', selector: 'performClose:'},
+        {label: '关闭', accelerator: 'Command+W', selector: 'performClose:'},
         {type: 'separator'},
         {label: 'Bring All to Front', selector: 'arrangeInFront:'},
       ],

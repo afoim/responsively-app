@@ -47,10 +47,10 @@ const MenuFlyout = ({closeFlyout}: Props) => {
     <>
       <div className="absolute right-0 top-[30px] z-50 w-[232px] rounded-[10px] border border-line bg-panel p-[6px] text-fg shadow-elevated focus:outline-none">
         <div className="flex items-center justify-between px-[10px] py-2">
-          <span className="text-[13.5px]">Dock devtools</span>
+          <span className="text-[13.5px]">停靠开发者工具</span>
           <Toggle
             isOn={dockPosition !== DOCK_POSITION.UNDOCKED}
-            aria-label="Dock devtools"
+            aria-label="停靠开发者工具"
             onChange={(e) =>
               dispatch(
                 setDockPosition(e.target.checked ? DOCK_POSITION.BOTTOM : DOCK_POSITION.UNDOCKED)
@@ -61,7 +61,7 @@ const MenuFlyout = ({closeFlyout}: Props) => {
         <MenuItem
           icon="heroicons:swatch"
           iconClassName="text-accent"
-          label="Devices & suites"
+          label="设备与套件"
           onClick={() => {
             closeFlyout();
             dispatch(setAppView(APP_VIEWS.DEVICE_MANAGER));
@@ -69,7 +69,7 @@ const MenuFlyout = ({closeFlyout}: Props) => {
         />
         <MenuItem
           icon="carbon:trash-can"
-          label="Clear browsing history"
+          label="清除浏览历史"
           onClick={() => {
             window.electron.store.set('history', []);
             closeFlyout();
@@ -78,7 +78,7 @@ const MenuFlyout = ({closeFlyout}: Props) => {
         <Bookmark />
         <MenuItem
           icon="lucide:settings"
-          label="Settings"
+          label="设置"
           onClick={() => {
             closeFlyout();
             setIsSettingsOpen(true);
@@ -86,14 +86,14 @@ const MenuFlyout = ({closeFlyout}: Props) => {
         />
         <MenuItem
           icon="iconoir:apple-shortcuts"
-          label="Keyboard shortcuts"
+          label="键盘快捷键"
           onClick={() => {
             closeFlyout();
             setIsShortcutsOpen(true);
           }}
         />
       </div>
-      <Modal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} title="Settings">
+      <Modal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} title="设置">
         <SettingsContent onClose={() => setIsSettingsOpen(false)} />
       </Modal>
       <ShortcutsModal isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />

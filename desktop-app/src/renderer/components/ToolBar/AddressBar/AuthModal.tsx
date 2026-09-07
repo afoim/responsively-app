@@ -36,15 +36,15 @@ const AuthModal = ({isOpen, onClose, authInfo}: Props) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Http Authentication">
+    <Modal isOpen={isOpen} onClose={onClose} title="HTTP 身份验证">
       <div className="flex flex-col gap-4">
         <p>
-          Authentication request for <span className="font-bold">{authInfo?.host}</span>
+          身份验证请求：<span className="font-bold">{authInfo?.host}</span>
         </p>
         <div className="flex w-[420px] flex-col gap-2">
-          <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <Input label="用户名" value={username} onChange={(e) => setUsername(e.target.value)} />
           <Input
-            label="Password"
+            label="密码"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

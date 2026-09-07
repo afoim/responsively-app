@@ -240,7 +240,7 @@ const DesignOverlay = ({
         <img
           ref={imageRef}
           src={overlay.image}
-          alt="Design overlay"
+          alt="设计稿叠加"
           style={{
             width: `${scaledWidth}px`,
             height: 'auto',

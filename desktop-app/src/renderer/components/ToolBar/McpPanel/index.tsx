@@ -106,7 +106,7 @@ const McpPanel = () => {
     >
       <div data-testid="mcp-panel">
         <div className="flex items-center gap-2 px-[10px] pb-[2px] pt-[10px]">
-          <span className="text-[13px] font-bold">MCP server</span>
+          <span className="text-[13px] font-bold">MCP 服务</span>
           <span
             data-testid="mcp-status"
             className={cx(
@@ -122,8 +122,8 @@ const McpPanel = () => {
           <span className="flex-1" />
           <button
             type="button"
-            title="Start / stop MCP server"
-            aria-label="MCP server"
+            title="启动 / 停止 MCP 服务"
+            aria-label="MCP 服务"
             aria-pressed={status?.enabled ?? false}
             onClick={toggle}
             className="relative inline-flex items-center focus:outline-none"
@@ -215,7 +215,7 @@ const McpPanel = () => {
           <span className="pointer-events-none contents">
             <Icon icon="lucide:copy" fontSize={14} className="text-muted" />
             {copied ? 'Copied!' : 'Copy config'}
-            <span className="ml-auto font-mono text-[10.5px] text-muted">any MCP client</span>
+            <span className="ml-auto font-mono text-[10.5px] text-muted">任意 MCP 客户端</span>
           </span>
         </button>
 

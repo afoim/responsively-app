@@ -36,21 +36,21 @@ const NavigationButton = ({label, icon, action}: NavigationItemProps) => {
 
 const ITEMS: NavigationItemProps[] = [
   {
-    label: 'Back',
+    label: '后退',
     icon: 'ic:round-arrow-back',
     action: () => {
       webViewPubSub.publish(NAVIGATION_EVENTS.BACK);
     },
   },
   {
-    label: 'Forward',
+    label: '前进',
     icon: 'ic:round-arrow-forward',
     action: () => {
       webViewPubSub.publish(NAVIGATION_EVENTS.FORWARD);
     },
   },
   {
-    label: 'Refresh',
+    label: '刷新',
     icon: 'ic:round-refresh',
     action: () => {
       webViewPubSub.publish(NAVIGATION_EVENTS.RELOAD);

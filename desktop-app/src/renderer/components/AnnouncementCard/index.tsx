@@ -77,7 +77,7 @@ const AnnouncementCard = () => {
     dismiss();
     // The bell popover's open state lives inside Headless UI; its trigger
     // button is the one supported way in.
-    document.querySelector<HTMLButtonElement>('button[title="Notifications"]')?.click();
+    document.querySelector<HTMLButtonElement>('button[title="通知"]')?.click();
   };
 
   const sponsor = () => {

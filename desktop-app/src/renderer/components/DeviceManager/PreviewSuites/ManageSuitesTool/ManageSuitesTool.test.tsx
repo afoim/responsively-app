@@ -92,7 +92,7 @@ describe('ManageSuitesTool', () => {
 
   it('closes the reset confirmation dialog when the close button is clicked', async () => {
     fireEvent.click(screen.getByTestId('reset-btn'));
-    fireEvent.click(screen.getByText('Cancel'));
+    fireEvent.click(screen.getByText('取消'));
     // Headless UI v2 unmounts dialogs after the leave transition settles.
     await waitFor(() =>
       expect(screen.queryByText('Do you want to reset all settings?')).not.toBeInTheDocument()
@@ -141,7 +141,7 @@ describe('ManageSuitesTool', () => {
       expect(screen.getByText('There has been an error, please try again.')).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByText('Close'));
+    fireEvent.click(screen.getByText('关闭'));
 
     expect(
       screen.queryByText('There has been an error, please try again.')

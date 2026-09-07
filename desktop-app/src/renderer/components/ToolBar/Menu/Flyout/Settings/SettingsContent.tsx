@@ -40,7 +40,7 @@ export const SettingsContent = ({onClose}: Props) => {
 
   return (
     <div className="w-[75vw] max-w-3xl">
-      <h2>Screenshots</h2>
+      <h2>截图</h2>
       <div className="my-4 flex flex-col space-y-4 text-sm">
         <div className="flex flex-col space-y-2">
           <label htmlFor={id} className="flex flex-col">
@@ -69,7 +69,7 @@ export const SettingsContent = ({onClose}: Props) => {
         </div>
       </div>
 
-      <h2>Popups</h2>
+      <h2>弹出窗口</h2>
       <div className="my-4 flex flex-col space-y-2 text-sm">
         <label htmlFor={`${id}-popup-behavior`} className="flex flex-col">
           When a page opens a new window
@@ -80,8 +80,8 @@ export const SettingsContent = ({onClose}: Props) => {
             value={popupBehavior}
             onChange={(e) => setPopupBehavior(e.target.value)}
           >
-            <option value="browser-window">Open a separate browser window (recommended)</option>
-            <option value="external">Open it in the default browser</option>
+            <option value="browser-window">打开独立浏览器窗口（推荐）</option>
+            <option value="external">使用系统默认浏览器打开</option>
           </select>
         </label>
         <p className="text-sm text-gray-500 dark:text-gray-400">

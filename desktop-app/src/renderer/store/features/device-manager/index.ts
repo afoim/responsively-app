@@ -28,7 +28,7 @@ export interface DeviceManagerState {
 
 export const DEFAULT_SUITE: PreviewSuite = {
   id: 'default',
-  name: 'Default',
+  name: '默认',
   devices: ['10008', '10013', '10015'],
 };
 

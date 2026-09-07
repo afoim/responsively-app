@@ -205,7 +205,7 @@ const AddressBar = () => {
         {permissionRequest != null ? (
           <div className="absolute left-2 top-12 z-40 flex w-96 flex-col gap-8 rounded bg-white p-6 shadow-lg ring-1 ring-slate-500 !ring-opacity-40 focus:outline-none dark:bg-slate-900 dark:ring-white dark:!ring-opacity-40">
             <span>
-              {permissionRequest.requestingOrigin} requests permission for: <br />
+              {permissionRequest.requestingOrigin} 请求以下权限： <br />
               <span className="flex justify-center font-bold capitalize">
                 {permissionRequest.permission}
               </span>
@@ -243,26 +243,26 @@ const AddressBar = () => {
             onShowPermissions={() => setShowSitePermissions(true)}
             actions={[
               {
-                title: 'Delete Storage',
-                label: 'Clear storage',
+                title: '删除存储',
+                label: '清除存储',
                 icon: 'mdi:database-remove-outline',
                 note: 'local + session',
                 isLoading: deleteStorageLoading,
                 run: deleteStorage,
               },
               {
-                title: 'Delete Cookies',
-                label: 'Clear cookies',
+                title: '删除 Cookie',
+                label: '清除 Cookie',
                 icon: 'mdi:cookie-remove-outline',
-                note: 'this site',
+                note: '当前站点',
                 isLoading: deleteCookiesLoading,
                 run: deleteCookies,
               },
               {
-                title: 'Clear Cache',
-                label: 'Clear cache',
+                title: '清除缓存',
+                label: '清除缓存',
                 icon: 'mdi:wifi-remove',
-                note: 'network',
+                note: '网络',
                 isLoading: deleteCacheLoading,
                 run: deleteCache,
               },
@@ -294,7 +294,7 @@ const AddressBar = () => {
             className="!h-[26px] !w-[26px] rounded-full text-[15px]"
             onClick={() => setHomepage(address)}
             isActive={isHomepage}
-            title="Homepage"
+            title="主页"
           >
             <Icon
               icon={isHomepage ? 'mdi:home' : 'mdi:home-outline'}
@@ -309,7 +309,7 @@ const AddressBar = () => {
           } pointer-events-none absolute left-0 top-0 z-10 flex h-full w-full border-spacing-1 items-center justify-center gap-2 rounded-full border-2 border-dashed border-emerald-500 bg-emerald-200 duration-100 dark:bg-emerald-300 dark:text-slate-900`}
         >
           <Icon icon="mdi:plus" />
-          <p className="text-sm font-semibold">Drop URL Here</p>
+          <p className="text-sm font-semibold">将 URL 拖到这里</p>
         </div>
         {isSuggesting ? <SuggestionList match={typedAddress} onEnter={onEnter} /> : null}
       </div>

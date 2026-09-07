@@ -142,12 +142,12 @@ const ToolBar = () => {
         onClick={() => {
           dispatch(setAppView(APP_VIEWS.DEVICE_MANAGER));
         }}
-        title="Device Manager"
+        title="设备管理"
       >
         <Icon icon="lucide:plus" width={16} />
       </IconButton>
       <Menu />
-      <ModalLoader isOpen={isCapturingScreenshot} onClose={handleClose} title="Screenshot" />
+      <ModalLoader isOpen={isCapturingScreenshot} onClose={handleClose} title="截图" />
     </div>
   );
 };

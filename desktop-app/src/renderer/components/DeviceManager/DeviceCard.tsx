@@ -17,7 +17,7 @@ interface Props {
   onEdit: () => void;
 }
 
-/** One device in the manager grid (Hybrid Studio "Device Manager" design). */
+/** One device in the manager grid (Hybrid Studio "设备管理" design). */
 const DeviceCard = ({device, isMember, isLastMember, onToggle, onEdit}: Props) => {
   const isCustom = device.isCustom ?? false;
   const title = isLastMember

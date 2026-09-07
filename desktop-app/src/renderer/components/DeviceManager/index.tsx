@@ -12,11 +12,11 @@ import {ManageSuitesTool} from './PreviewSuites/ManageSuitesTool/ManageSuitesToo
 import SuitesColumn from './SuitesColumn';
 
 const FILTERS = [
-  {id: 'all', label: 'All'},
-  {id: 'phone', label: 'Phones'},
-  {id: 'tablet', label: 'Tablets'},
-  {id: 'notebook', label: 'Laptops'},
-  {id: 'custom', label: 'Custom'},
+  {id: 'all', label: '全部'},
+  {id: 'phone', label: '手机'},
+  {id: 'tablet', label: '平板'},
+  {id: 'notebook', label: '笔记本'},
+  {id: 'custom', label: '自定义'},
 ] as const;
 
 type FilterId = (typeof FILTERS)[number]['id'];
@@ -131,15 +131,15 @@ const DeviceManagerSheet = () => {
         <div className="flex flex-shrink-0 items-center gap-3 border-b border-line-soft px-[18px] py-[14px]">
           <Icon icon="heroicons:swatch" fontSize={20} className="text-accent" />
           <div>
-            <div className="text-base font-bold">Device Manager</div>
-            <div className="text-xs text-muted">Assign devices to suites, or create your own</div>
+            <div className="text-base font-bold">设备管理</div>
+            <div className="text-xs text-muted">将设备分配到套件，或创建自定义设备</div>
           </div>
           <span className="flex-1" />
           <ManageSuitesTool setCustomDevicesState={setCustomDevices} />
           <div className="h-[22px] w-px bg-line" />
           <button
             type="button"
-            title="Close"
+            title="关闭"
             onClick={close}
             className="flex h-[30px] w-[30px] items-center justify-center rounded-lg text-lg text-muted transition-colors hover:bg-hover hover:text-fg focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
           >
@@ -158,7 +158,7 @@ const DeviceManagerSheet = () => {
                 <Icon icon="ic:outline-search" fontSize={16} className="text-muted" />
                 <input
                   className="min-w-0 flex-1 bg-transparent text-[13px] text-fg outline-none"
-                  placeholder="Search devices…"
+                  placeholder="搜索设备…"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -183,7 +183,7 @@ const DeviceManagerSheet = () => {
               <button
                 type="button"
                 data-testid="add-custom-device"
-                title="Add Custom Device"
+                title="添加自定义设备"
                 onClick={() => {
                   setSelectedDevice(undefined);
                   setIsFormOpen(true);
@@ -198,7 +198,8 @@ const DeviceManagerSheet = () => {
             </div>
 
             <div className="text-xs text-muted" data-testid="device-grid-meta">
-              {visibleDevices.length} of {allDevices.length} devices · {suiteCount} in “
+              共 {allDevices.length} 台设备，显示 {visibleDevices.length} 台 · 套件中 {suiteCount}{' '}
+              台：“
               {activeSuite.name}”
             </div>
 
@@ -220,8 +221,8 @@ const DeviceManagerSheet = () => {
                 {visibleDevices.length === 0 ? (
                   <div className="flex w-full flex-col items-center gap-3 py-11 text-[13px] text-muted">
                     {filter === 'custom' && customDevices.length === 0
-                      ? 'No custom devices added yet!'
-                      : `No devices match “${search}”`}
+                      ? '还没有添加自定义设备！'
+                      : `没有匹配“${search}”的设备`}
                     {filter === 'custom' && customDevices.length === 0 ? (
                       <button
                         type="button"

@@ -7,7 +7,7 @@ import {Device, getDevicesMap} from 'common/deviceList';
 import {selectActiveSuite, setSuiteDevices} from 'renderer/store/features/device-manager';
 import Button from '../Button';
 
-export const DND_TYPE = 'Device';
+export const DND_TYPE = '设备';
 
 interface Props {
   device: Device;
